@@ -33,6 +33,8 @@ node tools/qa-p01.cjs D:\Workspace\CloneWebsite\KatTattoo\node_modules\playwrigh
 
 Chỉ đọc thư viện dev ở repo khác, không copy source ứng dụng. Máy khác truyền package/browser đã cài; script không tự install. 1440/768/390, 20 screenshot mỗi lượt; physical mobile/software keyboard/AT chưa kiểm.
 
+Ảnh test, kết quả JSON/readback, log và trace dưới `qa/` chỉ lưu local, không commit. Repo giữ test scripts, gallery HTML viết tay và báo cáo tóm tắt trong `docs/`. Clone mới cần chạy QA để tạo output; các link bằng chứng `qa/...` trong báo cáo là link artifact local. [Chính sách QA artifacts](qa/README.md). Không ignore ảnh/font/license thuộc website hoặc prototype.
+
 ## Local admin, migrations và phục hồi
 
 ```powershell

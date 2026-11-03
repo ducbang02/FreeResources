@@ -37,3 +37,5 @@ License/platform/pricing chưa có bằng chứng được để trống hoặc 
 ## Lịch sử thiết kế
 
 [P00.3 prototype](prototype-p001/index.html), [ảnh trước/sau](qa/p003/index.html), [P00 cũ](prototype/index.html) giữ nguyên; đây là tham chiếu, không phải app Astro. [AGENTS](AGENTS.md) là quy tắc agent, [PROJECT](PROJECT.md) là hướng sản phẩm.
+
+Ảnh test, raw QA reports/logs/traces chỉ giữ local; gallery HTML và báo cáo tóm tắt vẫn nằm trong repo. Link `qa/...` cần artifact local, không có sẵn trong clone mới. Xem [chính sách QA artifacts](qa/README.md).

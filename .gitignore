@@ -5,6 +5,14 @@ dist/
 .cache/
 coverage/
 test-results/
+# Generated QA evidence stays local; keep only hand-authored gallery/viewer source.
+/qa/**
+!/qa/**/
+!/qa/**/index.html
+!/qa/README.md
+playwright-report/
+blob-report/
+*.tsbuildinfo
 worker-configuration.d.ts
 .env
 .env.*
