@@ -1,6 +1,6 @@
 # P01 — Bằng chứng kết nối Cloudflare
 
-Ngày 03/11/2026. Trạng thái hiện tại: **Git connection, Workers Builds, Preview và browser cloud PASS; chờ kiểm auto-update sau push tiếp theo**. Tài liệu này thay các bảng account sai trong ghi nhận chuẩn bị trước đó; lịch sử cleanup được giữ riêng bên dưới.
+Ngày 03/11/2026. **P01 READY FOR REVIEW cho Preview**: Git connection, Builds develop, browser cloud và auto-update PASS. Main safeguards cấu hình/code/local và parent không đổi PASS; main CI timeout trước clone, user commands SKIP. Tài liệu này thay các bảng account sai cũ; lịch sử cleanup giữ riêng.
 
 ## Đích hiện tại đã xác minh
 
@@ -52,9 +52,11 @@ Chủ dự án xác nhận Connect bị mờ và con trỏ cấm thao tác. Đ�
 
 Ảnh chủ dự án cung cấp xác nhận repo `ducbang02/FreeResources`, production branch `main`, build `npm run ci:build`, deploy `npm run ci:production`, Version command `npm run ci:preview:deploy`, root `/`, non-production builds bật. Token riêng `free-resources-staging-build` có D1 Edit và account đúng; không sửa token dự án khác. [Ghi nhận settings](../qa/p01/builds-dashboard.json). Dashboard đang bật các nhánh non-production; guard trong repo chỉ cho develop vượt qua. Chưa chứng minh build/Preview thành công; cần push develop rồi đọc log thật. Banner đề nghị đổi tên trong root wrangler là cảnh báo cần theo dõi: config local được giữ riêng, build staging chủ động chọn `deploy/wrangler.staging.json`.
 
-Build đầu `fdbb35ab` từ develop `2be13d0` đã clone/cài dependencies đúng Node/npm, nhưng FAIL ở kiểm origin trước migration/upload. [Record](../qa/p01/build-origin-failure.json). Guard được sửa để so danh tính GitHub host/repository bằng URL parser thay vì so toàn chuỗi chứa credentials; không cho fork/host khác, vẫn kiểm SHA từ develop chính thức. 22 tests local PASS; cloud retest chưa có kết quả. Không in origin hoặc credentials vào log. Chưa cần đổi build settings để xử lý lỗi này.
+Build đầu `fdbb35ab` từ develop `2be13d0` đã clone/cài dependencies đúng Node/npm, nhưng FAIL ở kiểm origin trước migration/upload. [Record lịch sử](../qa/p01/build-origin-failure.json). Guard được sửa để so danh tính GitHub host/repository bằng URL parser thay vì so toàn chuỗi chứa credentials; không cho fork/host khác, vẫn kiểm SHA từ develop chính thức. 22 tests local PASS; cloud retest đã PASS ở build7de0b863 bên dưới. Không in origin hoặc credentials vào log.
 
-Build tiếp theo `7de0b863` tại `508a96c` PASS theo ảnh Dashboard; readback Preview annotations khớp chính xác repo/tag. DB binding UUID e28f4099-92cf-40bc-ab8c-c47138b4469d, APP_ENV staging, ASSETS; Worker cha không deployment nhận traffic. Cloud browser 45 checks PASS,20PNG ở1440/768/390. Kiểm tiếp auto-update bằng push checkpoint QA. Full build logs chưa lấy tự động được vì Builds API403; ảnh Dashboard và API deployment là hai nguồn bằng chứng độc lập.
+Build tiếp theo `7de0b863` tại `508a96c` PASS theo ảnh Dashboard và full log chủ dự án cung cấp; [trích đoạn log](../qa/p01/build-7de0b863.txt). Readback Preview annotations khớp repo/tag. DB binding UUID e28f4099-92cf-40bc-ab8c-c47138b4469d, APP_ENV staging, ASSETS; Worker cha không deployment nhận traffic. Cloud browser45 checks PASS,20PNG ở1440/768/390. Kiểm tiếp auto-update bằng push checkpoint31d3053. Full log không lấy tự động được do Builds API403; log chủ dự án, browser và API deployment là các nguồn bằng chứng độc lập.
+
+Auto-update31d3053 đã PASS: deployment mới7a79bea8-f3e9-473d-9567-2e4d38ae1f00, cùng Preview URL và D1 đúng UUID; parent vẫn deployed_on:null/workers.dev false/1 bootstrap version. [Readback](../qa/p01/cloud-auto-update.json). Sau cập nhật, Home/Explore/Detail/full search/API search đều HTTP200,0 lỗi console/page: [smoke results](../qa/p01/cloud-post-update.json).
 
 Dùng [runbook Preview](PHASE01_PREVIEW_RUNBOOK.md), đọc lại cấu hình trước build đầu:
 
@@ -70,7 +72,7 @@ Dùng [runbook Preview](PHASE01_PREVIEW_RUNBOOK.md), đọc lại cấu hình tr
 
 Common build bỏ qua main, chỉ checks/build staging trên develop; các nhánh khác bị từ chối. Guard kiểm cứng account/repo, CI branch/commit/origin/clean tree, artifact và D1 identity trước migration/seed/Preview. Binding Preview phải cùng D1 staging đã duyệt. Chỉ một Workers Builds pipeline, không Actions song song.
 
-Sau connection cần build thật từ GitHub, URL thật, cloud browser/runtime/D1 PASS và push develop tiếp theo chứng minh tự cập nhật. Chưa READY FOR REVIEW từ việc tạo Worker hoặc D1. Không production, DNS, paid service hoặc P02.
+GitHub build thật, URL/bindings/runtime/D1/browser và push tiếp theo tự cập nhật đã được kiểm chứng; [log develop31d3053](../qa/p01/build-develop-31d3053.txt). Main aa369850 khởi tạo timeout trước clone, user commands SKIP; [proof giới hạn và parent không đổi](../qa/p01/main-protection.json). READY FOR REVIEW không suy từ việc chỉ tạo tài nguyên và không nghĩa main CI đã PASS. Không production, DNS, paid service hoặc P02.
 
 ## Nguồn đã dùng trong nghiên cứu ban đầu
 

@@ -1,0 +1,28 @@
+Selected excerpts from the complete Workers Builds log supplied by the project owner.
+Build: 7de0b863. Branch: develop. Commit: 508a96c.
+Verbose SQL statement results and module tables are omitted; this is an excerpt, not the complete raw log.
+
+2026-11-03T15:26:40.353Z Detected tools: nodejs@24.18.0, npm@12.2.0
+2026-11-03T15:27:16.669Z added 303 packages in 18s
+2026-11-03T15:27:16.672Z npm warn install-scripts: esbuild and two workerd postinstall scripts blocked by allowScripts
+2026-11-03T15:27:16.879Z Executing user build command: npm run ci:build
+2026-11-03T15:27:18.610Z PASS: 13 resources, 7 types, evidence and duplicate checks.
+2026-11-03T15:27:24.784Z Executing local DB: 00000000-0000-0000-0000-000000000001
+2026-11-03T15:27:25.587Z 20 migration commands executed successfully; 0001_catalog.sql applied
+2026-11-03T15:27:28.703Z 129 local seed commands executed successfully
+2026-11-03T15:27:43.582Z Astro check: 27 files, 0 errors, 0 warnings, 0 hints
+2026-11-03T15:27:44.585Z tests 22; pass 22; fail 0
+2026-11-03T15:27:50.726Z Astro server build complete
+2026-11-03T15:27:50.830Z PASS: local checks/build and staging artifact identity. No cloud mutation performed.
+2026-11-03T15:27:50.856Z Success: Build command completed
+2026-11-03T15:27:50.977Z Executing user deploy command: npm run ci:preview:deploy
+2026-11-03T15:28:00.173Z No migrations to apply!
+2026-11-03T15:28:01.843Z Executing remote DB: e28f4099-92cf-40bc-ab8c-c47138b4469d
+2026-11-03T15:28:02.628Z Processed 129 queries; 10.80ms, 204 rows read, 367 rows written
+2026-11-03T15:28:04.148Z WARNING: wrangler preview is an open beta command
+2026-11-03T15:28:08.312Z Success! Uploaded 22 files
+2026-11-03T15:28:10.787Z Preview: develop (new)
+2026-11-03T15:28:10.787Z Preview URL: https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev
+2026-11-03T15:28:10.787Z Unique Deployment URL: https://e4cac6f1-digital-resource-hub-staging.nguyenducbang-uit.workers.dev
+2026-11-03T15:28:10.945Z Success: Deploy command completed
+2026-11-03T15:28:11.058Z Success! Build completed.

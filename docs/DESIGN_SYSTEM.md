@@ -1,6 +1,6 @@
 # DESIGN_SYSTEM — Concept A / Editorial Discovery
 
-Ngày 03/11/2026. **P01 đang triển khai với baseline A/P00.3 và Noto Sans đã được chủ dự án chọn.** Tên Nếp và nhận diện vẫn là thử nghiệm. Các ghi chú nghiệm thu P00.3 bên dưới là log lịch sử; local runtime Astro/Workers/D1 đã kiểm, cloud Preview còn chờ.
+Ngày 03/11/2026. **P01 dùng baseline A/P00.3 và Noto Sans đã được chủ dự án chọn.** Tên Nếp và nhận diện vẫn là thử nghiệm. Các ghi chú nghiệm thu P00.3 bên dưới là log lịch sử; local và cloud Preview đều đã kiểm bằng Chromium ở1440/768/390,45 checks mỗi runtime. Nghiệm thu thiết kế của chủ dự án vẫn chờ.
 
 ## 1. Mỗi trang một nhiệm vụ
 
@@ -74,4 +74,4 @@ Reuse HTML/CSS/JS, asset/manifest hiện có và local Playwright. [UI UX guidan
 
 ## P01 — chuyển thiết kế sang ứng dụng
 
-Chủ dự án chọn Concept A/P00.3/Noto Sans làm baseline. App Astro reuse asset đã audit, hero full-width và thêm một câu định vị theo brief P01. Featured/curated/taxonomy từ D1, không hardcode LocalSend. Route SSR /, /explore, /resources/[slug]; overlay GET /api/search thật với loading/empty/error/retry/abort. Detail có provenance, unknown metadata ẩn và không rating giả. Local dev và built Worker browser PASS1440/768/390; Preview cloud còn chờ. Không suy thành nghiệm thu physical device/AT. Prototype cũ giữ nguyên.
+Chủ dự án chọn Concept A/P00.3/Noto Sans làm baseline. App Astro reuse asset đã audit, hero full-width và thêm một câu định vị theo brief P01. Featured/curated/taxonomy từ D1, không hardcode LocalSend. Route SSR /, /explore, /resources/[slug]; overlay GET /api/search thật với loading/empty/error/retry/abort. Detail có provenance, unknown metadata ẩn và không rating giả. Local dev, built Worker local và Preview cloud đều PASS1440/768/390; cloud45 checks/20PNG/0 console-page errors bình thường. [Gallery](../qa/p01/index.html), [cloud results](../qa/p01/cloud/results.json). Không suy thành nghiệm thu physical device/AT. Prototype cũ giữ nguyên.

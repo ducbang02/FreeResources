@@ -46,7 +46,7 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 **Gate:** dừng chờ chủ dự án nghiệm thu; chỉ bắt đầu P01 khi có lệnh riêng. Không backend/cloud/deploy hoặc đổi kiến trúc trong P00.3.
 
-## Phase 01 — Foundation & public catalog (IN PROGRESS)
+## Phase 01 — Foundation & public catalog (READY FOR REVIEW)
 
 **Mục tiêu:** website xem được nội dung thật, không cần AI hoặc login.
 
@@ -114,4 +114,4 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 Mỗi phase ghi: file thay đổi, lệnh chạy với environment, PASS/FAIL/SKIP, những gì **chưa** kiểm thử, migration/rollback và commit/branch thực tế. Nếu có việc cần credential, production, DNS, paid plan, legal/takedown: dừng xin quyết định.
 
-P01 đã có Astro SSR/TypeScript/D1 FTS5/local CLI và local QA PASS. Repo đã chốt, source đã push main/develop đến checkpoint ace99a1. Account đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực; Worker metadata và D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d` đã tạo, đọc lại. Cloud D1 migrate/seed/query PASS. Hai tài nguyên tạo nhầm đã xóa theo yêu cầu, GET kiểm lại trả 404; chưa upload code ứng dụng. Builds API trên account đúng trả HTTP 403, code 10000; browser host lỗi nên chờ chủ dự án thao tác Dashboard. Chỉ READY FOR REVIEW sau khi workflow và browser trên Preview PASS.
+P01 READY FOR REVIEW:22 tests,90 local browser checks,45 cloud checks/20PNG và5 smoke checks sau auto-update PASS. Account đúng `4ca521c6746d874c049fd829121ab59e`, D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d`. GitHub→Builds→Preview508a96c và auto-update31d3053 PASS, parent chưa active deployment. Main safeguards cấu hình/source/local/parent PASS; CI main aa369850 timeout trước clone, user commands SKIP. Hai tài nguyên tạo nhầm đã xóa theo yêu cầu và GET404. Chờ chủ dự án nghiệm thu; không tự bắt đầu P02/production.

@@ -1,0 +1,66 @@
+{
+  "status": "PASS_NO_PRODUCTION_CHANGE; LIVE_MAIN_COMMANDS_SKIPPED",
+  "authorization": "Project owner explicitly approved one fast-forward main from bf46b7a to 31d3053 solely to test no-op; no production release authorized",
+  "mainBefore": "bf46b7a008adadf8d633d834acde3757b9a9e71f",
+  "pushedMainCommit": "31d3053bdfd38298c467dd61ef66a571d1f8f150",
+  "sourceProof": [
+    {
+      "file": "scripts/build-worker.mjs",
+      "sha256": "c32ce899e92b0ae1829114fa348a75023131edb8ecb91a988775a9ae38747ba6"
+    },
+    {
+      "file": "scripts/no-production.mjs",
+      "sha256": "5e755780a15fa9c99b9c7b16d8ae5991c62769b99ee9a109bf6f6a973fb005a7"
+    }
+  ],
+  "localRuns": [
+    {
+      "file": "scripts/build-worker.mjs",
+      "exitCode": 0,
+      "stdout": "Production build intentionally skipped. Production is not approved in P01."
+    },
+    {
+      "file": "scripts/no-production.mjs",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"BLOCKED\",\"target\":\"production\",\"reason\":\"Production is not approved in P01. No upload, migration or deployment performed.\"}"
+    }
+  ],
+  "parentBefore": {
+    "id": "0540bcf9fa6448d6843935471fe0265c",
+    "name": "digital-resource-hub-staging",
+    "deployed_on": null,
+    "subdomain": {
+      "enabled": false,
+      "previews_enabled": true,
+      "url": "https://digital-resource-hub-staging.nguyenducbang-uit.workers.dev",
+      "preview_url_suffix": "-digital-resource-hub-staging.nguyenducbang-uit.workers.dev"
+    },
+    "references": {
+      "workers": [],
+      "domains": [],
+      "dispatch_namespace_outbounds": [],
+      "durable_objects": [],
+      "queues": []
+    }
+  },
+  "parentAfter": {
+    "id": "0540bcf9fa6448d6843935471fe0265c",
+    "deployed_on": null,
+    "workersDevEnabled": false,
+    "versionCount": 1
+  },
+  "parentReadbackTimestamp": "2026-11-03T15:54:26.749Z",
+  "liveMainBuildLog": {
+    "source": "User-provided main build log",
+    "status": "FAIL_INFRASTRUCTURE_INITIALIZATION_TIMEOUT",
+    "initializingAt": "2026-11-03T15:36:29.856Z",
+    "initializingAgainAt": "2026-11-03T15:44:00.575Z",
+    "failedAt": "2026-11-03T15:48:59.717Z",
+    "message": "Build failed to initialize and was timed out",
+    "cloneOrUserCommandsExecuted": false,
+    "retry": "One retry requested from owner; no retry result supplied at handoff. Not claimed PASS.",
+    "buildIdPrefix": "aa369850"
+  },
+  "timestamp": "2026-11-03T15:49:19.310Z",
+  "liveMainCommandStatus": "SKIP: Cloudflare timed out before clone or user commands"
+}

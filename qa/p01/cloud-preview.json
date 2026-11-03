@@ -67,6 +67,6 @@
     ]
   },
   "browserReport": "cloud/results.json",
-  "autoUpdateAfterNextPush": "PENDING",
+  "autoUpdateAfterNextPush": "PASS; see cloud-auto-update.json and cloud-post-update.json",
   "timestamp": "2026-11-03T15:31:05.627Z"
 }

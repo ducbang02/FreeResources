@@ -4,11 +4,11 @@
 
 ## Trạng thái chung
 
-- Phase hiện tại: **P01 / IN PROGRESS**; account đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực. Worker/D1 đúng account đã tạo và kiểm; còn kết nối Builds và nghiệm thu Preview.
+- Phase hiện tại: **P01 / READY FOR REVIEW**; account đúng `4ca521c6746d874c049fd829121ab59e`. GitHub→Builds→Preview,cloud browser và auto-update đã kiểm; chờ chủ dự án nghiệm thu. Main live user commands SKIP do timeout khởi tạo Cloudflare, ghi rõ tại báo cáo.
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
-- Cloudflare: build7de0b863 tại508a96c PASS; Preview develop deploy đúng Worker/DB,45 browser checks PASS/20PNG/0 lỗi bình thường. Worker cha chưa active deployment. Còn kiểm push tiếp theo tự cập nhật. Production chưa triển khai.
+- Cloudflare: build7de0b863 tại508a96c PASS; push31d3053 tự cập nhật Preview,45 browser checks+5 smoke checks PASS/20PNG/0 lỗi bình thường, đúng Worker/DB. Main aa369850 timeout trước clone; parent vẫn chưa active deployment, workers.dev tắt. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
-- Git: repo public `ducbang02/FreeResources`, tác giả/push `sunny251010` đã được duyệt; main/develop đã push checkpoint `ace99a1`. Log chưa có Git của P00 là lịch sử.
+- Git: repo public `ducbang02/FreeResources`, tác giả/push `sunny251010` được duyệt; main đã fast-forward31d3053 riêng theo quyền kiểm no-op, develop có app/QA và checkpoint tài liệu bàn giao (xem git log). Không pushmain thêm hoặc cấp quyền production. Log chưa có Git của P00 là lịch sử.
 
 ## P00 — Discovery và chốt hướng
 
@@ -81,24 +81,24 @@ Log P00.2: Context7 đã có resolve/query PASS; local Playwright binary/package
 
 Log P00.3: reuse HTML/CSS/native dialog, asset đã audit, Playwright Core1.62/Chromium151 có sẵn. Source-only UI UX guidance, không cài skill/MCP. Có lane font/license và review độc lập; placeholder contrast đã làm tối. Probe CDP đầu thiếu CSS.enable và assertion MIME WOFF2 ban đầu không phù hợp Python server Windows, đã sửa harness rồi chạy lại PASS; font thực đã render. MIME local application/octet-stream được ghi rõ, không suy ra cấu hình production. Font bị chặn là failure simulation có chủ đích. Physical iOS/Android/software keyboard/AT/Safari/Firefox SKIP. Chi tiết `docs/PHASE003_REPORT.md`, evidence `qa/p003/index.html`. Server local đã dừng sau QA, browser đóng; không Git repo/commit/push/backend/cloud/deploy/P01.
 
-## P01 — Foundation, catalog & GitHub → Cloudflare (IN PROGRESS)
+## P01 — Foundation, catalog & GitHub → Cloudflare (READY FOR REVIEW)
 
 - [x] P01-01 — Đọc context/reuse, pin Astro7.4.5/adapter14.4.4/Wrangler4.156.2/TS6; Git develop và baseline c862af9.
 - [x] P01-02 — D1 schema/versioned migration/FTS5/indexes,13 tài nguyên/7 loại/17 nguồn; local migrate/seed/restore/rollback PASS.
 - [x] P01-03 — Nguồn official, nhiều category/tag, stable ID/slug/canonical unique; unknown ẩn, không rating giả.
 - [x] P01-04 — Astro SSR P00.3 Home/Explore/Detail, Noto Sans, featured/taxonomy từ DB, overlay API thật, facets/sort/pagination/grid-list, SEO/noindex/sitemap.
 - [x] P01-05 — Local JSON validator/SQL importer; không public admin/auth/AI.
-- [x] P01-06 — Typecheck0errors, local build và dry-run, 21 tests,45dev +45built Worker browser checks1440/768/390,40PNG;0 lỗi console bình thường.
+- [x] P01-06 — Typecheck0errors, local build và dry-run,22 tests,45dev +45built Worker browser checks1440/768/390,40PNG;0 lỗi console bình thường.
 - [x] P01-07 — Repo ducbang02/FreeResources hiện public; sunny251010 có quyền push, được chủ dự án duyệt. App ddae9fe và đính chính ace99a1 đã push main/develop.
 - [x] P01-08 — OAuth dự án thành công, whoami đúng account đích; Worker/D1 staging đã tạo và đọc lại. D1 13 tài nguyên/17 nguồn/FK 0/FTS LocalSend PASS. Hai tài nguyên tạo nhầm đã xóa theo yêu cầu và GET trả 404; proof tại qa/p01/ctcm-cleanup.json.
-- [x] P01-09 — Một Workers Builds pipeline đã chuẩn bị: guard source/artifact/branch/commit/DB, main build và production deploy no-op;8 nhóm guard tests PASS.
+- [x] P01-09 — Một Workers Builds pipeline: guard source/artifact/branch/commit/DB, main build và production deploy no-op;9 nhóm guard tests PASS.
 - [x] P01-10 — Kết nối GitHub/Workers Builds đúng account/repo/token và main no-op được đọc qua ảnh Dashboard; build7de0b863 PASS, API Preview khớp tag508a96c. Builds API OAuth403 còn là giới hạn đọc log, không chặn pipeline CI.
-- [ ] P01-11 — Develop push → Preview thật và45 cloud browser checks PASS; còn kiểm push tiếp theo tự cập nhật. Không deploy thủ công ứng dụng.
-- [ ] P01-12 — Báo cáo và nghiệm thu; chỉ READY FOR REVIEW khi cloud gates PASS. Không P02/production.
+- [x] P01-11 — Develop508a96c→Preview thật:45 browser checks/20PNG PASS; push31d3053 tạo deployment ID mới cùng URL/DB,5 smoke checks PASS. Không deploy thủ công ứng dụng.
+- [x] P01-12 — Báo cáo/luồng/galleries/evidence cập nhật; READY FOR REVIEW cho Preview, chờ chủ dự án nghiệm thu. Main safeguards cấu hình/code/local và parent readback PASS; live main commands SKIP vì hạ tầng timeout trước clone. Không P02/production.
 
-Artifact staging từ account sai đã hủy. Artifact mới với account đúng/D1 mới đã build và kiểm generated config PASS cả top-level/Preview; dry-run PASS, gzip 173.80 KiB, không KV/Images tự phát sinh, không upload. Preview vẫn chưa deploy. Node 24.18.0 và npm 12.2.0 đã pin; main no-op, chỉ develop được Preview.
+Artifact staging từ account sai đã hủy. Artifact đúng account/D1 đã build và kiểm generated config PASS top-level/Preview; dry-run PASS, gzip173.80KiB. CI đã deploy Preview develop thật, không KV/Images tự phát sinh. Node24.18.0/npm12.2.0 đã pin; main no-op, chỉ develop được Preview. [Cloud proof](qa/p01/cloud-preview.json), [auto-update](qa/p01/cloud-auto-update.json), [main proof](qa/p01/main-protection.json).
 
-Log P01 ngày 03/11/2026: local PASS khác cloud D1 PASS; cloud app/CI/browser còn chờ. Prototype cũ giữ nguyên, không credentials/global MCP install/paid service/DNS/production mutation. Lệnh và giới hạn tại SETUP và các báo cáo P01. Các SKIP/NOT STARTED của P00 giữ ý nghĩa lịch sử.
+Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS được ghi riêng. Main live init FAIL, user commands SKIP; chưa tuyên bố main CI PASS. Prototype cũ giữ nguyên, không credentials/global MCP install/paid service/DNS/production mutation. Lệnh và giới hạn tại SETUP/báo cáo P01. Các SKIP/NOT STARTED của P00 giữ ý nghĩa lịch sử.
 ## P02 — Import & biên tập
 
 - [ ] P02-01 — Chốt auth/role; implement secure session/admin guard.

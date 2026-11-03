@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "repository": "ducbang02/FreeResources",
+  "branch": "develop",
+  "previousCommit": "508a96c",
+  "previousDeploymentId": "e4cac6f1-75af-43c0-8ab0-eb63e90ea122",
+  "pushedCommit": "31d3053bdfd38298c467dd61ef66a571d1f8f150",
+  "timestamp": "2026-11-03T15:54:26.749Z",
+  "accountId": "4ca521c6746d874c049fd829121ab59e",
+  "parent": {
+    "id": "0540bcf9fa6448d6843935471fe0265c",
+    "deployed_on": null,
+    "workersDevEnabled": false,
+    "versionCount": 1
+  },
+  "preview": {
+    "id": "7a79bea8-f3e9-473d-9567-2e4d38ae1f00",
+    "annotations": {
+      "workers/message": "test: verify live Preview browser flows and D1 isolation",
+      "workers/repository_url": "https://github.com/ducbang02/FreeResources",
+      "workers/tag": "31d3053",
+      "workers/triggered_by": "create_preview_deployment_api"
+    },
+    "env": {
+      "APP_ENV": {
+        "text": "staging",
+        "type": "plain_text"
+      },
+      "ASSETS": {
+        "type": "assets"
+      },
+      "DB": {
+        "database_id": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
+        "id": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
+        "type": "d1"
+      }
+    },
+    "created_on": "2026-11-03T15:42:28.863057Z"
+  }
+}

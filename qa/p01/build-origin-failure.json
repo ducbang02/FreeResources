@@ -14,5 +14,5 @@
   "installScriptsWarning": ["esbuild@0.28.2", "workerd@1.20261101.1", "workerd@1.20261102.1"],
   "fix": "Compare GitHub host and exact owner/repository after parsing HTTPS or SSH URL; ignore HTTPS checkout userinfo, normalize GitHub path case and optional .git/trailing slash. Keep approved branch, SHA, account and D1 checks.",
   "localRegressionTests": { "pass": 22, "fail": 0 },
-  "cloudRetest": "PENDING"
+  "cloudRetest": "PASS: build 7de0b863 at 508a96c; see build-7de0b863.txt and cloud-preview.json"
 }

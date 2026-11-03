@@ -1,7 +1,45 @@
 # P01 — GitHub → Workers Builds → Preview
-> Đích hiện tại đã xác minh: account 4ca521c6746d874c049fd829121ab59e, Worker/D1 staging mới đã tạo và đọc lại. Target approved:true sau kiểm ID; tài nguyên tạo nhầm đã xóa theo yêu cầu. Builds API trên account đúng trả 403/code 10000; chủ dự án hỗ trợ Dashboard. Chưa deploy ứng dụng hoặc có Preview URL.
+> P01 READY FOR REVIEW cho Preview. Đích account4ca521c6746d874c049fd829121ab59e; Worker/D1 staging đúng account. GitHub→Builds→Preview,45 cloud browser checks và auto-update31d3053 PASS. Main CI timeout trước clone: user commands SKIP, safeguards cấu hình/local/parent readback PASS. Production chưa triển khai.
 
-Ngày 03/11/2026. Chủ dự án đã xác nhận repo `ducbang02/FreeResources` và account `4ca521c6746d874c049fd829121ab59e` (Nguyenducbang.uit@gmail.com's Account). OAuth dự án và whoami đã khớp account; Worker/D1 staging đã tạo, D1 cloud đã kiểm; **chưa xác minh pipeline GitHub → Workers Builds → Preview** tại thời điểm cập nhật này. Production chưa được phép. Root ghi trạng thái cloud mới nhất trong báo cáo P01.
+Ngày 03/11/2026. Chủ dự án đã xác nhận repo `ducbang02/FreeResources` và account `4ca521c6746d874c049fd829121ab59e` (Nguyenducbang.uit@gmail.com's Account). OAuth dự án và whoami đã khớp account. Build `7de0b863` tại `508a96c` PASS; [Preview](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev) và bindings được API đọc lại; [45 browser checks](../qa/p01/cloud/results.json) PASS. Production chưa được phép.
+
+## Luồng làm việc hiện tại, đọc từ trái sang phải
+
+```mermaid
+flowchart LR
+  A[Sửa code hoặc catalog trên máy] --> B[Kiểm local và commit]
+  B --> C[Push GitHub: develop]
+  C --> D[Cloudflare Workers Builds]
+  D --> E[Kiểm nhánh, repo, commit và cấu hình]
+  E --> F[Validate, D1 local, typecheck, tests, build]
+  F --> G[Kiểm đúng account và D1 staging]
+  G --> H[Migrate và seed D1 staging]
+  H --> I[wrangler preview: develop]
+  I --> J[URL Preview ổn định: browser QA và chủ dự án review]
+  M[Push main] --> N[Build bỏ qua; deploy no-op]
+```
+
+1. **Máy local** là nơi sửa code và `data/catalog.json`; chạy kiểm tra trước commit. Local D1 không phải D1 cloud.
+2. **GitHub** lưu source chính thức. Push `develop` kích hoạt CI tự động; không cần deploy từ máy cá nhân.
+3. **Build command** `npm run ci:build` kiểm nhánh, commit phải đúng HEAD develop từ repo đã duyệt, URL origin đúng GitHub owner/repo (credentials checkout không được log), source sạch và target đúng account. Sau đó validate catalog, migrate/seed D1 local, typecheck, tests, build Astro với config staging và kiểm artifact.
+4. **Preview command** `npm run ci:preview:deploy` kiểm proof của build, danh tính account và UUID/name D1; chỉ sau đó migrate/seed **D1 staging** và chạy `wrangler preview`. Không chạy migration production.
+5. **Website Preview** dùng URL ổn định phía trên. Deployment ID đổi theo từng lần CI thành công; DB staging hiện được dùng chung cho develop, không tạo DB mới theo mỗi commit. Build lỗi ở gate sẽ không cập nhật Preview. Nếu lỗi sau migration thì dữ liệu staging có thể đã được cập nhật; không coi database và code là một giao dịch chung.
+6. **Nhánh main** hiện bị khóa phát hành bằng cả build dispatcher và deploy command no-op. Nhãn “Production” trong Dashboard chỉ là ngữ cảnh của Worker cha, không có nghĩa website production đã được phát hành. Production thật chỉ được thiết lập theo một lệnh duyệt riêng; P01 không có production Worker/database/domain.
+
+Đọc tiến trình: Worker → Deployments → dòng đúng commit/nhánh → Build. Queued là chờ Cloudflare cấp môi trường; xanh build/deploy cần được đối chiếu tiếp bằng Preview URL và bindings, không thay thế QA. Cảnh báo root Wrangler name là do local/staging tách config; pipeline Preview đã chạy với artifact staging khớp tên. Không sửa config local chỉ để ẩn banner.
+
+Khi thấy hai dòng **main** và **develop**, đó là hai lần chạy do hai sự kiện push vào hai nhánh. Trong lần kiểm P01 này, develop phải tạo deployment Preview mới; main phải kết thúc sau thông điệp bỏ qua, không tạo active deployment. Cả hai vẫn dùng cùng một Workers Builds integration.
+
+Khi **người dùng mở website**, luồng khác với luồng build: trình duyệt gọi URL Preview → Worker chạy Astro và đọc D1 staging → trả HTML/dữ liệu cho trình duyệt. Tìm kiếm overlay gọi `/api/search`; Enter mở trang Explore có dữ liệu SSR. GitHub không trực tiếp phục vụ HTML hoặc truy vấn database.
+
+| Thành phần | Vai trò trong P01 |
+| --- | --- |
+| Local | Máy phát triển: sửa source, chạy tests và D1 giả lập |
+| GitHub | Lưu source/commit/nhánh, phát sự kiện push cho Cloudflare |
+| Workers Builds | Máy CI của Cloudflare: cài dependency, kiểm và build source, chạy đúng command theo nhánh |
+| Worker Preview | Chạy ứng dụng bản thử nghiệm để người dùng mở bằng trình duyệt |
+| D1 staging | Database riêng cho bản thử nghiệm; giữ catalog, taxonomy, provenance và FTS |
+| main hiện tại | Nhánh source có khóa phát hành bằng commands no-op; tên main không tự mang nghĩa website đã live production |
 
 ## Một pipeline, một staging target
 
@@ -57,7 +95,7 @@ Script không gọi `wrangler deploy`, `versions upload`, secret mutation hoặc
 | Production branch | `main`, không phải `develop` |
 | Build command | `npm run ci:build` |
 | Deploy command | `npm run ci:production` — không upload/migrate/deploy |
-| Enable Preview Builds | Bật; nhánh được sử dụng trong P01 là `develop` |
+| Enable Preview Builds | Bật non-production builds; repo guard chỉ cho `develop` triển khai |
 | Preview command | `npm run ci:preview:deploy` |
 | Runtime | Node 24.18.0 từ `.node-version`, npm 12.2.0 từ `packageManager`; NODE_VERSION trong UI là tùy chọn |
 | Token scope | Chỉ account/Worker staging và D1 staging theo khả năng giới hạn của Cloudflare; không credential trong Git |
@@ -88,15 +126,15 @@ wrangler preview --config dist/server/wrangler.json --name develop --worker-name
 
 ## Validation và trạng thái hiện tại
 
-**PASS local:** 21 tests tổng, gồm 13 catalog và 8 nhóm guard; production no-op exit 0, từ chối account sai và template chưa duyệt. Đã kiểm help/schema Wrangler 4.156.2 và adapter 14.4.4. Typecheck/build và 45 dev + 45 built Worker browser checks PASS; 40 PNG. Artifact dùng account sai đã hủy. Artifact staging đã build mới với account đúng/D1 mới, generated config top-level/Preview khớp, dry-run PASS (gzip 173.80 KiB), không tự phát sinh KV/Images, không upload. `npm test` 21 tests và `ci:preview:plan` kiểm lại PASS. Chưa deploy Preview.
+**PASS local:** 22 tests, gồm13 catalog và9 guard; production no-op exit0, từ chối account sai, fork/host giả và template chưa duyệt. Typecheck/build/dry-run và45 dev +45 built Worker browser checks PASS;40PNG. Phiên bản toolchain không đổi.
 
 **PASS cloud target:** OAuth dự án thành công, whoami đúng account; Worker/D1 mới đã tạo, đọc lại và target chỉ approved sau đối chiếu ID. D1 migrate/seed/readback PASS: 13 tài nguyên, 17 nguồn, FK 0, FTS LocalSend. Hai tài nguyên tạo nhầm đã xóa theo yêu cầu, GET trả 404. Proof tại [cloud resources](../qa/p01/cloud-resources.json), [D1](../qa/p01/cloud-d1.json), [cleanup](../qa/p01/ctcm-cleanup.json).
 
-**PASS GitHub:** repo public, sunny251010 có quyền push nhưng không admin; baseline c862af9, app ddae9fe, corrective ace99a1 đã push main/develop. Các thay đổi đúng account/cleanup sau ace99a1 còn cần checkpoint tiếp theo.
+**PASS GitHub/Preview:** repo public, sunny251010 có quyền push nhưng không admin. Commit508a96c được Builds triển khai thành Preview develop; annotations repository/tag và D1 bindings khớp, Worker cha deployed_on:null. Cloud browser45 checks PASS/20PNG. Checkpoint31d3053 tự tạo deployment7a79bea8-f3e9-473d-9567-2e4d38ae1f00 mới, cùng URL/DB;5 smoke checks sau cập nhật PASS. [Bằng chứng](../qa/p01/cloud-auto-update.json).
 
-**BLOCKED:** Builds API kiểm độc lập trên account đúng trả HTTP 403/code 10000; Browser Use/Computer Use lỗi khởi tạo sandbox helper. Chủ dự án hỗ trợ Dashboard cho phiên này, không gửi token.
+**Giới hạn đọc log:** OAuth dự án không có quyền Builds API; đúng endpoint list builds trả403/code12004. Chủ dự án hỗ trợ ảnh Dashboard/log; browser điều khiển Dashboard không khởi tạo được. Playwright local vẫn truy cập và kiểm Preview thật. Không yêu cầu gửi token.
 
-**SKIP:** connection/readback branch controls, build từ GitHub, Preview deployment/URL, cloud browser/runtime và push tiếp theo tự cập nhật. Chỉ sau các gate này mới P01 READY FOR REVIEW; local PASS và D1 PASS chưa thay thế nghiệm thu workflow.
+**FAIL hạ tầng:** main aa369850/31d3053 timeout khởi tạo, chưa clone repo hoặc chạy commands. Chủ dự án duyệt riêng một lần pushmain; push thành công, deploy settings không đổi. **PASS safeguards:** cấu hình, source/local main no-op, parent deployed_on:null/workers.dev false/1 bootstrap version trước/sau. **SKIP:** chạy hai commands main trên CI live, physical mobile/software keyboard/AT/Safari/Firefox. [Main proof](../qa/p01/main-protection.json). Đề nghị retry đúng build một lần, chưa nhận kết quả; không gộp kiểm local thành live CI PASS. Không cần sửa code theo lỗi khởi tạo hạ tầng. Preview đã đủ bằng chứng review; chưa release production.
 
 ## Nguồn chính thức đã đối chiếu
 
@@ -112,4 +150,4 @@ Production release cần lệnh duyệt riêng, cấu hình Worker/DB/domain ri�
 
 Phiên global Ctcm được giữ nguyên. Lệnh Wrangler dùng OAuth dự án phải đặt XDG_CONFIG_HOME trỏ đường dẫn tuyệt đối tới .cache/free-resources-auth và XDG_CACHE_HOME tới .cache/free-resources-auth-cache theo từng lệnh; không đọc/in file auth hoặc token. Không đổi HOME/profile global. Account đích phải tiếp tục khớp ID đã duyệt.
 
-Sau khi người dùng nối Dashboard, đọc lại bảng setting trước lần build đầu; Preview branch include chỉ develop, main production command no-op. Không nối sang account khác, không tạo tài nguyên production hoặc pipeline deployment song song.
+Dashboard đã nối và setting được quan sát qua ảnh chủ dự án. Main production command tiếp tục no-op; non-production builds bật nhưng guard chỉ cho develop qua. Không nối sang account khác, không tạo tài nguyên production hoặc pipeline deployment song song.

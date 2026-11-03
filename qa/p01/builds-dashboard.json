@@ -14,5 +14,6 @@
   "tokenD1Edit": true,
   "tokenAccountLabel": "Nguyenducbang.uit@gmail.com's Account",
   "branchRestriction": "Dashboard enables non-production branches; repository guard only permits develop",
-  "pipelineResult": "NOT_VERIFIED"
+  "pipelineResult": "PASS: build 7de0b863 at 508a96c; auto-update at 31d3053 verified by Preview API and browser",
+  "followUpEvidence": ["cloud-preview.json", "cloud-auto-update.json", "cloud/results.json"]
 }

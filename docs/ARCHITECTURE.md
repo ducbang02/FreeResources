@@ -1,6 +1,6 @@
 # ARCHITECTURE — Phương án khởi đầu, có đường lớn lên
 
-> P01 được phê duyệt: Astro + TypeScript, Workers/D1, modular monolith. Local runtime và cloud D1 PASS; ứng dụng Preview chưa deploy. Production chưa được phép.
+> P01 được phê duyệt: Astro + TypeScript, Workers/D1, modular monolith. Local runtime, cloud D1, GitHub→Preview và45 cloud browser checks PASS. Production chưa được phép.
 
 ## 1. Nguyên tắc kiến trúc
 
@@ -118,4 +118,4 @@ Schema0001: resources/resource_types/categories/tags/resource_categories/resourc
 
 Prepared SQL, chỉ published, pagination có giới hạn, FTS tiếng Việt đã normalize và quote token MATCH; preview tối đa4. CLI upsert theo ID, DB unique constraints và file batch atomic. Không public mutation API hoặc runtime fetch URL nhập vào.
 
-Local config UUID giả, remote:false. Account staging đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực; Worker `digital-resource-hub-staging` (ID `0540bcf9fa6448d6843935471fe0265c`), D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d` đã tạo và đọc lại. Binding `DB` ở top-level và Preview cùng trỏ UUID này. Target `approved:true` chỉ sau kiểm ID; guard chặn cứng account và repo khác. Tài nguyên tạo nhầm đã xóa theo [record cleanup](../qa/p01/ctcm-cleanup.json). Không production target/route/DNS/KV/R2/Images/service binding. Worker chỉ metadata, 0 versions, workers.dev tắt, chưa deploy app. Một D1 staging dùng chung Preview develop, không suy isolation từ URL. Workers Builds đang chờ Dashboard vì API trên account đúng trả HTTP 403/code 10000 và browser host lỗi. Common build `npm run ci:build` bỏ qua main, chỉ build develop; `ci:production` no-op, `ci:preview:deploy` có guard. Chưa có Preview URL.
+Local config UUID giả, remote:false. Account staging đúng `4ca521c6746d874c049fd829121ab59e`; Worker `digital-resource-hub-staging` (ID `0540bcf9fa6448d6843935471fe0265c`), D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d`. Binding `DB` source/artifact/Preview readback cùng UUID này. Target `approved:true` chỉ sau kiểm ID; guard chặn account/repo khác. Tài nguyên tạo nhầm đã xóa theo [record cleanup](../qa/p01/ctcm-cleanup.json). Không production target/route/DNS/KV/R2/Images/service binding. Worker cha có1 bootstrap version chưa deploy, workers.dev tắt; ứng dụng nằm trong [Preview develop](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev) do GitHub→Builds triển khai. Một D1 staging dùng chung Preview develop, không suy isolation từ URL. Build7de0b863/tag508a96c PASS và45 cloud browser checks PASS. Common build `npm run ci:build` bỏ qua main, chỉ build develop; `ci:production` no-op, `ci:preview:deploy` có guard. [Readback](../qa/p01/cloud-preview.json), [luồng và runbook](PHASE01_PREVIEW_RUNBOOK.md).

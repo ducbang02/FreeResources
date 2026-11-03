@@ -1,6 +1,6 @@
 # PROJECT — Cổng tài nguyên số cộng đồng
 
-> P01 đang triển khai theo phê duyệt của chủ dự án. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans là baseline. Local runtime và D1 staging đã kiểm; GitHub → Preview còn chờ kết nối Dashboard. Chưa cho phép production.
+> P01 READY FOR REVIEW cho Preview; chờ chủ dự án nghiệm thu. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans là baseline. GitHub→Workers Builds→Preview/auto-update và45 cloud browser checks PASS. Main safeguards cấu hình/local/parent PASS, live main commands SKIP vì hạ tầng timeout. Không production/P02. Bằng chứng tại báo cáo P01.
 
 ## 1. Tầm nhìn
 
@@ -101,4 +101,4 @@ A giữ Apple-inspired, hero nền trải ngang với ảnh LocalSend desktop/mo
 
 App Astro SSR có Home/Explore/Detail, overlay tìm kiếm API D1, taxonomy từ DB, filter/sort/phân trang và local CLI có validation. Catalog13 tài nguyên/7 loại/17 nguồn; không auth/rating/submission/Gemini thật. Local check/build/tests/browser PASS. Account staging đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực; Worker metadata và D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d` đã tạo, đọc lại. Cloud D1 migrate/seed/query PASS; tài nguyên tạo nhầm đã xóa và kiểm 404.
 
-Repo `ducbang02/FreeResources` hiện public; cộng tác viên/tác giả `sunny251010` được chủ dự án cho phép. Baseline `c862af9`, app `ddae9fe` và đính chính `ace99a1` đã push cả main/develop. Builds API trên account đúng trả HTTP 403, code 10000; browser host lỗi nên chủ dự án hỗ trợ Dashboard. Chưa có deployment ứng dụng hoặc Preview URL. Chỉ Preview/staging được phép, không production/P02. Báo cáo [P01](docs/PHASE01_REPORT.md); các log P00 NOT STARTED là lịch sử đã được brief P01 thay thế.
+Repo `ducbang02/FreeResources` hiện public; cộng tác viên/tác giả `sunny251010` được chủ dự án cho phép. Build7de0b863 từ develop508a96c đã tạo [Preview](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev); Worker/DB bindings được API đọc lại đúng account. Browser cloud45 checks PASS,20PNG. Chủ dự án hỗ trợ Dashboard/log vì OAuth thiếu quyền Builds API; không chặn deploy qua CI. Nhánh main có build/deploy no-op, không production target; kiểm thử live main chỉ theo quyền riêng của chủ dự án. Chỉ Preview/staging được phép, không production/P02. Báo cáo [P01](docs/PHASE01_REPORT.md); các log P00 NOT STARTED là lịch sử đã được brief P01 thay thế.

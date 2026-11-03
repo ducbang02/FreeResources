@@ -71,7 +71,7 @@ git -c safe.directory=D:/Workspace/FreeResources status
 
 ## Cloudflare Preview qua GitHub
 
-Account đúng `4ca521c6746d874c049fd829121ab59e` — Nguyenducbang.uit@gmail.com's Account — đã xác thực và đối chiếu bằng whoami. Worker `digital-resource-hub-staging` (ID `0540bcf9fa6448d6843935471fe0265c`) và D1 cùng tên (ID `e28f4099-92cf-40bc-ab8c-c47138b4469d`) đã tạo, đọc lại; D1 migrate/seed/query PASS. Worker chỉ có metadata, 0 versions, workers.dev tắt; chưa deploy app. Hai tài nguyên tạo nhầm đã xóa và GET trả 404, xem [bằng chứng](docs/PHASE01_CLOUD_CONNECTION.md). Target hiện `approved:true` sau kiểm ID; artifact từ account sai đã hủy. Artifact staging đã build mới trên account đúng, generated config kiểm PASS cả DB top-level/Preview; dry-run PASS, không upload. Git giữ nguyên ducbang02/FreeResources, push bằng sunny251010.
+Account đúng `4ca521c6746d874c049fd829121ab59e` — Nguyenducbang.uit@gmail.com's Account — đã xác thực và đối chiếu bằng whoami. Worker `digital-resource-hub-staging` (ID `0540bcf9fa6448d6843935471fe0265c`), D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d`. Build7de0b863 từ develop508a96c đã triển khai [Preview thật](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev);45 cloud browser checks PASS ở1440/768/390. Parent chưa active deployment, workers.dev tắt; runtime Preview bind đúng DB/ASSETS/APP_ENV staging. Hai tài nguyên tạo nhầm đã xóa và GET404. [Readback](qa/p01/cloud-preview.json), [bằng chứng/log](docs/PHASE01_CLOUD_CONNECTION.md), [gallery](qa/p01/index.html). Git giữ ducbang02/FreeResources, push bằng sunny251010.
 
 Phiên Wrangler global cũ chỉ truy cập Ctcm. Device login của dự án dùng XDG_CONFIG_HOME=.cache/free-resources-auth và XDG_CACHE_HOME=.cache/free-resources-auth-cache; thư mục đã ignore, không đổi HOME hoặc profile global. Named profile auth không hỗ trợ device flow trong phiên bản này. Không đọc/in/copy token vào chat/Git. Xác thực dự án đã thành công; whoami khớp account đích. Mỗi lệnh Wrangler có dùng phiên này phải đặt hai biến XDG trên theo đường dẫn tuyệt đối trong workspace; không đọc/copy file auth. Guard CI chặn cứng account khác đích và repo khác ducbang02/FreeResources.
 [Runbook Dashboard](docs/PHASE01_PREVIEW_RUNBOOK.md) và [bằng chứng kết nối](docs/PHASE01_CLOUD_CONNECTION.md). Các ô phải đặt trước lần build đầu:
@@ -82,13 +82,13 @@ Phiên Wrangler global cũ chỉ truy cập Ctcm. Device login của dự án d�
 | Production branch | main |
 | Build command | npm run ci:build |
 | Deploy command | npm run ci:production |
-| Preview builds | Bật, include chỉ develop |
+| Preview builds | Bật non-production; guard trong repo chỉ cho develop triển khai |
 | Preview command | npm run ci:preview:deploy |
 | Runtime | `.node-version`: 24.18.0; `packageManager`: npm@12.2.0; biến NODE_VERSION trong UI là tùy chọn |
 
 ci:build bỏ qua main, chỉ checks/build staging trên develop; nhánh khác bị từ chối. ci:production no-op, không upload/migrate/deploy. Preview wrapper yêu cầu native CI branch/commit/origin/clean tree, proof local checks/build và đúng account/DB trước remote migration/seed/Preview. Một Workers Builds pipeline, không Actions song song; GitHub App chỉ đúng repo.
 
-OAuth dự án hiện đủ Worker/D1; Builds API được kiểm riêng trên account đúng vẫn trả HTTP 403, code 10000. Browser Use/Computer Use host không khởi tạo được. Chủ dự án hỗ trợ nối Dashboard. Không gửi token/mật khẩu vào chat. Chỉ sau connection/branch controls, build GitHub thật và cloud browser PASS mới nghiệm thu deploy workflow. Noindex không phải access control.
+OAuth dự án đủ Worker/D1; Builds API vẫn thiếu quyền đọc trực tiếp (endpoint list builds403/code12004). Chủ dự án đã hỗ trợ Dashboard và cung cấp log build thành công; Playwright kiểm website cloud độc lập. Không gửi token/mật khẩu vào chat. [Luồng làm việc từng bước và sơ đồ](docs/PHASE01_PREVIEW_RUNBOOK.md#luồng-làm-việc-hiện-tại-đọc-từ-trái-sang-phải). Noindex không phải access control. Worker Previews đang open beta; giữ version đã pin và kiểm sau mỗi lần thay toolchain.
 
 ## Production dự kiến, chưa thực hiện
 
