@@ -23,6 +23,9 @@ export function validateTarget(target){
   requireThat(target&&typeof target==='object'&&Object.keys(target).every(k=>keys.includes(k)),'Unreviewed target field.');
   requireThat(target.approved===true,'Staging target is not approved. Confirm account/repository/resources first.');
   requireThat(/^[a-f0-9]{32}$/.test(target.accountId)&&!/^0+$/.test(target.accountId),'Invalid approved account ID.');
+  requireThat(target.accountId==='4ca521c6746d874c049fd829121ab59e','P01 must use user-confirmed account 4ca521c6746d874c049fd829121ab59e; login email is not account identity.');
+  requireThat(target.repository==='ducbang02/FreeResources','P01 repository must be the user-confirmed ducbang02/FreeResources.');
+  requireThat(target.workerName==='digital-resource-hub-staging'&&target.databaseName==='digital-resource-hub-staging','P01 resource names must match the confirmed project.');
   requireThat(/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(target.databaseId)&&!/^00000000-0000-0000-0000-/.test(target.databaseId),'Invalid staging database ID or placeholder.');
   for(const key of ['workerName','databaseName'])requireThat(typeof target[key]==='string'&&/^[a-z0-9][a-z0-9-]*-staging$/.test(target[key])&&!/(^|-)(prod|production)(-|$)/.test(target[key]),'Worker and D1 must be explicit staging names.');
   requireThat(/^[A-Za-z0-9][A-Za-z0-9-]*\/[A-Za-z0-9_.-]+$/.test(target.repository)&&!target.repository.includes('OWNER'),'Invalid approved GitHub repository.');

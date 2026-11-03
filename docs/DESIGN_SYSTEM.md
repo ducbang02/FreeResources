@@ -1,6 +1,6 @@
 # DESIGN_SYSTEM — Concept A / Editorial Discovery
 
-Ngày 03/11/2026. **P00.3 READY FOR REVIEW; chưa nghiệm thu UI.** A là hướng chính Apple-inspired, tên Nếp và nhận diện vẫn là thử nghiệm. P01 NOT STARTED; hướng Astro/TypeScript + Workers/D1 giữ nguyên và chưa kiểm runtime.
+Ngày 03/11/2026. **P01 đang triển khai với baseline A/P00.3 và Noto Sans đã được chủ dự án chọn.** Tên Nếp và nhận diện vẫn là thử nghiệm. Các ghi chú nghiệm thu P00.3 bên dưới là log lịch sử; local runtime Astro/Workers/D1 đã kiểm, cloud Preview còn chờ.
 
 ## 1. Mỗi trang một nhiệm vụ
 
@@ -70,8 +70,8 @@ Reuse HTML/CSS/JS, asset/manifest hiện có và local Playwright. [UI UX guidan
 - [Trước/sau và browser evidence](../qa/p003/index.html), [báo cáo P00.3](PHASE003_REPORT.md).
 - Logic regression: `node prototype-p001/verify.mjs`, 19 nhóm/63 template; đây là VM, không phải browser.
 
-**Dừng chờ chủ dự án nghiệm thu P00.3. Không bắt đầu P01, backend, cloud hoặc deploy.**
+**Gate tại thời điểm bàn giao P00.3 (lịch sử):** dừng chờ nghiệm thu trước P01. Brief P01 sau đó đã chọn baseline và cho phép triển khai staging; không cấp quyền production.
 
-## P01 implementation
+## P01 — chuyển thiết kế sang ứng dụng
 
-Chu du an chonConceptA/P00.3/NotoSanslambaseline. Astroapp reuse reviewedassetsandfull-widthhero, themmotcau dinhvi theo briefP01. Featured/curated/taxonomy fromD1, nothardcodedLocalSend. CleanSSRroutes /,/explore,/resources/[slug]; searchoverlayGET/api/search realD1 withloading/empty/error/retry/abort. Detailprovenanceverified, unknownmetadatahidden; nofakeratings. LocaldevandbuiltWorker browserPASS1440/768/390; cloudPreviewpending, no physicaldevice/AT claim. Oldprototypesunchanged.
+Chủ dự án chọn Concept A/P00.3/Noto Sans làm baseline. App Astro reuse asset đã audit, hero full-width và thêm một câu định vị theo brief P01. Featured/curated/taxonomy từ D1, không hardcode LocalSend. Route SSR /, /explore, /resources/[slug]; overlay GET /api/search thật với loading/empty/error/retry/abort. Detail có provenance, unknown metadata ẩn và không rating giả. Local dev và built Worker browser PASS1440/768/390; Preview cloud còn chờ. Không suy thành nghiệm thu physical device/AT. Prototype cũ giữ nguyên.

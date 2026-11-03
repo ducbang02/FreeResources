@@ -1,6 +1,6 @@
 # DECISIONS — Sổ quyết định
 
-> Cập nhật 03/11/2026. **AGREED** = đã nói rõ trong trao đổi; **PROPOSED** = trợ lý gợi ý, chưa được khóa; **OPEN** = cần An chọn; **VERIFIED** = đã kiểm thử bằng code/triển khai (hiện chưa có mục nào).
+> Cập nhật 03/11/2026. **AGREED** = đã nói rõ trong trao đổi; **PROPOSED** = trợ lý gợi ý, chưa được khóa; **OPEN** = cần An chọn; **VERIFIED** = đã kiểm thử với bằng chứng, ghi rõ local hay cloud. Các log P00 là lịch sử; D-021 trở đi và báo cáo P01 mô tả phạm vi hiện tại.
 
 | ID | Trạng thái | Quyết định / giả định | Lý do hoặc ghi chú |
 | --- | --- | --- | --- |
@@ -24,21 +24,22 @@
 | D-018 | AGREED | Home giới thiệu/truyền cảm hứng; Search preview; Explore catalog; Detail quyết định | Home1 feature/3–4 công cụ, không nhồi taxonomy/thông số; tập trung refinement A, không tạo B/C mới |
 | D-019 | AGREED | Audit tooling read-only; hỏi trước global install/config/new permission/cost | P00.2 reuse Context7/Playwright đã có; chưa cài UI UX/Playwright MCP/DevTools MCP; không tool vào runtime production |
 | D-020 | AGREED brief; OPEN nghiệm thu | P00.3 giữ A Apple-inspired; hero full-width, headline hai dòng, giảm chữ, tối đa4 lựa chọn, thử Noto Sans Việt, giữ overlay và attribution | Hai card visual được triển khai; 68 browser checks PASS, 29 PNG. READY FOR REVIEW; chưa nghiệm thu, không P01/backend/cloud/deploy |
-| D-021 | AGREED P01 | Astro/TypeScript + Workers/D1, Concept A P00.3, Noto Sans, modular monolith; GitHub source + staging-only CI | User final P01 brief; permits Gitinit/commits and staging resources, forbids production/P02/auth/ratings/AI |
-| D-022 | AGREED target | Repo ducbang02/FreeResources; author/collaborator sunny251010; existing Cloudflare login nguyenducbang.uit@gmail.com/account4873c68031c0fc5e0284943a9119dac2 | User confirmed directly; Worker/D1 digital-resource-hub-staging separate, no newaccount |
-| D-023 | IMPLEMENTED local; OPEN cloud CI | Native Workers Builds onepipeline, main no-op, develop Preview with identity/binding guards | Worker metadata/D1 created; cloudDB PASS. Builds API403, browserhostfails; owner helpsDashboard; no deployment/Preview URL yet |
+| D-021 | AGREED P01 | Astro/TypeScript + Workers/D1, Concept A P00.3, Noto Sans, modular monolith; GitHub source và CI chỉ staging | Brief P01 cho phép Git init/commit và staging, không production/P02/auth/ratings/AI |
+| D-022 | AGREED, VERIFIED target đúng | Repo ducbang02/FreeResources; author/collaborator sunny251010; account Cloudflare đích 4ca521c6746d874c049fd829121ab59e | OAuth dự án và whoami đúng account; Worker/D1 staging đã tạo, đọc lại. Nhận định account trong ghi nhận cũ đã được đính chính, xem báo cáo P01 |
+| D-023 | Local VERIFIED; cloud CI OPEN | Một Workers Builds pipeline, main no-op, develop Preview có guard identity/binding | Worker metadata/D1 đúng account đã tạo, cloud D1 PASS; source đến ace99a1 đã push. Builds API trên account đúng trả 403/code 10000 và browser host lỗi; chủ dự án hỗ trợ Dashboard. Chưa deploy ứng dụng/Preview URL |
+| D-024 | AGREED, VERIFIED cleanup | Xóa cả Worker và D1 của dự án đã tạo nhầm; tạo lại trên account đích | Người dùng yêu cầu rõ; cả hai đã xóa, GET trả 404. D1 mới e28f4099-92cf-40bc-ab8c-c47138b4469d; proof qa/p01/ctcm-cleanup.json và cloud-resources.json |
 
 ## Cần An xác nhận trước mốc triển khai tương ứng
 
 | ID | Câu hỏi | Đề xuất mặc định | Quyết định cuối |
 | --- | --- | --- | --- |
-| Q-01 | Giai đoạn đầu có đăng nhập/đánh giá và đóng góp ngay, hay admin catalog trước? | Public catalog trước; auth, community ratings, submissions hoàn chỉnh và AI thật theo phase sau | AGREED — chủ dự án xác nhận 03/11/2026; chờ lệnh bắt đầu P01 |
+| Q-01 | Giai đoạn đầu có đăng nhập/đánh giá và đóng góp ngay, hay admin catalog trước? | Public catalog trước; auth, community ratings, submissions hoàn chỉnh và AI thật theo phase sau | AGREED — đã giao P01 theo D-021 |
 | Q-02 | Người dùng gửi link hay có thể upload PDF/file thật? | Chỉ gửi URL + metadata trước | OPEN |
 | Q-03 | Mức độ AI tự động: chỉ khi admin bấm, hay cron tự quét GitHub? | Bấm phân tích thủ công trước; tự quét sau khi có kiểm duyệt | OPEN |
 | Q-04 | Login: Google trước, email magic link, hay cả hai? | Google trước, tùy yêu cầu người dùng | OPEN |
 | Q-05 | Tên thương hiệu, domain, ngôn ngữ thứ hai, thị trường? | Tiếng Việt, đặt tên sau bản mẫu UI | OPEN |
-| Q-06 | DB D1 hay PostgreSQL managed như Supabase/Neon? | Ưu tiên D1 với Workers cho hướng khởi đầu; kiểm chứng runtime ở P01 | AGREED về định hướng — chưa xác minh tích hợp, không tự provision |
-| Q-07 | UI/UX nào đạt chất lượng để triển khai? | Visual simplification A trong P00.3, xem hero/card/search | AGREED hướng A; **OPEN nghiệm thu UI P00.3**; không tự bắt đầu P01 |
+| Q-06 | DB D1 hay PostgreSQL managed như Supabase/Neon? | Ưu tiên D1 với Workers cho hướng khởi đầu; kiểm chứng runtime ở P01 | AGREED; local runtime và cloud D1 P01 đã kiểm, CI/Preview còn mở |
+| Q-07 | UI/UX nào đạt chất lượng để triển khai? | Visual simplification A trong P00.3, xem hero/card/search | AGREED dùng A/P00.3 làm baseline P01 theo D-021; nghiệm thu P01 còn mở |
 | Q-08 | Khi vượt quota free: dừng tính năng động hay xin nâng gói? | Dừng job AI/import, giữ nội dung tĩnh; không tự phát sinh chi phí | OPEN trước vận hành cloud |
 
 ## Kết quả audit Phase 00 — 03/11/2026

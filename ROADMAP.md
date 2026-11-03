@@ -1,8 +1,8 @@
 # ROADMAP — Làm nhỏ, kiểm chứng, mở rộng
 
-> P01 IN PROGRESS: local catalog da kiem, D1 staging da co du lieu; con ket noi Workers Builds va cloud-browser QA. Production va P02 chua duoc phep.
+> P01 đang triển khai: local catalog đã kiểm, D1 staging đã có dữ liệu; còn kết nối Workers Builds và cloud browser QA. Production và P02 chưa được phép.
 
-## Phase 00 — Product & technology validation
+## Phase 00 — Product & technology validation (lịch sử)
 
 **Mục tiêu:** chốt phạm vi MVP và thiết kế trước khi Codex code lớn.
 
@@ -114,4 +114,4 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 Mỗi phase ghi: file thay đổi, lệnh chạy với environment, PASS/FAIL/SKIP, những gì **chưa** kiểm thử, migration/rollback và commit/branch thực tế. Nếu có việc cần credential, production, DNS, paid plan, legal/takedown: dừng xin quyết định.
 
-P01 implementation status: source AstroSSR/TypeScript/D1FTS5/localCLI da co, localQA PASS; GitHub repo va account da chot. Chi taoWorker metadata vaD1staging, khonguploadcode. WorkersBuilds API403 va browserhostloi; cho thao tacDashboard de hoan tat Preview tuGitHub. Chi READY FOR REVIEW sau cloudworkflow/browserQA PASS.
+P01 đã có Astro SSR/TypeScript/D1 FTS5/local CLI và local QA PASS. Repo đã chốt, source đã push main/develop đến checkpoint ace99a1. Account đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực; Worker metadata và D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d` đã tạo, đọc lại. Cloud D1 migrate/seed/query PASS. Hai tài nguyên tạo nhầm đã xóa theo yêu cầu, GET kiểm lại trả 404; chưa upload code ứng dụng. Builds API trên account đúng trả HTTP 403, code 10000; browser host lỗi nên chờ chủ dự án thao tác Dashboard. Chỉ READY FOR REVIEW sau khi workflow và browser trên Preview PASS.

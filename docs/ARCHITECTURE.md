@@ -1,6 +1,6 @@
 # ARCHITECTURE — Phương án khởi đầu, có đường lớn lên
 
-> P01 implementation da duoc phe duyet: Astro + TypeScript, Cloudflare Workers/D1, modular monolith. Local runtime va cloudD1 da PASS; chua co deploy/Preview runtime. Production chua duoc phep.
+> P01 được phê duyệt: Astro + TypeScript, Workers/D1, modular monolith. Local runtime và cloud D1 PASS; ứng dụng Preview chưa deploy. Production chưa được phép.
 
 ## 1. Nguyên tắc kiến trúc
 
@@ -110,12 +110,12 @@ FTS là index tái tạo được. D1 hiện có hạn chế export với databa
 - Security: prompt injection README, SSRF, XSS nội dung, spam, forged role/ID, CSRF.
 - Staging có fixture giả, DB/keys tách production; không deploy/live data trước khi An duyệt.
 
-## 10. Physical implementation P01
+## 10. Implementation thực tế P01
 
-`src/lib/catalog.ts` is the narrow D1 query module; `validation.ts` handles localimport boundaries. Astro pages/components renderSSR, nativebrowserJS onlysearch/menu/dialog. No ORM/genericRepository or frontendframework. Runtimeimports cloudflare:workers env.DB; Wranglergeneratedtypes, sessionfalse/imagepassthrough.
+`src/lib/catalog.ts` là module query D1 nhỏ; `validation.ts` xử lý trust boundary của local import. Astro pages/components render SSR; JavaScript native chỉ cho search/menu/dialog. Không ORM/generic Repository/framework frontend khác. Binding qua cloudflare:workers env.DB; types do Wrangler sinh, sessions tắt và image passthrough.
 
-Schema0001: resources + resource_types + categories/tags + resource_categories/resource_tags + sources, FTS5 derivedindex/triggers. Primary type is one displaytype; category/tag many-to-many. Platform storedvalidatedJSON, optionallicense/pricing requireprovenance. No auth/users/ratings/AI/submission tables. Earlierlogicalmodel listsfutureproposals, notcreatedP01tables.
+Schema0001: resources/resource_types/categories/tags/resource_categories/resource_tags/sources và FTS5 index/triggers. Primary type phục vụ trình bày, category/tag nhiều-nhiều. Platform JSON đã validate, license/pricing có nguồn hoặc null. Không bảng users/auth/ratings/AI/submission. Logical model trước đó mô tả các đề xuất dài hạn, không phải bảng P01 đã tạo.
 
-PreparedSQL + published-only + boundedpagination, normalizedVietnameseFTS/tokenquotedMATCH. Resource summariesSSR; searchpreview bounded4. CLIJSONgeneratesupserts, schema uniqueness and atomicD1filebatch; no publicwriteAPI. No outboundfetch ofimportURLs at runtime.
+Prepared SQL, chỉ published, pagination có giới hạn, FTS tiếng Việt đã normalize và quote token MATCH; preview tối đa4. CLI upsert theo ID, DB unique constraints và file batch atomic. Không public mutation API hoặc runtime fetch URL nhập vào.
 
-Localconfig fakeUUID + remotefalse. Stagingconfig account4873c68031c0fc5e0284943a9119dac2, Worker digital-resource-hub-staging, DBfea09243-1d9b-4836-82ac-0dea72ef1668 sameexplicitPreviewbinding. No productiontarget/routes/DNS, extraKV/R2/Images/services. MetadataWorkercreated with0versions; no applicationdeploy. WorkersBuilds preparedbutAPI403 andbrowserhostfailure blockconnection. Do not inferPreview isolationfromURL. One stagedD1sharedbydevelopPreview, neverprojectotherDB.
+Local config UUID giả, remote:false. Account staging đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực; Worker `digital-resource-hub-staging` (ID `0540bcf9fa6448d6843935471fe0265c`), D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d` đã tạo và đọc lại. Binding `DB` ở top-level và Preview cùng trỏ UUID này. Target `approved:true` chỉ sau kiểm ID; guard chặn cứng account và repo khác. Tài nguyên tạo nhầm đã xóa theo [record cleanup](../qa/p01/ctcm-cleanup.json). Không production target/route/DNS/KV/R2/Images/service binding. Worker chỉ metadata, 0 versions, workers.dev tắt, chưa deploy app. Một D1 staging dùng chung Preview develop, không suy isolation từ URL. Workers Builds đang chờ Dashboard vì API trên account đúng trả HTTP 403/code 10000 và browser host lỗi. Common build `npm run ci:build` bỏ qua main, chỉ build develop; `ci:production` no-op, `ci:preview:deploy` có guard. Chưa có Preview URL.

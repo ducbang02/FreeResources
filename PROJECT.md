@@ -1,6 +1,6 @@
 # PROJECT — Cổng tài nguyên số cộng đồng
 
-> P01 IN PROGRESS, da duoc chu du an phe duyet. Astro/TypeScript + Workers/D1, Concept A P00.3 va Noto Sans la baseline. Local runtime va D1 staging da kiem; GitHub-to-Preview chua hoan tat, production chua duoc phep.
+> P01 đang triển khai theo phê duyệt của chủ dự án. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans là baseline. Local runtime và D1 staging đã kiểm; GitHub → Preview còn chờ kết nối Dashboard. Chưa cho phép production.
 
 ## 1. Tầm nhìn
 
@@ -77,7 +77,7 @@ Không đưa vào MVP: tự chạy lệnh trên máy người dùng, tải lại
 
 Xem `docs/DECISIONS.md`. Ưu tiên chốt phạm vi MVP, quy trình kiểm duyệt, tài khoản và hướng UI. Công nghệ ở `docs/ARCHITECTURE.md` là phương án khởi đầu, không phải giấy phép tự deploy.
 
-## 10. Kết quả định hướng Phase 00
+## 10. Kết quả định hướng Phase 00 — lịch sử
 
 - **Đã chốt:** Apple-inspired minimalist editorial, bản sắc riêng, nền trung tính, một màu nhấn, typography và search làm trọng tâm; mobile-first và reduced motion. A/B P00 chưa đạt, ba concept P00.1 chờ chủ dự án review/chọn.
 - **Đã chốt hướng P01:** public catalog trước, ưu tiên Astro + TypeScript + Workers/D1; phải kiểm runtime thật. Auth, community ratings, submissions hoàn chỉnh và AI thật ở phase sau. Chi tiết import/seed local vẫn đề xuất.
@@ -91,12 +91,14 @@ A được chọn làm hướng chính, không đồng nghĩa nghiệm thu giao 
 
 P00.2 có QA Chromium thật45 checks/20 screenshot ở1440/768/390, không còn chỉ mock/static. Physical iOS/Android/keyboard ảo/AT chưa kiểm. Tooling chỉ dev: reuse Context7/Playwright có sẵn, UI UX source guidance; không install/config mới hoặc runtime dependency. Báo cáo `docs/PHASE002_REPORT.md`. P00.2 READY FOR REVIEW, P01 NOT STARTED.
 
-## 12. P00.3 — hướng hiện tại
+## 12. P00.3 — baseline thiết kế và log lịch sử
 
 A giữ Apple-inspired, hero nền trải ngang với ảnh LocalSend desktop/mobile đúng tỷ lệ, headline hai dòng, không đoạn giải thích dư. Home hai card Excalidraw/Godot có icon và hình thật, không rating giả; search overlay giữ các luồng P00.2. Noto Sans Latin/Việt tự host, không cài font hệ thống. Attribution ở Detail/credits, không mất license.
 
 68 browser checks PASS (45 luồng +23 P00.3), 29 PNG trước/sau/bổ sung; font thật/fallback và Excalidraw đã kiểm. [Bàn giao](docs/PHASE003_REPORT.md), [so sánh](qa/p003/index.html). P00.3 READY FOR REVIEW, chờ chủ dự án nghiệm thu. P01 NOT STARTED; không backend/cloud/deploy; B/C và P00 source giữ nguyên.
 
-## 13. P01 hien tai
+## 13. P01 — trạng thái hiện tại
 
-App SSR Astro co Home/Explore/Detail, search overlay API D1, taxonomy tu DB, filter/sort/pagination, localadminJSON co validator. 13tai nguyen/7loai/17nguon; khong auth/rating/submission/AIthat. Local check/build/tests/browser PASS; Worker metadata vaD1staging riengda tao, cloudD1migrate/seed/query PASS. Repo duc bang: `ducbang02/FreeResources`, collaborator `sunny251010`. WorkersBuilds API403, browserhostloi; chu duan ho troDashboard. Chi duocPreview/staging, khongproduction/P02. Bao cao `docs/PHASE01_REPORT.md`. Cac muc NOTSTARTED o logP00 phananhlichsu, duocbriefP01thaythe.
+App Astro SSR có Home/Explore/Detail, overlay tìm kiếm API D1, taxonomy từ DB, filter/sort/phân trang và local CLI có validation. Catalog13 tài nguyên/7 loại/17 nguồn; không auth/rating/submission/Gemini thật. Local check/build/tests/browser PASS. Account staging đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực; Worker metadata và D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d` đã tạo, đọc lại. Cloud D1 migrate/seed/query PASS; tài nguyên tạo nhầm đã xóa và kiểm 404.
+
+Repo `ducbang02/FreeResources` hiện public; cộng tác viên/tác giả `sunny251010` được chủ dự án cho phép. Baseline `c862af9`, app `ddae9fe` và đính chính `ace99a1` đã push cả main/develop. Builds API trên account đúng trả HTTP 403, code 10000; browser host lỗi nên chủ dự án hỗ trợ Dashboard. Chưa có deployment ứng dụng hoặc Preview URL. Chỉ Preview/staging được phép, không production/P02. Báo cáo [P01](docs/PHASE01_REPORT.md); các log P00 NOT STARTED là lịch sử đã được brief P01 thay thế.

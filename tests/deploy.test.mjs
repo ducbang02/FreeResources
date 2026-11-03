@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {validateTarget,validateConfig,validateCi,deploymentPlan} from '../scripts/preview.mjs';
 
-const target={approved:true,accountId:'1234567890abcdef1234567890abcdef',workerName:'digital-resource-hub-staging',databaseName:'digital-resource-hub-staging',databaseId:'01345678-90ab-4def-8123-456789abcdef',repository:'example-owner/digital-resource-hub',branch:'develop',previewName:'develop'};
+const target={approved:true,accountId:'4ca521c6746d874c049fd829121ab59e',workerName:'digital-resource-hub-staging',databaseName:'digital-resource-hub-staging',databaseId:'01345678-90ab-4def-8123-456789abcdef',repository:'ducbang02/FreeResources',branch:'develop',previewName:'develop'};
 const binding={binding:'DB',database_name:target.databaseName,database_id:target.databaseId,migrations_dir:'../migrations',remote:false};
 const config={name:target.workerName,account_id:target.accountId,main:'@astrojs/cloudflare/entrypoints/server',workers_dev:false,assets:{binding:'ASSETS',directory:'../dist'},d1_databases:[binding],vars:{APP_ENV:'staging'},previews:{vars:{APP_ENV:'staging'},d1_databases:[structuredClone(binding)]}};
 const sha='a'.repeat(40),environment={WORKERS_CI:'1',WORKERS_CI_BRANCH:'develop',WORKERS_CI_COMMIT_SHA:sha};
@@ -39,4 +39,10 @@ test('Common Builds command skips main and rejects local or unapproved branches'
   const local=spawnSync(process.execPath,['scripts/build-worker.mjs'],{encoding:'utf8',env:{...process.env,WORKERS_CI:''}});assert.notEqual(local.status,0);
   const main=spawnSync(process.execPath,['scripts/build-worker.mjs'],{encoding:'utf8',env:{...process.env,WORKERS_CI:'1',WORKERS_CI_BRANCH:'main'}});assert.equal(main.status,0);assert.ok(main.stdout.includes('intentionally skipped'));
   const feature=spawnSync(process.execPath,['scripts/build-worker.mjs'],{encoding:'utf8',env:{...process.env,WORKERS_CI:'1',WORKERS_CI_BRANCH:'feature/not-approved'}});assert.notEqual(feature.status,0);
+});
+
+test('Confirmed account is independent of login email; wrong Ctcm target cannot be re-approved',()=>{
+  for(const accountId of ['4873c68031c0fc5e0284943a9119dac2','a'.repeat(32)])assert.throws(()=>validateTarget({...target,accountId}),/user-confirmed account/);
+  assert.throws(()=>validateTarget({...target,repository:'other-owner/FreeResources'}),/user-confirmed/);
+  assert.equal(validateTarget(target).accountId,'4ca521c6746d874c049fd829121ab59e');
 });

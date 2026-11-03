@@ -1,6 +1,6 @@
-﻿# SETUP — P01 / Windows / Astro + Workers + D1
+# SETUP — P01 / Windows / Astro + Workers + D1
 
-Ngày03/11/2026. Node24.18.0/npm12.2.0 được dùng. Lockfile pin Astro7.4.5, adapter14.4.4, Wrangler4.156.2, TypeScript6.0.3, checker0.9.12, Node types24.19.2. Không CLI global/framework frontend khác.
+Ngày 03/11/2026. Node 24.18.0/npm 12.2.0 được dùng. Lockfile pin Astro7.4.5, adapter14.4.4, Wrangler4.156.2, TypeScript6.0.3, checker0.9.12, Node types24.19.2. Không CLI global/framework frontend khác.
 
 ## Cài, chạy và kiểm thử
 
@@ -23,7 +23,7 @@ npm test
 npm run build
 ```
 
-Check sinh worker-configuration.d.ts rồi Astro check; không tự viết Env. File sinh/node_modules/dist/.astro/.wrangler/.cache không commit. 20 tests gồm validator, SQL/FTS/facets/draft/upsert/duplicates và guard CI; SQLite PASS không thay cloud PASS.
+Check sinh worker-configuration.d.ts rồi Astro check; không tự viết Env. File sinh/node_modules/dist/.astro/.wrangler/.cache không commit. 21 tests gồm validator, SQL/FTS/facets/draft/upsert/duplicates và guard CI; SQLite PASS không thay cloud PASS.
 
 Browser QA dùng Playwright Core đã có, không runtime dependency:
 
@@ -71,8 +71,9 @@ git -c safe.directory=D:/Workspace/FreeResources status
 
 ## Cloudflare Preview qua GitHub
 
-Account4873c68031c0fc5e0284943a9119dac2 qua login nguyenducbang.uit@gmail.com. Worker staging metadata-only ID000318f0fc78496aad07c79236818428, tên digital-resource-hub-staging, workers.dev tắt, chưa upload code. D1 riêng cùng tên IDfea09243-1d9b-4836-82ac-0dea72ef1668: migrate/13resources/17sources/FTS/FK cloud PASS. Không DB dự án khác/production.
+Account đúng `4ca521c6746d874c049fd829121ab59e` — Nguyenducbang.uit@gmail.com's Account — đã xác thực và đối chiếu bằng whoami. Worker `digital-resource-hub-staging` (ID `0540bcf9fa6448d6843935471fe0265c`) và D1 cùng tên (ID `e28f4099-92cf-40bc-ab8c-c47138b4469d`) đã tạo, đọc lại; D1 migrate/seed/query PASS. Worker chỉ có metadata, 0 versions, workers.dev tắt; chưa deploy app. Hai tài nguyên tạo nhầm đã xóa và GET trả 404, xem [bằng chứng](docs/PHASE01_CLOUD_CONNECTION.md). Target hiện `approved:true` sau kiểm ID; artifact từ account sai đã hủy. Artifact staging đã build mới trên account đúng, generated config kiểm PASS cả DB top-level/Preview; dry-run PASS, không upload. Git giữ nguyên ducbang02/FreeResources, push bằng sunny251010.
 
+Phiên Wrangler global cũ chỉ truy cập Ctcm. Device login của dự án dùng XDG_CONFIG_HOME=.cache/free-resources-auth và XDG_CACHE_HOME=.cache/free-resources-auth-cache; thư mục đã ignore, không đổi HOME hoặc profile global. Named profile auth không hỗ trợ device flow trong phiên bản này. Không đọc/in/copy token vào chat/Git. Xác thực dự án đã thành công; whoami khớp account đích. Mỗi lệnh Wrangler có dùng phiên này phải đặt hai biến XDG trên theo đường dẫn tuyệt đối trong workspace; không đọc/copy file auth. Guard CI chặn cứng account khác đích và repo khác ducbang02/FreeResources.
 [Runbook Dashboard](docs/PHASE01_PREVIEW_RUNBOOK.md) và [bằng chứng kết nối](docs/PHASE01_CLOUD_CONNECTION.md). Các ô phải đặt trước lần build đầu:
 
 | Ô | Giá trị |
@@ -83,11 +84,11 @@ Account4873c68031c0fc5e0284943a9119dac2 qua login nguyenducbang.uit@gmail.com. W
 | Deploy command | npm run ci:production |
 | Preview builds | Bật, include chỉ develop |
 | Preview command | npm run ci:preview:deploy |
-| Build variable | NODE_VERSION=24.18.0 |
+| Runtime | `.node-version`: 24.18.0; `packageManager`: npm@12.2.0; biến NODE_VERSION trong UI là tùy chọn |
 
 ci:build bỏ qua main, chỉ checks/build staging trên develop; nhánh khác bị từ chối. ci:production no-op, không upload/migrate/deploy. Preview wrapper yêu cầu native CI branch/commit/origin/clean tree, proof local checks/build và đúng account/DB trước remote migration/seed/Preview. Một Workers Builds pipeline, không Actions song song; GitHub App chỉ đúng repo.
 
-OAuth hiện đủ Worker/D1 nhưng Builds API403; Browser Use/Computer Use host không khởi tạo được. Chủ dự án hỗ trợ nối Dashboard. Không gửi token/mật khẩu vào chat. Chỉ sau connection/branch controls, build GitHub thật và cloud browser PASS mới nghiệm thu deploy workflow. Noindex không phải access control.
+OAuth dự án hiện đủ Worker/D1; Builds API được kiểm riêng trên account đúng vẫn trả HTTP 403, code 10000. Browser Use/Computer Use host không khởi tạo được. Chủ dự án hỗ trợ nối Dashboard. Không gửi token/mật khẩu vào chat. Chỉ sau connection/branch controls, build GitHub thật và cloud browser PASS mới nghiệm thu deploy workflow. Noindex không phải access control.
 
 ## Production dự kiến, chưa thực hiện
 

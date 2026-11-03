@@ -1,65 +1,69 @@
-# P01 — Cloudflare connection evidence
+# P01 — Bằng chứng kết nối Cloudflare
 
-Ngày 03/11/2026. Lane kết nối dùng tài liệu Cloudflare chính thức, Context7 và project-local Wrangler4.156.2. Không thêm CLI/package, không đọc browser profile/cookie và không lưu credential vào source/log.
+Ngày 03/11/2026. Trạng thái hiện tại: **xác thực và tài nguyên đúng account PASS; Workers Builds/Preview chưa hoàn tất**. Tài liệu này thay các bảng account sai trong ghi nhận chuẩn bị trước đó; lịch sử cleanup được giữ riêng bên dưới.
 
-## Đích đã được xác nhận
+## Đích hiện tại đã xác minh
 
-Chủ dự án đã chỉ định `https://github.com/ducbang02/FreeResources.git` và phiên Cloudflare đăng nhập bằng `nguyenducbang.uit@gmail.com`. Root xác nhận Git dùng tài khoản cộng tác viên `sunny251010` có quyền trên repo; không cần đổi sang owner hoặc tạo account Cloudflare khác.
-
-| Resource | Giá trị / phạm vi |
+| Mục | Giá trị |
 | --- | --- |
-| Account ID | `4873c68031c0fc5e0284943a9119dac2` |
-| D1 staging do root tạo | `digital-resource-hub-staging` · `fea09243-1d9b-4836-82ac-0dea72ef1668` |
-| Worker staging | `digital-resource-hub-staging` |
-| Worker immutable ID | `000318f0fc78496aad07c79236818428` |
-| Worker tags | `digital-resource-hub`, `staging` |
-| Worker workers.dev enabled | `false` |
-| Preview URLs enabled setting | `true` |
-| Worker versions tại thời điểm kiểm | **0** |
+| GitHub | [ducbang02/FreeResources](https://github.com/ducbang02/FreeResources), public |
+| Tác giả và tài khoản push | `sunny251010`, đã được chủ dự án duyệt |
+| Account Cloudflare | `4ca521c6746d874c049fd829121ab59e` |
+| Nhãn account | Nguyenducbang.uit@gmail.com's Account |
+| Xác thực | OAuth dự án thành công; whoami khớp chính xác account ID |
+| Worker staging | `digital-resource-hub-staging`, ID `0540bcf9fa6448d6843935471fe0265c` |
+| Worker runtime | Chỉ metadata, 0 versions, workers.dev tắt; chưa deploy ứng dụng |
+| D1 staging cùng tên | `e28f4099-92cf-40bc-ab8c-c47138b4469d` |
+| D1 đã kiểm | Migrate/seed/query PASS: 13 tài nguyên, 17 nguồn, FK 0, FTS LocalSend |
+| Target/bindings | approved:true sau đọc lại; DB top-level và Preview cùng UUID trên |
 
-Không tạo Worker production, domain/DNS hoặc liên kết resource từ dự án khác. D1 staging chưa được chứng minh có dữ liệu cloud từ lane này; root phải chạy migration vào đúng ID và kiểm runtime riêng.
+[Bằng chứng tạo/đọc lại](../qa/p01/cloud-resources.json), [kết quả D1 cloud](../qa/p01/cloud-d1.json). Account ID/Worker ID/D1 ID không phải credential. Không có Preview URL hoặc deployment ứng dụng đã nghiệm thu.
 
-## Worker được tạo mà không deploy ứng dụng
+Phiên dự án dùng `XDG_CONFIG_HOME=.cache/free-resources-auth` và `XDG_CACHE_HOME=.cache/free-resources-auth-cache`, đặt theo từng lệnh bằng đường dẫn tuyệt đối trong workspace. Không đổi HOME hoặc credential global Ctcm. Cache đã ignore; không đọc/in/copy token, cookie hoặc file auth vào chat/source/log. Không cần đổi tài khoản GitHub cộng tác viên sang owner.
 
-API mới [Create Worker](https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/methods/create/) cho phép tạo parent resource bằng JSON metadata. [Changelog chính thức](https://developers.cloudflare.com/changelog/post/2025-09-03-new-workers-api/) phân biệt Worker, Version và Deployment; tạo parent không cần upload code.
+## Lịch sử chọn sai account và cleanup đã hoàn tất
 
-Đã kiểm exact-name `GET /accounts/{account_id}/workers/workers/digital-resource-hub-staging` trả404, sau đó thực hiện **một** POST vào `/accounts/{account_id}/workers/workers`, chỉ có name/tags/subdomain settings đã được root duyệt. POST200; đọc lại Worker200 và danh sách versions200, count0. Không gọi version upload hoặc deployment endpoint.
+Ban đầu đã nhầm email đăng nhập với account và tạo tài nguyên ở Ctcm `4873c68031c0fc5e0284943a9119dac2`. Kết quả này đã rút khỏi nghiệm thu P01; target/proof sai bị thu hồi, artifact staging cũ bị xóa. Commit `ace99a1` đã push để khóa target sai, giữ nguyên lịch sử.
 
-Response có trường URL `https://digital-resource-hub-staging.ctcm251010.workers.dev`, nhưng `enabled:false` và chưa có version. Đây là địa chỉ dự kiến do account suffix cung cấp, **không phải website đang chạy hoặc Preview URL đã nghiệm thu**. Không dùng URL này làm bằng chứng deploy thành công.
+Người dùng sau đó yêu cầu xóa cả hai tài nguyên của dự án đã tạo nhầm:
 
-## Blocker chính xác của Workers Builds
+| Tài nguyên đã xóa | ID lịch sử | Đọc lại |
+| --- | --- | --- |
+| Worker digital-resource-hub-staging | `000318f0fc78496aad07c79236818428` | GET 404 |
+| D1 digital-resource-hub-staging | `fea09243-1d9b-4836-82ac-0dea72ef1668` | GET 404 |
 
-Wrangler có OAuth hợp lệ cho Workers Scripts/D1. Kiểm bằng API chỉ đọc trong account đã xác nhận:
+[Proof cleanup](../qa/p01/ctcm-cleanup.json). Không xóa tài nguyên khác. Worker cũ chỉ có metadata, chưa có code deployment. ID cũ chỉ dùng đối chiếu lịch sử; target hiện tại dùng account/D1 mới.
 
-| Endpoint | Kết quả |
+## Blocker Workers Builds trên account đúng
+
+Probe đã được chạy lại trên **account đúng**, kết quả **HTTP 403, Cloudflare error code 10000** được lưu trong [cloud-resources.json](../qa/p01/cloud-resources.json). Đây là bằng chứng mới độc lập, không kế thừa kết luận quyền từ account cũ. OAuth dùng được Workers/D1 không chứng minh đủ quyền cấu hình Builds.
+
+Theo [Builds API reference](https://developers.cloudflare.com/workers/ci-cd/builds/api-reference/), cấu hình Builds qua API cần user-scoped token và quyền Builds tương ứng. Chủ dự án đã chọn **hỗ trợ Dashboard cho phiên này**, không tạo/gửi token vào chat. Không yêu cầu re-login OAuth lặp lại để giải quyết quyền Builds chưa được cấp. HTTP 403 không chứng minh GitHub App chưa cài.
+
+Browser Use và Computer Use đều không khởi tạo được do sandbox helper. Không đọc browser profile/cookie để vượt giới hạn. Người dùng hỗ trợ account đúng → Workers & Pages → `digital-resource-hub-staging` → Settings → Builds → Connect. Nếu cần cài GitHub App, chỉ cấp repo `ducbang02/FreeResources`; không mở toàn bộ repo.
+
+## Kết nối và nghiệm thu còn lại
+
+Dùng [runbook Preview](PHASE01_PREVIEW_RUNBOOK.md), đọc lại cấu hình trước build đầu:
+
+| Setting | Giá trị |
 | --- | --- |
-| `GET /workers/scripts` |200, dùng để xác minh parent target; không sửa Worker khác |
-| `GET /builds/workers` |403, Cloudflare error10000 `Authentication error` |
-| `GET /builds/tokens` |403, error10000 |
-| `GET /builds/account/limits` |403, error10000 |
+| Repository | ducbang02/FreeResources |
+| Production branch | main |
+| Build command | `npm run ci:build` |
+| Deploy command | `npm run ci:production` — no-op |
+| Preview builds | Bật, include chỉ develop |
+| Preview command | `npm run ci:preview:deploy` |
+| Runtime | Node 24.18.0 từ .node-version; npm 12.2.0 từ packageManager |
 
-Token được lấy bằng `wrangler auth token --json` qua subprocess, giữ **chỉ trong bộ nhớ** cho Authorization header. Không in, lưu file, gửi vào chat hoặc commit token. Chỉ status/error code và metadata cần thiết được báo cáo.
+Common build bỏ qua main, chỉ checks/build staging trên develop; các nhánh khác bị từ chối. Guard kiểm cứng account/repo, CI branch/commit/origin/clean tree, artifact và D1 identity trước migration/seed/Preview. Binding Preview phải cùng D1 staging đã duyệt. Chỉ một Workers Builds pipeline, không Actions song song.
 
-Theo [Builds API reference](https://developers.cloudflare.com/workers/ci-cd/builds/api-reference/), cần **user-scoped API token** với **Workers Builds Configuration — Edit**; Workers Scripts — Read dùng để đọc script tag. Account-scoped token không được hỗ trợ cho Builds API. Token gọi API khác với build token dùng khi CI triển khai; CI cần build token UUID riêng. Một phiên Wrangler có quyền deploy Worker không tự chứng minh có quyền cấu hình Builds.
+Sau connection cần build thật từ GitHub, URL thật, cloud browser/runtime/D1 PASS và push develop tiếp theo chứng minh tự cập nhật. Chưa READY FOR REVIEW từ việc tạo Worker hoặc D1. Không production, DNS, paid service hoặc P02.
 
-Đã kiểm `wrangler login --scopes-list` và validator của bản4.156.2: Builds không nằm trong `DefaultScopeKeys` được flow OAuth Wrangler chấp nhận. Các chuỗi `workers_builds:read/write` trong bundle thuộc `CF_CLIENT_REGISTERED_SCOPES` của **cf client khác**, không phải bằng chứng có thể thêm bằng `wrangler login --scopes`. Không reauthenticate mù hoặc sửa validator để vượt scope.
+## Nguồn đã dùng trong nghiên cứu ban đầu
 
-403 khiến lane chưa thể biết Cloudflare GitHub App đã được cài cho owner `ducbang02` và repo này hay chưa. **Không kết luận App chưa cài.** Theo [GitHub integration](https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/github-integration/), owner/người có quyền cần cấp GitHub App quyền trên đúng repository trước khi Cloudflare đọc source. Nếu cần thao tác trên dashboard, browser session phải có mặt; CUA của root hiện lỗi sandbox helper, không được lấy cookie từ profile để né giới hạn.
+- [Create Worker](https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/methods/create/) và [Workers API changelog](https://developers.cloudflare.com/changelog/post/2025-09-03-new-workers-api/): parent Worker có thể tạo metadata mà chưa upload version/deployment.
+- [GitHub integration](https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/github-integration/): quyền GitHub App trên đúng repository.
+- [Preview configuration](https://developers.cloudflare.com/workers/previews/configuration/): runtime bindings cần khai báo riêng.
 
-## Kế hoạch kết nối cụ thể sau khi có quyền Builds
-
-1. Người dùng tạo user API token tại [Cloudflare API tokens](https://dash.cloudflare.com/profile/api-tokens), cấp Builds Configuration Edit và Scripts Read cho account được xác nhận; giữ trong secret manager hoặc môi trường local được bảo vệ, **không dán giá trị vào chat/source/command arguments**. Token triển khai CI cũng cần đúng quyền Worker staging và D1 staging nếu pipeline áp migration. Không dùng account token để thay user token của Builds API.
-2. Nếu GitHub App chưa có quyền, mở account → Workers & Pages → đúng Worker `digital-resource-hub-staging` → Settings → Builds → Connect. Cấp GitHub App quyền **chỉ repo** `ducbang02/FreeResources`; không mở quyền toàn bộ repository theo mặc định.
-3. Root đọc lại trạng thái connection/token bằng API. Chỉ chọn **một** Workers Builds pipeline, không bật thêm GitHub Actions song song.
-4. Cấu hình production branch `main` với deploy command `node scripts/no-production.mjs` chỉ báo dừng, không remote migration/upload/deploy. Nhánh `develop` chạy Preview wrapper có guard target/branch/commit, D1 staging riêng và noindex.
-5. Đọc lại cấu hình trước push/trigger; xác minh preview DB là ID staging ở bảng trên. Chỉ sau local tests PASS mới chạy staging migration và Preview từ GitHub. Cuối cùng kiểm URL thật, search/Detail/D1/runtime và kết quả build.
-
-API tổng hợp chính thức hiện dùng `POST /accounts/{account_id}/builds/workers` với `script_tag`, `git_repository`, `production_settings`, `previews_enabled`, `previews_base_config`. Đọc lại bằng `GET /builds/workers/{worker_tag}`; sửa bằng PATCH cùng path. Không thay endpoint suy từ phiên bản documentation cũ. Cấu hình runtime Preview khác build environment variables; xem [Preview configuration](https://developers.cloudflare.com/workers/previews/configuration/).
-
-## PASS / FAIL / SKIP
-
-- **PASS:** xác minh danh tính/account, endpoint/resource đích; tạo parent Worker metadata-only và đọc lại;0 versions, không deployment.
-- **FAIL quyền hiện tại:** Workers Builds API403 do scope OAuth hiện có không đủ. Đây là lỗi authorization của API, không phải automatic approval review rejection.
-- **SKIP:** GitHub App inspection/connection, Builds configuration, Preview build/deployment/cloud-browser QA vì chưa có quyền Builds trong lane này. Không báo READY FOR REVIEW chỉ từ việc tạo Worker hoặc D1.
-
-Root tiếp tục kiểm local và cập nhật tracker/bàn giao. Không triển khai production hoặc tự chuyển P02.
+Các nguồn này giải thích lựa chọn triển khai; kết quả cloud hiện tại dựa trên proof JSON nêu trên. [Báo cáo P01](PHASE01_REPORT.md) ghi đầy đủ PASS/FAIL/SKIP và Git checkpoint.

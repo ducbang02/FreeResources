@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/wrangler/config-schema.json",
   "name": "digital-resource-hub-staging",
-  "account_id": "00000000000000000000000000000000",
+  "account_id": "4ca521c6746d874c049fd829121ab59e",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-11-03",
   "compatibility_flags": [
@@ -17,7 +17,7 @@
     {
       "binding": "DB",
       "database_name": "digital-resource-hub-staging",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
       "migrations_dir": "../migrations",
       "remote": false
     }
@@ -40,7 +40,7 @@
       {
         "binding": "DB",
         "database_name": "digital-resource-hub-staging",
-        "database_id": "00000000-0000-0000-0000-000000000000",
+        "database_id": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
         "migrations_dir": "../migrations",
         "remote": false
       }

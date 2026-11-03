@@ -1,0 +1,17 @@
+{
+  "status": "RESOURCES_VERIFIED",
+  "accountId": "4ca521c6746d874c049fd829121ab59e",
+  "workerName": "digital-resource-hub-staging",
+  "workerId": "0540bcf9fa6448d6843935471fe0265c",
+  "databaseName": "digital-resource-hub-staging",
+  "databaseId": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
+  "versions": 0,
+  "workersDevEnabled": false,
+  "buildsApi": {
+    "http": 403,
+    "errorCodes": [
+      10000
+    ]
+  },
+  "timestamp": "2026-11-03T10:59:06.532Z"
+}

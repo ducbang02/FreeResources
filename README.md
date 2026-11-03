@@ -1,9 +1,9 @@
 # Nếp — Digital Resource Hub
-> ĐÍNH CHÍNH ACCOUNT: Đích đúng là 4ca521c6746d874c049fd829121ab59e. Tài nguyên đã tạo ở Ctcm4873…dac2 là sai account, không được nghiệm thu cho P01. Target cũ đã approved:false, ID thật đã gỡ khỏi config; chưa deploy ứng dụng. Chờ xác thực đúng account trước khi tạo lại.
+> Account staging đã xác minh: 4ca521c6746d874c049fd829121ab59e — Nguyenducbang.uit@gmail.com's Account. Worker/D1 đúng account đã tạo và đọc lại; tài nguyên tạo nhầm đã xóa theo yêu cầu. [Bằng chứng](docs/PHASE01_CLOUD_CONNECTION.md).
 
 Ứng dụng Astro + TypeScript, Cloudflare Workers/D1, giao diện Concept A theo P00.3 và Noto Sans. Catalog có **13 tài nguyên thật, 7 loại và 17 nguồn kiểm chứng**. Không auth, rating, submission hoặc AI API thật trong P01.
 
-**P01 còn chờ kết nối Workers Builds và kiểm Preview.** Local typecheck/build, 20 tests, D1 và browser đã PASS. Worker/D1 staging riêng đã tạo, D1 cloud migrate/seed/query PASS. Chưa deploy ứng dụng, chưa có Preview URL; không triển khai production.
+**P01 còn chờ kết nối Workers Builds và kiểm Preview.** Local typecheck/build, 21 tests, D1 và browser đã PASS. Cloud D1 trên account đúng đã PASS: 13 tài nguyên, 17 nguồn, không lỗi khóa ngoại và FTS tìm thấy LocalSend. Chưa deploy ứng dụng, chưa có Preview URL; không triển khai production.
 
 ## Chạy local trên Windows
 
@@ -28,9 +28,9 @@ npm run build
 
 - Repo: [ducbang02/FreeResources](https://github.com/ducbang02/FreeResources), cộng tác viên/tác giả `sunny251010` được chủ dự án duyệt.
 - `main`: release khóa, production command no-op. `develop`: Preview khi Workers Builds được kết nối.
-- Worker/D1: `digital-resource-hub-staging`; `DB` riêng ID `fea09243-1d9b-4836-82ac-0dea72ef1668`.
+- Account staging: `4ca521c6746d874c049fd829121ab59e`; Worker `digital-resource-hub-staging`, D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d`. Target chỉ được `approved:true` sau khi đọc lại đúng ID.
 - `wrangler.jsonc` chỉ local; staging dùng `deploy/wrangler.staging.json`. Không có production target.
-- Chỉ một Workers Builds pipeline, không thêm Actions song song. OAuth không có quyền Builds API; browser host lỗi nên chủ dự án hỗ trợ Dashboard.
+- Chỉ một Workers Builds pipeline, không thêm Actions song song. Builds API trên account đúng trả HTTP 403, code 10000; Browser Use/Computer Use không khởi tạo được nên chủ dự án hỗ trợ Dashboard.
 
 License/platform/pricing chưa có bằng chứng được để trống hoặc ẩn. Không host installer/ISO/tài liệu/game từ nguồn khác. Nội dung là tóm tắt có nguồn, không giả review đã dùng mọi sản phẩm.
 
