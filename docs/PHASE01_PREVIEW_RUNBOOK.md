@@ -19,7 +19,7 @@ Config `previews.d1_databases` phải khai báo rõ và trỏ đúng D1 staging;
 | `deploy/wrangler.staging.json.example` | Config riêng cho staging, top-level/Preview cùng D1, parent workers.dev disabled |
 | `scripts/preview.mjs` | Plan/build/deploy với kiểm target, source và artifact, branch/repo/commit, D1 identity |
 | `scripts/no-production.mjs` | Không mutation; chỉ báo production bị chặn và exit0 |
-| `tests/deploy.test.mjs` | Tám nhóm guard kiểm sai target/branch/binding/account, fork, resource ngoài scope và no-op production |
+| `tests/deploy.test.mjs` | Chín nhóm guard kiểm sai target/branch/binding/account, fork/host giả, checkout URL có credentials, resource ngoài scope và no-op production |
 
 Đã có `deploy/staging-target.json` và `deploy/wrangler.staging.json` sau xác nhận: account `4ca521c6746d874c049fd829121ab59e`, Worker đích `digital-resource-hub-staging`, D1 mới cùng tên với ID `e28f4099-92cf-40bc-ab8c-c47138b4469d`, repo `ducbang02/FreeResources`. Worker ID đã đọc lại là `0540bcf9fa6448d6843935471fe0265c`; có 1 version khởi tạo chưa deploy, không bindings, workers.dev tắt (xem [chẩn đoán Connect](PHASE01_CLOUD_CONNECTION.md#chẩn-đoán-nút-connect-bị-khóa)). Target `approved:true` sau xác minh; guard chặn cứng account/repo khác. Account ID và database ID không phải credential; không đặt token trong JSON. Bất kỳ field target lạ, placeholder, Worker/DB không phải staging, binding không khớp hoặc resource ngoài scope đều bị chặn. Template chưa duyệt vẫn giữ làm ví dụ tái sử dụng, không được coi là target thật.
 

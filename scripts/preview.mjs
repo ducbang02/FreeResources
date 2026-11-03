@@ -63,8 +63,21 @@ export function validateCi(environment,target,{head,remoteHead,origin}){
   requireThat(!environment.GITHUB_EVENT_NAME||environment.GITHUB_EVENT_NAME==='push','Pull request/event deployment is forbidden.');
   requireThat(!environment.CI_PULL_REQUEST&&!environment.CHANGE_ID,'Pull request deployment is forbidden.');
   requireThat(/^[a-f0-9]{40}$/.test(head)&&environment.WORKERS_CI_COMMIT_SHA===head&&head===remoteHead,'Commit must equal the approved repository develop HEAD.');
-  const expected=`https://github.com/${target.repository}`;
-  requireThat(origin===expected||origin===expected+'.git'||origin===`git@github.com:${target.repository}.git`,'Origin is not the approved repository.');
+  // CI may include checkout credentials in HTTPS remotes. Compare repository
+  // identity, never the credential-bearing URL, and never print that URL.
+  let repository;
+  if(/^git@github\.com:/i.test(origin))repository=origin.slice('git@github.com:'.length);
+  else {
+    try {
+      const url=new URL(origin);
+      if(url.hostname==='github.com'&&!url.search&&!url.hash&&(
+        (url.protocol==='https:'&&!url.port)||
+        (url.protocol==='ssh:'&&url.username==='git'&&(!url.port||url.port==='22'))
+      ))repository=url.pathname.slice(1);
+    } catch { /* Reject unsupported transports without exposing checkout credentials. */ }
+  }
+  requireThat(repository?.replace(/\/$/,'').replace(/\.git$/i,'').toLowerCase()===target.repository.toLowerCase(),
+    'Origin is not the approved repository (credentials omitted; require GitHub HTTPS or SSH and the exact owner/repo).');
 }
 export function deploymentPlan(target){
   validateTarget(target);

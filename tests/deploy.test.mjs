@@ -27,7 +27,31 @@ test('Extra resources, routes, secrets and hidden Preview bindings are forbidden
 test('Only trusted Workers Builds develop HEAD may deploy; branch name alone is insufficient',()=>{
   validateCi(environment,target,git);
   for(const e of [{}, {...environment,WORKERS_CI_BRANCH:'main'}, {...environment,WORKERS_CI_BRANCH:'release'}, {...environment,WORKERS_CI_BRANCH:'feature/test'}, {...environment,WORKERS_CI_COMMIT_SHA:'b'.repeat(40)}, {...environment,GITHUB_EVENT_NAME:'pull_request_target'}, {...environment,CI_PULL_REQUEST:'https://github.com/pull/1'}])assert.throws(()=>validateCi(e,target,git));
-  for(const g of [{...git,origin:'https://github.com/fork/repo.git'}, {...git,remoteHead:'b'.repeat(40)}, {...git,origin:'https://token@github.com/'+target.repository+'.git'}])assert.throws(()=>validateCi(environment,target,g));
+  for(const g of [{...git,origin:'https://github.com/fork/repo.git'}, {...git,remoteHead:'b'.repeat(40)}])assert.throws(()=>validateCi(environment,target,g));
+});
+
+test('CI checkout credentials and GitHub URL variants preserve exact repository identity',()=>{
+  for(const origin of [
+    'https://x-access-token:fixture-only@github.com/ducbang02/FreeResources.git',
+    'https://fixture-only@github.com/ducbang02/FreeResources',
+    'https://github.com/ducbang02/freeresources.git/',
+    'git@github.com:ducbang02/FreeResources.git',
+    'ssh://git@github.com:22/ducbang02/FreeResources.git',
+  ])assert.doesNotThrow(()=>validateCi(environment,target,{...git,origin}));
+  for(const origin of [
+    'https://github.com.evil.example/ducbang02/FreeResources.git',
+    'https://github.com@evil.example/ducbang02/FreeResources.git',
+    'https://fixture-only@github.com/fork/FreeResources.git',
+    'https://github.com/ducbang02/FreeResources-evil.git',
+    'http://github.com/ducbang02/FreeResources.git',
+    'https://github.com:8443/ducbang02/FreeResources.git',
+    'https://github.com/ducbang02/FreeResources.git?token=fixture-only',
+    'file:///opt/buildhome/repo',
+  ])assert.throws(()=>validateCi(environment,target,{...git,origin}),error=>
+    error.message.includes('Origin is not the approved repository')&&!error.message.includes('fixture-only'));
+  const origin='https://x-access-token:fixture-only@github.com/ducbang02/FreeResources.git';
+  assert.throws(()=>validateCi(environment,target,{...git,origin,remoteHead:'b'.repeat(40)}),/Commit must equal/);
+  assert.throws(()=>validateCi({...environment,WORKERS_CI_BRANCH:'main'},target,{...git,origin}),/on develop/);
 });
 test('Preview command plan can only mutate staging D1 and Preview, never production deploy',()=>{
   const commands=deploymentPlan(target);assert.equal(commands.length,3);assert.equal(commands[0][0],'d1');assert.ok(commands[0].includes('--remote'));assert.ok(commands[1].includes('--file'));assert.equal(commands[2][0],'preview');assert.ok(commands[2].includes('--ignore-base-config'));assert.equal(commands[2][commands[2].indexOf('--worker-name')+1],target.workerName);assert.ok(commands.every(c=>!c.includes('deploy')&&!c.includes('versions')&&!c.includes('create')));

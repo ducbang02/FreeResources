@@ -52,6 +52,8 @@ Chủ dự án xác nhận Connect bị mờ và con trỏ cấm thao tác. Đ�
 
 Ảnh chủ dự án cung cấp xác nhận repo `ducbang02/FreeResources`, production branch `main`, build `npm run ci:build`, deploy `npm run ci:production`, Version command `npm run ci:preview:deploy`, root `/`, non-production builds bật. Token riêng `free-resources-staging-build` có D1 Edit và account đúng; không sửa token dự án khác. [Ghi nhận settings](../qa/p01/builds-dashboard.json). Dashboard đang bật các nhánh non-production; guard trong repo chỉ cho develop vượt qua. Chưa chứng minh build/Preview thành công; cần push develop rồi đọc log thật. Banner đề nghị đổi tên trong root wrangler là cảnh báo cần theo dõi: config local được giữ riêng, build staging chủ động chọn `deploy/wrangler.staging.json`.
 
+Build đầu `fdbb35ab` từ develop `2be13d0` đã clone/cài dependencies đúng Node/npm, nhưng FAIL ở kiểm origin trước migration/upload. [Record](../qa/p01/build-origin-failure.json). Guard được sửa để so danh tính GitHub host/repository bằng URL parser thay vì so toàn chuỗi chứa credentials; không cho fork/host khác, vẫn kiểm SHA từ develop chính thức. 22 tests local PASS; cloud retest chưa có kết quả. Không in origin hoặc credentials vào log. Chưa cần đổi build settings để xử lý lỗi này.
+
 Dùng [runbook Preview](PHASE01_PREVIEW_RUNBOOK.md), đọc lại cấu hình trước build đầu:
 
 | Setting | Giá trị |

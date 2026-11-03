@@ -41,7 +41,7 @@ Schema 0001 có resources/resource_types/categories/tags/resource_categories/res
 | Validation | Kết quả và giới hạn |
 | --- | --- |
 | Typecheck | PASS: 0 errors/warnings/hints |
-| Unit/SQLite/CI | PASS: 21 tests, gồm 13 catalog và 8 guard; từ chối account sai |
+| Unit/SQLite/CI | PASS: 22 tests, gồm 13 catalog và 9 guard; từ chối account sai, fork và URL giả; nhận URL checkout GitHub có credentials mà không log credentials |
 | Local D1 | PASS: migrate/seed/query, restore riêng, FK/FTS và atomic rollback |
 | Browser Astro dev | PASS: 45 checks, 1440/768/390, 20 PNG, không lỗi console/pageerror bình thường |
 | Browser built Worker local | PASS: 45 checks riêng, 20 PNG, DB simulator cô lập |
@@ -49,20 +49,24 @@ Schema 0001 có resources/resource_types/categories/tags/resource_categories/res
 | Assets/fonts | PASS: 14 manifest entries và hash OFL; giữ byte license upstream |
 | Cloud đúng account | PASS: xác thực, tạo/đọc lại Worker/D1, D1 migrate/seed/query |
 | Cleanup account sai | PASS: xóa đúng hai tài nguyên theo yêu cầu; GET 404 |
-| GitHub | PASS: repo public, sunny251010 có quyền push; main/develop đến ace99a1 |
+| GitHub | PASS: repo public, sunny251010 có quyền push; main đến bf46b7a, develop đã push 2be13d0 trước bản sửa origin |
 | Workers Builds API đúng account | FAIL quyền hiện tại: HTTP 403, error code 10000 |
-| Preview/CI/cloud browser | SKIP: chưa có connection và Preview URL đã kiểm |
+| Git connection | PASS qua ảnh Dashboard: đúng repo, main no-op, Preview command và token riêng có D1 Edit |
+| Workers Builds develop | FAIL build fdbb35ab tại 2be13d0: origin guard chặn trước cloud mutation. Đã sửa nhận diện URL GitHub, cần chạy lại cloud |
+| Preview/cloud browser | SKIP: chưa có Preview URL đã kiểm |
 | Physical mobile/keyboard/AT/cross-browser | SKIP: chỉ Chromium và viewport emulation |
 
 [40 screenshot và JSON local](../qa/p01/index.html). UI/app local PASS không thay thế cloud browser PASS. Các lỗi harness đã được sửa và kiểm lại; không che lỗi runtime sản phẩm.
 
 ## Git và việc còn lại
 
-Repo [ducbang02/FreeResources](https://github.com/ducbang02/FreeResources), tác giả/push `sunny251010` được chủ dự án duyệt. Baseline `c862af9`, app `ddae9fe`, đính chính `ace99a1` đã push main/develop. Thay đổi account đúng/cleanup trong working tree cần checkpoint tiếp theo; không khẳng định đã push các thay đổi này. Prototype và lịch sử giữ nguyên; không commit credential/cache/artifact.
+Repo [ducbang02/FreeResources](https://github.com/ducbang02/FreeResources), tác giả/push `sunny251010` được chủ dự án duyệt. Baseline `c862af9`, app `ddae9fe`, đính chính `ace99a1`, đúng account/cleanup `bf46b7a` đã push main/develop; connection/bootstrap `2be13d0` chỉ push develop. Prototype và lịch sử giữ nguyên; không commit credential/cache/artifact.
 
 Builds API đã kiểm **riêng trên account đúng**, vẫn trả HTTP 403/code 10000; không suy từ probe cũ. Browser Use/Computer Use không khởi tạo được do sandbox helper. Chủ dự án chọn hỗ trợ Dashboard, không gửi token.
 
-Cần nối đúng GitHub repo và đọc lại controls trước lần build đầu: `npm run ci:build` bỏ qua main, chỉ build develop; production `npm run ci:production` no-op; Preview `npm run ci:preview:deploy`, include chỉ develop. Node/npm đã pin trong repo, NODE_VERSION ở UI là tùy chọn.
+Đã nối đúng GitHub repo và quan sát controls qua ảnh Dashboard. Build develop thực tế đã clone, nhận đúng Node/npm và cài 303 packages, sau đó bị origin guard chặn. Chưa biết giá trị origin thực tế vì tránh log credential. Bản sửa dùng URL parser native, so GitHub host/path, chấp nhận HTTPS userinfo của CI và dạng SSH chuẩn, vẫn chặn repo/host khác và commit không khớp develop. [Bằng chứng lỗi và kiểm local](../qa/p01/build-origin-failure.json). Cảnh báo npm chặn postinstall có thật, nhưng chưa phải nguyên nhân dừng build này; chưa sửa policy cài đặt theo suy đoán.
+
+`npm run ci:build` bỏ qua main, chỉ build develop; production `npm run ci:production` no-op; Preview `npm run ci:preview:deploy`. Dashboard bật non-production builds; guard chỉ cho develop qua. Node/npm đã pin trong repo, NODE_VERSION ở UI là tùy chọn.
 
 Sau connection: build từ GitHub, lấy Preview URL thật, kiểm cloud browser/runtime/D1 và push tiếp theo tự cập nhật. Chỉ sau các gate này mới READY FOR REVIEW. Một Workers Builds pipeline, không Actions song song; không production/DNS/paid plan/P02.
 
