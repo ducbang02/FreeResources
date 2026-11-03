@@ -4,7 +4,7 @@
 
 ## Trạng thái chung
 
-- Phase hiện tại: **P01 / IN PROGRESS — P1 local PASS, chờ Preview mới**; account đúng `4ca521c6746d874c049fd829121ab59e`. Main live no-op PASS theo log Ready43s; không retry lịch sử. [Kết quả mới nhất](docs/PHASE01_P1_FIXES.md).
+- Phase hiện tại: **P01 / READY FOR REVIEW**; ba P1 đã sửa và kiểm local/Preview ở1440/768/390. Account đúng `4ca521c6746d874c049fd829121ab59e`. Main live no-op PASS theo log Ready43s; không retry lịch sử. [Kết quả mới nhất](docs/PHASE01_P1_FIXES.md).
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
 - Cloudflare: build7de0b863 tại508a96c PASS; push31d3053 tự cập nhật Preview,45 browser checks+5 smoke checks PASS/20PNG/0 lỗi bình thường, đúng Worker/DB. Main aa369850 timeout trước clone; parent vẫn chưa active deployment, workers.dev tắt. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
@@ -99,7 +99,16 @@ Log P00.3: reuse HTML/CSS/native dialog, asset đã audit, Playwright Core1.62/C
 Artifact staging từ account sai đã hủy. Artifact đúng account/D1 đã build và kiểm generated config PASS top-level/Preview; dry-run PASS, gzip173.80KiB. CI đã deploy Preview develop thật, không KV/Images tự phát sinh. Node24.18.0/npm12.2.0 đã pin; main no-op, chỉ develop được Preview. [Cloud proof](qa/p01/cloud-preview.json), [auto-update](qa/p01/cloud-auto-update.json), [main proof](qa/p01/main-protection.json).
 
 Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Main aa369850 init FAIL là lịch sử; log Ready43s mới bổ sung xác nhận main live no-op PASS, không production. UUID/SHA riêng dòng xanh chưa hiện; không suy mọi Failed đã được giải quyết. Prototype cũ giữ nguyên, không credentials/global MCP install/paid service/DNS/production mutation. Lệnh/giới hạn tại SETUP/báo cáo P01. Các SKIP/NOT STARTED của P00 giữ ý nghĩa lịch sử.
-## P01 Final Audit & P02 Preparation — READY FOR REVIEW
+## P01 — kết thúc ba P1, 04/11/2026 — READY FOR REVIEW
+
+- [x] A1: overlay và Results cùng filter/sort; Header/Home global; page reset, preview bounded.
+- [x] A2: caption/link Detail đạt5,268:1, giữ attribution.
+- [x] A3: Hero giữ native image dimensions từ manifest; không đổi bố cục/tỷ lệ.
+- [x] Local25 tests/typecheck/build PASS;45 P01 journeys +19 P1 checks PASS mỗi runtime local/Preview ở1440/768/390; ảnh/raw logs ignored.
+- [x] Develop9a2f732 → build94f3c52b completed/success → deploymentcb15215f → bindings staging và browser PASS. Main giữ31d3053; không production/configCI/DNS/P02.
+- [ ] Chủ dự án nghiệm thu P01/UI; chưa DONE. Physical mobile/Safari/Firefox/AT/field CWV SKIP. [Báo cáo và checklist](docs/PHASE01_P1_FIXES.md).
+
+## P01 Final Audit & P02 Preparation — 03/11/2026, lịch sử READY FOR REVIEW
 
 - [x] Chỉ đọc Preview/source: browser journeys mới45/45 PASS ở1440/768/390,20PNG; thêm luồng click, input đặc biệt, network/trace/font fallback/SEO/a11y/link/license/dependency checks.
 - [x] Ghi3 P1 chưa sửa: search overlay khác phạm vi bộ lọc với full results; caption/link nguồn contrast4,395:1; Hero dịch chuyển khi ảnh tải. Không đồng nghĩa UI được nghiệm thu.

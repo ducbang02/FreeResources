@@ -1,6 +1,6 @@
 # ROADMAP — Làm nhỏ, kiểm chứng, mở rộng
 
-> P01 hoàn thiện ba P1: local PASS25 tests và64 browser checks; chờ kiểm Preview mới. GitHub→Preview và main no-op đã kiểm. Production/P02 chưa được phép. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
+> P01 READY FOR REVIEW: ba P1 đã sửa,25 tests PASS;64 browser checks PASS mỗi runtime local/Preview. GitHub→Preview và main no-op đã kiểm. Chờ chủ dự án nghiệm thu, production/P02 chưa được phép. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
 
 ## Phase 00 — Product & technology validation (lịch sử)
 

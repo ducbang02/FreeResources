@@ -1,6 +1,6 @@
 # P01 Final Audit & P02 Preparation
 
-> Cập nhật04/11: chủ dự án đã giao sửa A1/A2/A3. Giữ nguyên phát hiện lịch sử bên dưới; kết quả khắc phục và regression tại [P01 P1 fixes](PHASE01_P1_FIXES.md). Đề xuất P02 vẫn chưa triển khai.
+> Cập nhật04/11: A1/A2/A3 đã sửa và regression PASS local/Preview; P01 READY FOR REVIEW. Giữ nguyên phát hiện lịch sử bên dưới; xem [P01 P1 fixes](PHASE01_P1_FIXES.md). Đề xuất P02 vẫn chưa triển khai, UI/P01 chưa được người dùng nghiệm thu.
 
 **READY FOR REVIEW · 03/11/2026.** Chỉ audit và đề xuất; P02 **NOT STARTED**, UI chưa được chủ dự án nghiệm thu. Không sửa app/UI, cloud/D1/CI, không commit/push/deploy. Retry `main` là công việc riêng, không được thao tác hoặc suy kết quả từ audit này.
 
