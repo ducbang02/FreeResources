@@ -1,5 +1,5 @@
 {
-  "status": "PASS",
+  "status": "WRONG_ACCOUNT_NOT_ACCEPTED",
   "database": "fea09243-1d9b-4836-82ac-0dea72ef1668",
   "resources": 13,
   "sources": 17,
@@ -9,5 +9,7 @@
       "slug": "localsend"
     }
   ],
-  "date": "2026-11-03"
+  "date": "2026-11-03",
+  "accountId": "4873c68031c0fc5e0284943a9119dac2",
+  "note": "Queries succeeded on Ctcm account; user clarified this is NOT the intended Cloudflare account. These are not accepted P01 staging results."
 }

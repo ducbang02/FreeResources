@@ -1,9 +1,9 @@
 {
-  "approved": true,
-  "accountId": "4873c68031c0fc5e0284943a9119dac2",
+  "approved": false,
+  "accountId": "",
   "workerName": "digital-resource-hub-staging",
   "databaseName": "digital-resource-hub-staging",
-  "databaseId": "fea09243-1d9b-4836-82ac-0dea72ef1668",
+  "databaseId": "",
   "repository": "ducbang02/FreeResources",
   "branch": "develop",
   "previewName": "develop"

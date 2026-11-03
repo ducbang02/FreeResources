@@ -1,4 +1,5 @@
-﻿# Nếp — Digital Resource Hub
+# Nếp — Digital Resource Hub
+> ĐÍNH CHÍNH ACCOUNT: Đích đúng là 4ca521c6746d874c049fd829121ab59e. Tài nguyên đã tạo ở Ctcm4873…dac2 là sai account, không được nghiệm thu cho P01. Target cũ đã approved:false, ID thật đã gỡ khỏi config; chưa deploy ứng dụng. Chờ xác thực đúng account trước khi tạo lại.
 
 Ứng dụng Astro + TypeScript, Cloudflare Workers/D1, giao diện Concept A theo P00.3 và Noto Sans. Catalog có **13 tài nguyên thật, 7 loại và 17 nguồn kiểm chứng**. Không auth, rating, submission hoặc AI API thật trong P01.
 
