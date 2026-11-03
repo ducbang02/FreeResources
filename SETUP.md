@@ -23,7 +23,7 @@ npm test
 npm run build
 ```
 
-Check sinh worker-configuration.d.ts rồi Astro check; không tự viết Env. File sinh/node_modules/dist/.astro/.wrangler/.cache không commit. 21 tests gồm validator, SQL/FTS/facets/draft/upsert/duplicates và guard CI; SQLite PASS không thay cloud PASS.
+Check sinh worker-configuration.d.ts rồi Astro check; không tự viết Env. File sinh/node_modules/dist/.astro/.wrangler/.cache không commit. 25 tests gồm validator, SQL/FTS/facets/draft/upsert/duplicates, search có filter, media dimensions và guard CI; SQLite PASS không thay cloud PASS. [P1 regression/validation](docs/PHASE01_P1_FIXES.md).
 
 Browser QA dùng Playwright Core đã có, không runtime dependency:
 

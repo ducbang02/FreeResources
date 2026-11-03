@@ -1,5 +1,7 @@
 # DESIGN_SYSTEM — Concept A / Editorial Discovery
 
+> P01 refinement04/11: giữ thiết kế A/Noto Sans; Search trong Explore tôn trọng filter/sort, Header/Home tìm toàn thư viện. Caption Detail dùng `#5b6676` trên `#f0f4f8` (5,268:1). Hero giữ chỗ bằng intrinsic image dimensions từ manifest, không đổi bố cục hoặc tỷ lệ ảnh. [Validation](PHASE01_P1_FIXES.md); người dùng chưa nghiệm thu P01.
+
 Ngày 03/11/2026. **P01 dùng baseline A/P00.3 và Noto Sans đã được chủ dự án chọn.** Tên Nếp và nhận diện vẫn là thử nghiệm. Các ghi chú nghiệm thu P00.3 bên dưới là log lịch sử; local và cloud Preview đều đã kiểm bằng Chromium ở1440/768/390,45 checks mỗi runtime. Nghiệm thu thiết kế của chủ dự án vẫn chờ.
 
 ## 1. Mỗi trang một nhiệm vụ

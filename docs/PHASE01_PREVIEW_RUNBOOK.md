@@ -1,5 +1,5 @@
 # P01 — GitHub → Workers Builds → Preview
-> P01 READY FOR REVIEW cho Preview. Đích account4ca521c6746d874c049fd829121ab59e; Worker/D1 staging đúng account. GitHub→Builds→Preview,45 cloud browser checks và auto-update31d3053 PASS. Main CI timeout trước clone: user commands SKIP, safeguards cấu hình/local/parent readback PASS. Production chưa triển khai.
+> P01 READY FOR REVIEW cho Preview. Đích account4ca521c6746d874c049fd829121ab59e; Worker/D1 staging đúng account. GitHub→Builds→Preview,45 cloud checks và auto-update PASS. Main live no-op đã có log PASS một lần; Failed retries được giữ riêng. Production chưa triển khai.
 
 Ngày 03/11/2026. Chủ dự án đã xác nhận repo `ducbang02/FreeResources` và account `4ca521c6746d874c049fd829121ab59e` (Nguyenducbang.uit@gmail.com's Account). OAuth dự án và whoami đã khớp account. Build `7de0b863` tại `508a96c` PASS; [Preview](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev) và bindings được API đọc lại; [45 browser checks](../qa/p01/cloud/results.json) PASS. Production chưa được phép.
 
@@ -134,7 +134,7 @@ wrangler preview --config dist/server/wrangler.json --name develop --worker-name
 
 **Giới hạn đọc log:** OAuth dự án không có quyền Builds API; đúng endpoint list builds trả403/code12004. Chủ dự án hỗ trợ ảnh Dashboard/log; browser điều khiển Dashboard không khởi tạo được. Playwright local vẫn truy cập và kiểm Preview thật. Không yêu cầu gửi token.
 
-**FAIL hạ tầng:** main aa369850/31d3053 timeout khởi tạo, chưa clone repo hoặc chạy commands. Chủ dự án duyệt riêng một lần pushmain; push thành công, deploy settings không đổi. **PASS safeguards:** cấu hình, source/local main no-op, parent deployed_on:null/workers.dev false/1 bootstrap version trước/sau. **SKIP:** chạy hai commands main trên CI live, physical mobile/software keyboard/AT/Safari/Firefox. [Main proof](../qa/p01/main-protection.json). Đề nghị retry đúng build một lần, chưa nhận kết quả; không gộp kiểm local thành live CI PASS. Không cần sửa code theo lỗi khởi tạo hạ tầng. Preview đã đủ bằng chứng review; chưa release production.
+**PASS main live no-op:** chủ dự án cung cấp log kết thúc16:01:15.010UTC và dòng main Ready43s; hai commands bỏ qua build/deploy có chủ ý. [Log](../qa/p01/build-main-noop-success.txt), [main proof](../qa/p01/main-protection.json). Dashboard vẫn No active deployment. UUID/SHA riêng của lần xanh chưa hiện trong log/ảnh; không suy các dòng Failed thành PASS. Lần aa369850/31d3053 timeout trước clone được giữ là FAIL lịch sử; dòng Failed mới hơn chưa đủ log để phân tích. **SKIP:** physical mobile/software keyboard/AT/Safari/Firefox. Audit không đổi settings, không push hoặc retry thêm.
 
 ## Nguồn chính thức đã đối chiếu
 

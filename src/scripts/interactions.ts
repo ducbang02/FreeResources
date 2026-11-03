@@ -67,13 +67,13 @@ function parsePayload(value:unknown):{items:PreviewItem[];categories:Category[]}
   return {items,categories};
 }
 function update(delay=160){
-  if(!input||!content||!allLink)return;clearTimeout(timer);controller?.abort();const current=++revision,query=input.value.trim().slice(0,160);allLink.href=exploreUrl(query);allLink.replaceChildren(document.createTextNode(query?'Xem kết quả đầy đủ ':'Xem tất cả tài nguyên '),arrow());
+  if(!input||!content||!allLink)return;clearTimeout(timer);controller?.abort();const current=++revision,query=input.value.trim().slice(0,160),href=exploreUrl(query);allLink.href=href;allLink.replaceChildren(document.createTextNode(query?'Xem kết quả đầy đủ ':'Xem tất cả tài nguyên '),arrow());
   setState('loading','Đang tìm tài nguyên…');const skeleton=element('div','search-skeleton');skeleton.setAttribute('aria-hidden','true');appendNodes(skeleton,element('span'),element('span'),element('span'));content.replaceChildren(skeleton);
   timer=setTimeout(async()=>{
     const requestController=new AbortController();controller=requestController;let timedOut=false;
     const timeout=setTimeout(()=>{timedOut=true;requestController.abort();},10000);
     try{
-      const response=await fetch('/api/search?'+new URLSearchParams({q:query}),{signal:requestController.signal,headers:{Accept:'application/json'}});if(!response.ok)throw Error('Search unavailable');const payload=parsePayload(await response.json());
+      const response=await fetch('/api/search?'+new URL(href,location.origin).searchParams,{signal:requestController.signal,headers:{Accept:'application/json'}});if(!response.ok)throw Error('Search unavailable');const payload=parsePayload(await response.json());
       if(current!==revision||!searchDialog?.open)return;
       if(!query){setState('default','');renderDefault(payload.items,payload.categories);}
       else if(!payload.items.length){setState('empty','Không có kết quả phù hợp.');feedback('Thử một cách tìm khác.','Dùng từ khóa ngắn hơn hoặc mở trang khám phá để lọc tài nguyên.');}

@@ -3,7 +3,7 @@
 
 Ứng dụng Astro + TypeScript, Cloudflare Workers/D1, giao diện Concept A theo P00.3 và Noto Sans. Catalog có **13 tài nguyên thật, 7 loại và 17 nguồn kiểm chứng**. Không auth, rating, submission hoặc AI API thật trong P01.
 
-**P01 — READY FOR REVIEW.** Mở [website Preview](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev). GitHub→Builds→Preview và tự cập nhật sau push31d3053 đã PASS. Local/CI22 tests PASS; browser cloud45/45 checks PASS ở1440/768/390,20 screenshot. D1 đúng account có13 tài nguyên/17 nguồn/FK0/FTS PASS. Main có khóa phát hành đã kiểm cấu hình/code/local; phép chạy main thật bị Cloudflare timeout trước clone nên user commands SKIP. Production chưa triển khai. [Báo cáo và giới hạn](docs/PHASE01_REPORT.md), [luồng làm việc](docs/PHASE01_PREVIEW_RUNBOOK.md#luồng-làm-việc-hiện-tại-đọc-từ-trái-sang-phải).
+**P01 — hoàn thiện ba P1, local PASS; chờ Preview mới.** Mở [website Preview](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev). [Bản sửa và validation04/11](docs/PHASE01_P1_FIXES.md):25 unit/integration tests,45 P01 journeys và19 P1 browser checks PASS ở1440/768/390. GitHub→Preview và main no-op đã kiểm; các Failed attempts giữ riêng. Production/P02 chưa triển khai, UI/P01 chờ chủ dự án nghiệm thu. [Báo cáo](docs/PHASE01_REPORT.md), [luồng làm việc](docs/PHASE01_PREVIEW_RUNBOOK.md#luồng-làm-việc-hiện-tại-đọc-từ-trái-sang-phải), [Final Audit/P02 preparation](docs/PHASE01_FINAL_AUDIT.md).
 
 ## Chạy local trên Windows
 

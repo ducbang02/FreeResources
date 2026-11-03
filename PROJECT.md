@@ -1,6 +1,6 @@
 # PROJECT — Cổng tài nguyên số cộng đồng
 
-> P01 READY FOR REVIEW cho Preview; chờ chủ dự án nghiệm thu. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans là baseline. GitHub→Workers Builds→Preview/auto-update và45 cloud browser checks PASS. Main safeguards cấu hình/local/parent PASS, live main commands SKIP vì hạ tầng timeout. Không production/P02. Bằng chứng tại báo cáo P01.
+> P01 hoàn thiện ba P1 theo Final Audit: local PASS, chờ Preview mới. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans giữ nguyên. GitHub→Preview và main no-op đã PASS; Failed attempts giữ riêng. Không production/P02. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
 
 ## 1. Tầm nhìn
 

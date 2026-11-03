@@ -5,10 +5,11 @@ import { getHome, getTaxonomy, searchResources } from '../../lib/catalog';
 export const GET: APIRoute = async ({ url }) => {
   const q = (url.searchParams.get('q') ?? '').trim();
   if (q.length > 160) return Response.json({ error: 'Từ khóa tối đa 160 ký tự.' }, { status: 400 });
+  const scoped = ['category', 'type', 'platform', 'sort'].some(key => url.searchParams.has(key));
   try {
     const [taxonomy, resources] = await Promise.all([
       getTaxonomy(env.DB),
-      q ? searchResources(env.DB, q, 4) : getHome(env.DB).then(home => {
+      q || scoped ? searchResources(env.DB, q, 4, url.searchParams) : getHome(env.DB).then(home => {
         const unique = new Map([home.featured, ...home.curated].filter(r => r !== null).map(r => [r.id, r]));
         return [...unique.values()].slice(0, 2);
       }),

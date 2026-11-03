@@ -1,6 +1,6 @@
 # ROADMAP — Làm nhỏ, kiểm chứng, mở rộng
 
-> P01 đang triển khai: local catalog đã kiểm, D1 staging đã có dữ liệu; còn kết nối Workers Builds và cloud browser QA. Production và P02 chưa được phép.
+> P01 hoàn thiện ba P1: local PASS25 tests và64 browser checks; chờ kiểm Preview mới. GitHub→Preview và main no-op đã kiểm. Production/P02 chưa được phép. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
 
 ## Phase 00 — Product & technology validation (lịch sử)
 
@@ -114,4 +114,4 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 Mỗi phase ghi: file thay đổi, lệnh chạy với environment, PASS/FAIL/SKIP, những gì **chưa** kiểm thử, migration/rollback và commit/branch thực tế. Nếu có việc cần credential, production, DNS, paid plan, legal/takedown: dừng xin quyết định.
 
-P01 READY FOR REVIEW:22 tests,90 local browser checks,45 cloud checks/20PNG và5 smoke checks sau auto-update PASS. Account đúng `4ca521c6746d874c049fd829121ab59e`, D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d`. GitHub→Builds→Preview508a96c và auto-update31d3053 PASS, parent chưa active deployment. Main safeguards cấu hình/source/local/parent PASS; CI main aa369850 timeout trước clone, user commands SKIP. Hai tài nguyên tạo nhầm đã xóa theo yêu cầu và GET404. Chờ chủ dự án nghiệm thu; không tự bắt đầu P02/production.
+P01 READY FOR REVIEW:22 tests,90 local browser checks,45 cloud checks/20PNG và5 smoke checks sau auto-update PASS. Account đúng `4ca521c6746d874c049fd829121ab59e`, D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d`. Develop Preview/auto-update PASS, parent chưa active deployment. Main đã có log live no-op PASS một lần; aa369850 timeout trước clone giữ là FAIL lịch sử. Hai tài nguyên tạo nhầm đã xóa/GET404. Final Audit phát hiện3 P1 chưa sửa; đề xuất P02 còn chờ duyệt, không thay scope roadmap bằng kế hoạch đề xuất. Không tự bắt đầu P02/production.

@@ -9,7 +9,9 @@
     "content_type": "image/png",
     "modified": false,
     "retrieved": "2026-11-03",
-    "role": "official app icon"
+    "role": "official app icon",
+    "width": 256,
+    "height": 256
   },
   {
     "file": "excalidraw.svg",
@@ -22,7 +24,9 @@
     "modified": false,
     "retrieved": "2026-11-03",
     "role": "official app icon",
-    "viewBox": null
+    "viewBox": null,
+    "width": 1000,
+    "height": 1000
   },
   {
     "file": "godot.svg",
@@ -35,7 +39,9 @@
     "modified": false,
     "retrieved": "2026-11-03",
     "role": "official app icon",
-    "viewBox": null
+    "viewBox": null,
+    "width": 1024,
+    "height": 1024
   },
   {
     "file": "godot-editor.jpg",
@@ -47,7 +53,9 @@
     "content_type": "image/jpeg",
     "modified": false,
     "retrieved": "2026-11-03",
-    "role": "official editor screenshot"
+    "role": "official editor screenshot",
+    "width": 1920,
+    "height": 1080
   },
   {
     "file": "excalidraw-promo.png",
@@ -59,7 +67,9 @@
     "content_type": "image/png",
     "modified": false,
     "retrieved": "2026-11-03",
-    "role": "promotional artwork; not screenshot"
+    "role": "promotional artwork; not screenshot",
+    "width": 1200,
+    "height": 675
   },
   {
     "file": "LICENSE-LocalSend-Apache-2.0.txt",
@@ -107,7 +117,9 @@
     "content_type": "image/webp",
     "modified": false,
     "retrieved": "2026-11-03",
-    "role": "official app screenshot with device/OS frame"
+    "role": "official app screenshot with device/OS frame",
+    "width": 2000,
+    "height": 1182
   },
   {
     "file": "localsend-mobile.webp",
@@ -119,7 +131,9 @@
     "content_type": "image/webp",
     "modified": false,
     "retrieved": "2026-11-03",
-    "role": "official app screenshot with device frame"
+    "role": "official app screenshot with device frame",
+    "width": 395,
+    "height": 800
   },
   {
     "file": "LICENSE-LocalSend-Website-Apache-2.0.txt",
@@ -145,6 +159,8 @@
     "modification": "Added outer viewBox 0 0 1000 1000 for responsive rendering; original paths, colors and source asset retained.",
     "retrieved": "2026-11-03",
     "role": "responsive official icon derivative",
-    "viewBox": "0 0 1000 1000"
+    "viewBox": "0 0 1000 1000",
+    "width": 1000,
+    "height": 1000
   }
 ]

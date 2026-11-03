@@ -42,7 +42,8 @@ export async function getTaxonomy(db:D1Database):Promise<{categories:Term[];type
   const [categories,types,platforms]=await Promise.all([db.prepare('SELECT slug,name FROM categories ORDER BY name').all<Term>(),db.prepare('SELECT slug,name FROM resource_types ORDER BY name').all<Term>(),db.prepare("SELECT DISTINCT p.value AS platform FROM resources r,json_each(r.platforms_json) p WHERE r.status='published' ORDER BY platform").all<{platform:string}>()]);
   return {categories:categories.results,types:types.results,platforms:platforms.results.map(p=>p.platform)};
 }
-export async function searchResources(db:D1Database,query:string,limit=4):Promise<Resource[]>{
+export async function searchResources(db:D1Database,query:string,limit=4,filters?:URLSearchParams):Promise<Resource[]>{
   const params=new URLSearchParams({q:query,limit:String(Math.min(4,Math.max(1,Number.isFinite(limit)?Math.floor(limit):4)))});
+  for(const key of ['category','type','platform','sort']){const value=filters?.get(key);if(value)params.set(key,value);}
   return (await listResources(db,params)).items;
 }

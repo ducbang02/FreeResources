@@ -77,6 +77,39 @@ test('Search, category/type/platform facets combine and taxonomy comes from data
     sqlite.exec("INSERT INTO categories(slug,name) VALUES('from-db','From database')");const taxonomy=await getTaxonomy(db);assert.ok(taxonomy.categories.some(c=>c.slug==='from-db'));assert.equal(taxonomy.types.length,7);assert.ok(taxonomy.platforms.includes('Windows'));
   }finally{sqlite.close();}
 });
+
+test('Search preview and full results share the current filter scope',async()=>{
+  const {sqlite,db}=setup();try{
+    for(const filters of [
+      {type:'learning_resource'},
+      {category:'van-phong',type:'application',platform:'Windows'},
+      {category:"' OR 1=1--"},
+    ]){
+      const params=new URLSearchParams({q:'file',...filters});
+      const preview=await searchResources(db,'file',4,params);
+      const full=await listResources(db,params);
+      assert.deepEqual(preview.map(r=>r.id),full.items.slice(0,4).map(r=>r.id));
+      if(filters.type==='learning_resource')assert.deepEqual(preview,[]);
+      if(filters.type==='application')assert.deepEqual(preview.map(r=>r.id),['localsend']);
+    }
+    assert.equal(sqlite.prepare('SELECT count(*) AS n FROM resources').get().n,13);
+  }finally{sqlite.close();}
+});
+
+test('Scoped preview preserves sorting but ignores page and caller limit overrides',async()=>{
+  const {sqlite,db}=setup();try{
+    for(const sort of ['name','newest']){
+      const params=new URLSearchParams({sort,page:'2',limit:'100000',view:'list'});
+      const preview=await searchResources(db,'',500,params);
+      const first=await listResources(db,new URLSearchParams({sort}));
+      assert.equal(preview.length,4);
+      assert.deepEqual(preview.map(r=>r.id),first.items.slice(0,4).map(r=>r.id));
+      assert.equal(params.get('page'),'2'); // Caller's form state is not mutated.
+    }
+    assert.equal((await searchResources(db,'',NaN,new URLSearchParams({type:'learning_resource'}))).length,3);
+    assert.deepEqual(await searchResources(db,'" OR 1=1 --',4,new URLSearchParams({type:'application'})),[]);
+  }finally{sqlite.close();}
+});
 test('Pagination is bounded and stable; invalid pages clamp; preview caps at4',async()=>{
   const {sqlite,db}=setup();try{
     const first=await listResources(db,new URLSearchParams({sort:'name'}));assert.equal(first.items.length,8);assert.equal(first.total,13);

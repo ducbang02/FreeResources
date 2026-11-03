@@ -7,9 +7,13 @@ import Icon from '../components/Icon.astro';
 import SearchForm from '../components/SearchForm.astro';
 import ResourceCard from '../components/ResourceCard.astro';
 import Unavailable from '../components/Unavailable.astro';
+import assetManifest from '../../public/assets/manifest.json';
 let home:Awaited<ReturnType<typeof getHome>>|null=null;
 try{home=await getHome(env.DB);}catch{Astro.response.status=503;}
 const featured=home?.featured;
+// Public assets keep their URLs; verified intrinsic dimensions reserve layout before loading.
+const imageSize=assetManifest.find(asset=>`/assets/${asset.file}`===featured?.image);
+const mobileImageSize=assetManifest.find(asset=>`/assets/${asset.file}`===featured?.mobileImage);
 const headline=(featured?.heroTitle||'Đúng công cụ.\nNhẹ việc hơn.').split('\n').slice(0,2);
 ---
 <Layout title="Khám phá tài nguyên số hữu ích" description="Nếp giúp bạn khám phá công cụ, phần mềm và tài nguyên học tập từ nguồn chính thức.">
@@ -20,7 +24,7 @@ const headline=(featured?.heroTitle||'Đúng công cụ.\nNhẹ việc hơn.').s
       <p class="a-positioning">Khám phá công cụ và tài nguyên số hữu ích.</p>
       {featured&&<a class="a-feature-link" href={`/resources/${featured.slug}`}>Khám phá {featured.title} <Icon name="arrow"/></a>}
       <div class="a-hero-search"><SearchForm id="a-home-search"/></div>
-    </div>{featured?.image&&<a class="a-feature-media" href={`/resources/${featured.slug}`} aria-label={`Tìm hiểu ${featured.title}`}><img class="a-device-desktop" src={featured.image} alt={featured.mediaAlt||`Hình sản phẩm ${featured.title}`} fetchpriority="high" decoding="async"/>{featured.mobileImage&&<img class="a-device-phone" src={featured.mobileImage} alt={`${featured.title} trên điện thoại, hình từ nguồn chính thức`} decoding="async"/>}</a>}</div></section>
+    </div>{featured?.image&&<a class="a-feature-media" href={`/resources/${featured.slug}`} aria-label={`Tìm hiểu ${featured.title}`}><img class="a-device-desktop" src={featured.image} width={imageSize?.width} height={imageSize?.height} alt={featured.mediaAlt||`Hình sản phẩm ${featured.title}`} fetchpriority="high" decoding="async"/>{featured.mobileImage&&<img class="a-device-phone" src={featured.mobileImage} width={mobileImageSize?.width} height={mobileImageSize?.height} alt={`${featured.title} trên điện thoại, hình từ nguồn chính thức`} decoding="async"/>}</a>}</div></section>
     <div class="a-container">{home.curated.length>0&&<section class="a-curated" aria-labelledby="a-curated-title"><div class="section-heading"><h2 id="a-curated-title">Thêm cảm hứng.</h2><a class="text-link" href="/explore">Khám phá thêm <Icon name="arrow"/></a></div><div class="a-curated-grid">{home.curated.slice(0,4).map(r=><ResourceCard resource={r} visual/>)}</div></section>}
     <section class="a-invitation"><h2>Bạn biết một công cụ hay?</h2><button type="button" class="button secondary" data-contribute>Đóng góp tài nguyên <Icon name="plus"/></button></section></div>
   </>}

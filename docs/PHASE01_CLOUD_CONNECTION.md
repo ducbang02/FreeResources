@@ -1,6 +1,6 @@
 # P01 — Bằng chứng kết nối Cloudflare
 
-Ngày 03/11/2026. **P01 READY FOR REVIEW cho Preview**: Git connection, Builds develop, browser cloud và auto-update PASS. Main safeguards cấu hình/code/local và parent không đổi PASS; main CI timeout trước clone, user commands SKIP. Tài liệu này thay các bảng account sai cũ; lịch sử cleanup giữ riêng.
+Ngày 03/11/2026. **P01 READY FOR REVIEW cho Preview**: Git connection, Builds develop, browser cloud và auto-update PASS. Đã có log main live no-op PASS một lần, không production; Failed attempts giữ riêng. Tài liệu này thay các bảng account sai cũ; lịch sử cleanup giữ riêng.
 
 ## Đích hiện tại đã xác minh
 
@@ -72,7 +72,7 @@ Dùng [runbook Preview](PHASE01_PREVIEW_RUNBOOK.md), đọc lại cấu hình tr
 
 Common build bỏ qua main, chỉ checks/build staging trên develop; các nhánh khác bị từ chối. Guard kiểm cứng account/repo, CI branch/commit/origin/clean tree, artifact và D1 identity trước migration/seed/Preview. Binding Preview phải cùng D1 staging đã duyệt. Chỉ một Workers Builds pipeline, không Actions song song.
 
-GitHub build thật, URL/bindings/runtime/D1/browser và push tiếp theo tự cập nhật đã được kiểm chứng; [log develop31d3053](../qa/p01/build-develop-31d3053.txt). Main aa369850 khởi tạo timeout trước clone, user commands SKIP; [proof giới hạn và parent không đổi](../qa/p01/main-protection.json). READY FOR REVIEW không suy từ việc chỉ tạo tài nguyên và không nghĩa main CI đã PASS. Không production, DNS, paid service hoặc P02.
+GitHub build thật, URL/bindings/runtime/D1/browser và auto-update đã kiểm; [log develop31d3053](../qa/p01/build-develop-31d3053.txt). Main aa369850 timeout trước clone là FAIL lịch sử. Log main Ready43s do chủ dự án bổ sung đã xác nhận hai no-op commands PASS, kết thúc16:01:15.010UTC; [log](../qa/p01/build-main-noop-success.txt), [proof](../qa/p01/main-protection.json). UUID/SHA riêng của dòng xanh chưa có trong bằng chứng; không suy mọi Failed retry đã được xử lý. Không production, DNS, paid service hoặc P02.
 
 ## Nguồn đã dùng trong nghiên cứu ban đầu
 

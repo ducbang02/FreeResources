@@ -1,10 +1,10 @@
 # TASKS — Checklist có thể nghiệm thu
 
-> Cập nhật P01 ngày 03/11/2026. Các log P00 bên dưới giữ ý nghĩa lịch sử. Dùng một tracker này; tick chỉ cho phần đã có bằng chứng, không thay thế nghiệm thu của chủ dự án.
+> Cập nhật P01 ngày 04/11/2026. Các log P00/P01 cũ bên dưới giữ ý nghĩa lịch sử. Dùng một tracker này; tick chỉ cho phần đã có bằng chứng, không thay thế nghiệm thu của chủ dự án.
 
 ## Trạng thái chung
 
-- Phase hiện tại: **P01 / READY FOR REVIEW**; account đúng `4ca521c6746d874c049fd829121ab59e`. GitHub→Builds→Preview,cloud browser và auto-update đã kiểm; chờ chủ dự án nghiệm thu. Main live user commands SKIP do timeout khởi tạo Cloudflare, ghi rõ tại báo cáo.
+- Phase hiện tại: **P01 / IN PROGRESS — P1 local PASS, chờ Preview mới**; account đúng `4ca521c6746d874c049fd829121ab59e`. Main live no-op PASS theo log Ready43s; không retry lịch sử. [Kết quả mới nhất](docs/PHASE01_P1_FIXES.md).
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
 - Cloudflare: build7de0b863 tại508a96c PASS; push31d3053 tự cập nhật Preview,45 browser checks+5 smoke checks PASS/20PNG/0 lỗi bình thường, đúng Worker/DB. Main aa369850 timeout trước clone; parent vẫn chưa active deployment, workers.dev tắt. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
@@ -94,11 +94,19 @@ Log P00.3: reuse HTML/CSS/native dialog, asset đã audit, Playwright Core1.62/C
 - [x] P01-09 — Một Workers Builds pipeline: guard source/artifact/branch/commit/DB, main build và production deploy no-op;9 nhóm guard tests PASS.
 - [x] P01-10 — Kết nối GitHub/Workers Builds đúng account/repo/token và main no-op được đọc qua ảnh Dashboard; build7de0b863 PASS, API Preview khớp tag508a96c. Builds API OAuth403 còn là giới hạn đọc log, không chặn pipeline CI.
 - [x] P01-11 — Develop508a96c→Preview thật:45 browser checks/20PNG PASS; push31d3053 tạo deployment ID mới cùng URL/DB,5 smoke checks PASS. Không deploy thủ công ứng dụng.
-- [x] P01-12 — Báo cáo/luồng/galleries/evidence cập nhật; READY FOR REVIEW cho Preview, chờ chủ dự án nghiệm thu. Main safeguards cấu hình/code/local và parent readback PASS; live main commands SKIP vì hạ tầng timeout trước clone. Không P02/production.
+- [x] P01-12 — Báo cáo/luồng/galleries/evidence cập nhật; READY FOR REVIEW cho Preview, chờ chủ dự án nghiệm thu. Main safeguards và một lần live no-op PASS theo log mới chủ dự án; các Failed attempts giữ riêng. Không P02/production.
 
 Artifact staging từ account sai đã hủy. Artifact đúng account/D1 đã build và kiểm generated config PASS top-level/Preview; dry-run PASS, gzip173.80KiB. CI đã deploy Preview develop thật, không KV/Images tự phát sinh. Node24.18.0/npm12.2.0 đã pin; main no-op, chỉ develop được Preview. [Cloud proof](qa/p01/cloud-preview.json), [auto-update](qa/p01/cloud-auto-update.json), [main proof](qa/p01/main-protection.json).
 
-Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS được ghi riêng. Main live init FAIL, user commands SKIP; chưa tuyên bố main CI PASS. Prototype cũ giữ nguyên, không credentials/global MCP install/paid service/DNS/production mutation. Lệnh và giới hạn tại SETUP/báo cáo P01. Các SKIP/NOT STARTED của P00 giữ ý nghĩa lịch sử.
+Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Main aa369850 init FAIL là lịch sử; log Ready43s mới bổ sung xác nhận main live no-op PASS, không production. UUID/SHA riêng dòng xanh chưa hiện; không suy mọi Failed đã được giải quyết. Prototype cũ giữ nguyên, không credentials/global MCP install/paid service/DNS/production mutation. Lệnh/giới hạn tại SETUP/báo cáo P01. Các SKIP/NOT STARTED của P00 giữ ý nghĩa lịch sử.
+## P01 Final Audit & P02 Preparation — READY FOR REVIEW
+
+- [x] Chỉ đọc Preview/source: browser journeys mới45/45 PASS ở1440/768/390,20PNG; thêm luồng click, input đặc biệt, network/trace/font fallback/SEO/a11y/link/license/dependency checks.
+- [x] Ghi3 P1 chưa sửa: search overlay khác phạm vi bộ lọc với full results; caption/link nguồn contrast4,395:1; Hero dịch chuyển khi ảnh tải. Không đồng nghĩa UI được nghiệm thu.
+- [x] Kế hoạch P02 theo3 mức ưu tiên; chốt nguồn biên tập Git/JSON hay D1 trước admin web. Đây là đề xuất, chưa thay roadmap hoặc triển khai P02.
+- [x] [Báo cáo và bằng chứng](docs/PHASE01_FINAL_AUDIT.md); source/UI/cloud/D1/CI không đổi, không commit/push/deploy. Retry main là việc riêng, không suy kết quả trong audit.
+- [ ] Chủ dự án review các phát hiện, chọn cách xử lý UI/search và phạm vi P02. P02 **NOT STARTED**.
+
 ## P02 — Import & biên tập
 
 - [ ] P02-01 — Chốt auth/role; implement secure session/admin guard.
