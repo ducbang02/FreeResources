@@ -1,0 +1,10 @@
+(function(){
+  'use strict';
+  const form=document.getElementById('review-controls'),host=document.getElementById('preview-frames');
+  const names={A:'Editorial Discovery',B:'Software & Tools Directory',C:'Hybrid'};
+  function settings(){const p=new URLSearchParams(location.hash.slice(1));return {concept:['A','B','C','all'].includes(p.get('concept'))?p.get('concept'):'A',screen:['home','discover','detail/localsend','detail/godot'].includes(p.get('screen'))?p.get('screen'):'home',width:[1440,768,390].includes(Number(p.get('width')))?Number(p.get('width')):1440};}
+  function resize(){document.querySelectorAll('.frame-surround').forEach(box=>{const frame=box.querySelector('iframe'),wrap=box.querySelector('.frame-scale'),width=Number(frame.dataset.width),height=width===390?844:width===768?1024:900,padding=innerWidth<=600?16:32,scale=Math.min(1,(box.clientWidth-padding)/width);wrap.style.width=width*scale+'px';wrap.style.height=height*scale+'px';frame.style.width=width+'px';frame.style.height=height+'px';frame.style.transform=`scale(${scale})`;});}
+  function render(){const s=settings();for(const [key,value] of Object.entries(s))form.elements[key].value=value;const concepts=s.concept==='all'?['A','B','C']:[s.concept];host.innerHTML=concepts.map(c=>`<section class="preview-section"><div class="preview-heading"><h3>${c} · ${names[c]}</h3><span>${s.width}px viewport · ${s.screen==='home'?'Trang chủ':s.screen==='discover'?'Khám phá':'Chi tiết'}</span><a href="index.html#/${c}/${s.screen}" target="_blank" rel="noopener">Mở riêng ↗</a></div><div class="frame-surround"><div class="frame-scale"><iframe data-width="${s.width}" title="Concept ${c}, ${s.screen}, viewport ${s.width}px" src="index.html#/${c}/${s.screen}"></iframe></div></div></section>`).join('');resize();}
+  form.addEventListener('submit',event=>{event.preventDefault();location.hash=new URLSearchParams(new FormData(form)).toString();});
+  window.addEventListener('hashchange',render);window.addEventListener('resize',resize);render();
+})();

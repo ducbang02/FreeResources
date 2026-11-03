@@ -1,0 +1,96 @@
+:root {font-family:Inter,"Segoe UI",Arial,sans-serif;color:#253046;background:#f4f6f9;font-synthesis:none}
+* {box-sizing:border-box}
+body {margin:0}
+a {color:inherit;text-decoration:none}
+button,input,select {font:inherit}
+button,select {cursor:pointer}
+:focus-visible {outline:3px solid #245ac4;outline-offset:4px}
+.review-header {max-width:1488px;margin:auto;padding:27px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dde4ed;color:#758298;font-size:12px}
+.review-wordmark {font-size:31px;letter-spacing:-1.5px;font-weight:750;color:#26334a}
+.review-wordmark>span {color:#245ac4}
+.review-wordmark small {font-size:11px;font-weight:450;letter-spacing:0;margin-left:14px;color:#7a879b}
+main {width:min(1392px,calc(100% - 96px));margin:auto}
+.review-intro {max-width:820px;padding:51px 0 35px}
+.eyebrow {font-size:10px;font-weight:650;letter-spacing:.12em;color:#7689a3;margin:0 0 16px}
+.review-intro h1 {font-size:46px;font-weight:680;line-height:1.16;letter-spacing:-1.9px;margin:0 0 20px}
+.review-intro>p:last-child {color:#6a798e;line-height:1.9;font-size:15px;max-width:650px;margin:0}
+.concept-summary {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:45px}
+.reference-concepts {margin-bottom:28px}
+.reference-concepts>summary {min-height:44px;font-size:13px;color:#617590;cursor:pointer}
+.review-intro>p+p {font-size:12px;line-height:1.8;color:#6a798e;margin-top:17px}
+.review-intro>p+p a {color:#426baf;text-decoration:underline;text-underline-offset:3px}
+.concept-summary>a {display:flex;align-items:flex-start;gap:15px;padding:23px;border:1px solid #dce4ef;border-radius:16px;background:#fff;min-width:0}
+.concept-summary>a:hover {border-color:#9eb7dd}
+.concept-letter {display:grid;place-items:center;background:#edf2fa;color:#355a94;min-width:39px;height:39px;font-size:20px;font-weight:600;border-radius:11px}
+.concept-summary h2 {font-size:17px;font-weight:650;line-height:1.4;letter-spacing:-.3px;margin:0 0 10px}
+.concept-summary p {font-size:12px;color:#6d7c90;line-height:1.8;margin:0 0 14px}
+.concept-summary div>span {font-size:10px;color:#8b97a8;line-height:1.8;display:block}
+.concept-summary>a>span:last-child {margin-left:auto;color:#7b90b0;font-size:16px}
+.review-workbench {padding:29px;background:#fff;border:1px solid #dfe5ed;border-radius:19px}
+.workbench-heading {display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:25px}
+.workbench-heading .eyebrow {margin-bottom:10px}
+.workbench-heading h2 {font-size:26px;letter-spacing:-.8px;line-height:1.3;margin:0;font-weight:650}
+.workbench-heading>a {font-size:12px;color:#426baf;white-space:nowrap;min-height:35px;display:flex;align-items:center}
+#review-controls {display:flex;align-items:end;gap:16px;background:#f4f6f9;border-radius:12px;padding:19px}
+#review-controls label {display:flex;flex-direction:column;gap:8px;font-size:11px;color:#61728b;flex:1;min-width:0}
+#review-controls select {border:1px solid #d0dbea;border-radius:8px;background:#fff;padding:11px 14px;min-height:44px;font-size:13px;color:#3c5376;max-width:100%;width:100%}
+#review-controls button {min-height:44px;border:0;background:#245ac4;color:white;border-radius:8px;padding:12px 18px;font-size:12px;font-weight:550;white-space:nowrap}
+.review-limit {font-size:11px;color:#8693a5;line-height:1.9;max-width:1000px;margin:17px 0 25px}
+.review-limit strong {font-weight:600}
+#preview-frames {display:flex;flex-direction:column;gap:38px;align-items:stretch}
+.preview-section {min-width:0}
+.preview-heading {display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:11px;color:#6f829f;padding:12px 0}
+.preview-heading h3 {font-size:14px;letter-spacing:-.2px;color:#425b81;margin:0;font-weight:600}
+.preview-heading a {color:#426baf;padding:7px 0}
+.frame-surround {background:#e8edf4;padding:16px;border:1px solid #e0e6ef;border-radius:13px;overflow:hidden;display:flex;justify-content:center}
+.frame-scale {position:relative;overflow:hidden;background:#fff;border-radius:7px;box-shadow:0 2px 10px #16315710}
+iframe {border:0;display:block;transform-origin:top left;background:white}
+.review-checklist {display:grid;grid-template-columns:1fr 1.6fr;gap:70px;padding:42px 0}
+.review-checklist h2 {font-size:30px;letter-spacing:-1px;line-height:1.2;margin:0;font-weight:650}
+.review-checklist ol {margin:0;padding-left:20px;color:#6c7d95;font-size:13px;line-height:1.9}
+.review-checklist li {padding-left:5px;margin-bottom:9px}
+footer {width:min(1392px,calc(100% - 96px));margin:auto;padding:24px 0 32px;border-top:1px solid #dce3ed;display:flex;align-items:center;gap:25px;color:#8795a9;font-size:11px}
+footer p {max-width:850px;line-height:1.9;margin:0 auto 0 0}
+footer a {white-space:nowrap;color:#5879aa}
+@media (max-width:1050px) {
+  .concept-summary {grid-template-columns:1fr}
+  .concept-summary>a {padding:22px}
+  .concept-summary p {margin-bottom:9px}
+  .workbench-heading {align-items:flex-start;flex-direction:column;gap:10px}
+  #review-controls {flex-wrap:wrap}
+  #review-controls label {flex:1 1 180px}
+  .review-checklist {gap:35px}
+  footer {flex-wrap:wrap}
+  footer p {width:100%;max-width:none}
+}
+@media (max-width:600px) {
+  .review-header {padding:21px 20px}
+  .review-header>span {font-size:10px}
+  .review-wordmark {font-size:29px}
+  .review-wordmark small {display:none}
+  main,footer {width:calc(100% - 36px)}
+  .review-intro {padding:31px 0 26px}
+  .review-intro h1 {font-size:32px;letter-spacing:-1.1px}
+  .review-intro>p:last-child {font-size:13px}
+  .concept-summary {gap:12px;margin-bottom:29px}
+  .concept-summary>a {padding:20px;gap:13px}
+  .concept-summary h2 {font-size:16px}
+  .concept-summary p {font-size:12px}
+  .review-workbench {padding:18px 14px;border-radius:14px}
+  .workbench-heading h2 {font-size:23px}
+  .workbench-heading .eyebrow {font-size:9px}
+  .workbench-heading>a {font-size:11px}
+  #review-controls {padding:14px;gap:14px;display:grid;grid-template-columns:1fr}
+  #review-controls select {font-size:12px}
+  #review-controls button {width:100%}
+  .review-limit {font-size:10px}
+  .frame-surround {padding:8px;border-radius:9px}
+  .preview-heading {font-size:10px;gap:10px}
+  .preview-heading h3 {font-size:12px}
+  .preview-heading a {font-size:10px;text-align:right}
+  .review-checklist {grid-template-columns:1fr;gap:24px;padding:31px 0}
+  .review-checklist h2 {font-size:27px}
+  .review-checklist ol {font-size:12px}
+  footer {font-size:10px;gap:16px;padding-top:20px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}

@@ -1,0 +1,185 @@
+/* P00.3: one product stage, two visual recommendations. Fonts apply only while A is active. */
+body:has(.concept-a) {font-family:"Noto Sans","Segoe UI",Arial,sans-serif}
+.concept-a {font-size:16px;--a-muted:#67707d;--a-line:#e1e6ec;background:#fff;color:#232832}
+.concept-a .hub-navigation>a {font-size:15px}
+.concept-a .hub-brand>span {font-weight:700}
+.concept-a .header-actions .hub-search input {font-size:14px}
+.concept-a .hub-search input::placeholder {color:#5d6e84}
+.concept-a .a-feature {background:#edf3f7;overflow:hidden}
+.concept-a .a-feature-inner {display:grid;grid-template-columns:.85fr 1.35fr;align-items:center;gap:28px;min-height:490px;padding-block:42px}
+.concept-a .a-feature-brand {display:flex;align-items:center;gap:12px;font-size:16px;font-weight:600;margin-bottom:23px;color:#284552}
+.concept-a .a-feature-brand .app-icon {width:42px;height:42px;background:#fff;border-radius:12px}
+.concept-a .a-feature-copy {min-width:0;position:relative;z-index:1}
+.concept-a .a-feature h1 {font-size:52px;line-height:1.15;letter-spacing:-2.1px;font-weight:650;margin:0 0 22px;color:#192e3c}
+.concept-a .a-feature h1 span {color:#446174}
+.concept-a .a-feature-link {display:inline-flex;align-items:center;gap:13px;font-size:16px;color:#245ac4;min-height:44px}
+.concept-a .a-feature-link:hover {text-decoration:underline;text-underline-offset:4px}
+.concept-a .a-hero-search {margin-top:28px;max-width:420px}
+.concept-a .a-hero-search .hub-search {background:#fff;border:1px solid #c9d6e1;box-shadow:0 5px 20px #24435c06;min-height:58px;border-radius:13px}
+.concept-a .a-hero-search input {font-size:16px}
+.concept-a .a-feature-media {position:relative;display:block;min-width:0;padding:12px 64px 12px 0;isolation:isolate}
+.concept-a .a-device-desktop {width:100%;height:auto;filter:drop-shadow(0 15px 15px #1f3d5612)}
+.concept-a .a-device-phone {position:absolute;right:0;bottom:0;width:21%;height:auto;filter:drop-shadow(0 10px 10px #223a4920)}
+.concept-a .a-curated {margin:33px 0 0}
+.concept-a .a-curated .section-heading {align-items:center;margin-bottom:20px;gap:20px}
+.concept-a .a-curated h2 {font-size:26px;letter-spacing:-.8px;font-weight:600}
+.concept-a .a-curated .text-link {font-size:15px;min-height:44px;display:inline-flex;align-items:center}
+.concept-a .a-curated-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.concept-a .a-spotlight-card {border:1px solid #e1e6ec;border-radius:19px;overflow:hidden;min-width:0;background:#fff}
+.concept-a .a-spotlight-link {display:block;height:100%}
+.concept-a .a-spotlight-link:focus-visible {outline-offset:-4px;border-radius:19px}
+.concept-a .a-spotlight-visual {position:relative;aspect-ratio:16/8;overflow:hidden;background:#f5f4fb;display:grid;place-items:center;padding:22px}
+.concept-a .a-spotlight-visual>img {width:100%;height:100%;object-fit:contain;border-radius:7px}
+.concept-a .a-spotlight-godot {background:#e9edf2}
+.concept-a .a-artwork-label {position:absolute;top:10px;left:13px;font-size:12px;color:#5d596f;background:#fff;padding:3px 7px;border-radius:4px}
+.concept-a .a-spotlight-info {display:flex;align-items:center;gap:14px;padding:20px 23px;min-height:97px}
+.concept-a .a-spotlight-info .app-icon {width:48px;height:48px;border-radius:12px;flex-shrink:0}
+.concept-a .a-spotlight-info .app-icon img {width:40px;height:40px}
+.concept-a .a-spotlight-info>div {min-width:0}
+.concept-a .a-spotlight-info h3 {font-size:20px;font-weight:600;letter-spacing:-.5px;margin:0 0 4px;line-height:1.4}
+.concept-a .a-spotlight-info p {font-size:16px;color:#657080;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
+.concept-a .a-spotlight-arrow {margin-left:auto;color:#245ac4;padding-left:4px}
+.concept-a .a-invitation {display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:36px;padding:25px 0;border-top:1px solid var(--a-line)}
+.concept-a .a-invitation h2 {font-size:20px;font-weight:550;letter-spacing:-.5px;margin:0}
+.concept-a .a-invitation .button {font-size:15px}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.concept-a .a-spotlight-card{transition:box-shadow 180ms,transform 180ms}.concept-a .a-spotlight-card:hover{box-shadow:0 10px 28px #1e354b12;transform:translateY(-3px)}}
+@media(max-width:1100px){
+  .concept-a .header-inner{gap:22px}
+  .concept-a .hub-navigation{gap:18px}
+  .concept-a .hub-brand small{display:none}
+  .concept-a .a-feature-inner{grid-template-columns:.95fr 1.05fr;gap:20px;min-height:440px;padding-block:35px}
+  .concept-a .a-feature h1{font-size:40px;letter-spacing:-1.6px}
+  .concept-a .a-feature-media{padding-right:38px}
+  .concept-a .a-spotlight-visual{padding:15px}
+  .concept-a .a-spotlight-info{padding:18px 16px;gap:11px}
+  .concept-a .a-spotlight-info p{font-size:14px}
+}
+@media(max-width:600px){
+  .concept-a .a-feature-inner{grid-template-columns:1fr;gap:23px;padding-block:28px 25px;min-height:0}
+  .concept-a .a-feature-copy{text-align:center}
+  .concept-a .a-feature-brand{justify-content:center;margin-bottom:17px;font-size:15px;gap:10px}
+  .concept-a .a-feature-brand .app-icon{width:35px;height:35px;border-radius:10px}
+  .concept-a .a-feature h1{font-size:36px;letter-spacing:-1.4px;line-height:1.17;margin-bottom:12px}
+  .concept-a .a-feature-link{font-size:15px;min-height:42px}
+  .concept-a .a-hero-search{margin:17px auto 0;max-width:420px}
+  .concept-a .a-hero-search .hub-search{min-height:54px}
+  .concept-a .a-feature-media{width:100%;max-width:440px;margin:auto;padding:0 39px 4px 0}
+  .concept-a .a-device-phone{width:21%;right:6px;bottom:0}
+  .concept-a .a-curated{margin-top:22px}
+  .concept-a .a-curated h2{font-size:23px;letter-spacing:-.7px}
+  .concept-a .a-curated .section-heading{gap:8px;margin-bottom:13px}
+  .concept-a .a-curated .text-link{font-size:13px;gap:6px}
+  .concept-a .a-curated-grid{grid-template-columns:1fr;gap:18px}
+  .concept-a .a-spotlight-visual{aspect-ratio:16/8;padding:18px}
+  .concept-a .a-spotlight-info{padding:17px 18px;min-height:91px}
+  .concept-a .a-spotlight-info h3{font-size:19px}
+  .concept-a .a-spotlight-info p{font-size:15px}
+  .concept-a .a-invitation{display:block;margin-top:25px;padding:23px 0}
+  .concept-a .a-invitation h2{font-size:19px;margin-bottom:17px}
+}
+.concept-a .a-main:focus {outline:none}
+.concept-a .footer-bottom {color:#68768a}
+.concept-a .resource-facts dt,.concept-a .no-rating {color:#647083}
+.concept-a .resource-facts dt {font-size:14px}
+.concept-a .resource-facts dd,.concept-a .editorial-article {font-size:16px}
+.concept-a .filter-field,.concept-a .filter-field select {font-size:14px}
+.concept-a .a-container {width:min(1240px,calc(100% - 96px));margin-inline:auto}
+.concept-a .a-kicker {font-size:10px;font-weight:650;letter-spacing:.1em;color:#61738b;line-height:1.6;margin:0 0 15px}
+.concept-a .resource-card-simple {padding:22px;border:1px solid #e5e9ef;border-radius:15px;background:#fff;display:flex;flex-direction:column;min-width:0}
+.concept-a .resource-card-simple>.app-icon {width:43px;height:43px;border-radius:11px;margin-bottom:17px}
+.concept-a .resource-card-simple h3 {font-size:18px;letter-spacing:-.4px;line-height:1.3;margin:0 0 9px;font-weight:650}
+.concept-a .resource-card-simple h3 a:hover {color:var(--accent)}
+.concept-a .resource-card-simple>p {font-size:13px;line-height:1.8;color:#647083;margin:0 0 17px}
+.concept-a .resource-card-simple>.detail-link {margin-top:auto;align-self:flex-start;font-size:12px;min-height:32px}
+.concept-a .a-explore {padding:33px 0 42px}
+.concept-a .a-explore-intro {display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;padding-bottom:28px;border-bottom:1px solid var(--a-line)}
+.concept-a .a-explore-intro h1 {font-size:35px;line-height:1.2;letter-spacing:-1.2px;font-weight:670;margin:0 0 13px}
+.concept-a .a-explore-intro p:not(.a-kicker) {font-size:14px;color:var(--a-muted);line-height:1.8;margin:0}
+.concept-a .a-explore-layout {display:grid;grid-template-columns:190px minmax(0,1fr);gap:35px;margin-top:27px}
+.concept-a .a-filter-rail {border-right:1px solid var(--a-line);padding-right:22px}
+.concept-a .a-filters summary {display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;list-style:none;min-height:38px;margin-bottom:18px}
+.concept-a .a-filters summary::-webkit-details-marker {display:none}
+.concept-a .a-filters summary>svg:last-child {width:13px;height:13px;margin-left:auto;transform:rotate(90deg)}
+.concept-a .a-filters:not([open]) summary {margin-bottom:0}
+.concept-a .a-filters:not([open]) summary>svg:last-child {transform:none}
+.concept-a .a-result-toolbar {display:flex;align-items:flex-start;gap:20px}
+.concept-a .a-view-toggle {display:flex;gap:3px}
+.concept-a .a-view-toggle .active {background:#edf2fb;color:var(--accent)}
+.concept-a .a-catalog-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.concept-a .a-catalog-list {display:flex;flex-direction:column;border-top:1px solid var(--a-line)}
+.concept-a .a-catalog-list .resource-card-simple {display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:6px 17px;border:0;border-bottom:1px solid var(--a-line);border-radius:0;padding:20px 0}
+.concept-a .a-catalog-list .resource-card-simple>.app-icon {grid-row:1 / 3;margin:0}
+.concept-a .a-catalog-list .resource-card-simple h3 {margin:0}
+.concept-a .a-catalog-list .resource-card-simple>p {grid-column:2;grid-row:2;margin:0}
+.concept-a .a-catalog-list .resource-card-simple>.detail-link {grid-column:3;grid-row:1 / 3;align-self:center;margin:0}
+.concept-a .a-load-more {text-align:center;padding:25px 0 8px}
+.concept-a .a-load-more p {font-size:12px;color:#65758b;margin:0 0 15px}
+.concept-a .a-load-more>span {font-size:11px;color:#8b95a1}
+.concept-a .a-breadcrumb {display:flex;gap:11px;flex-wrap:wrap;font-size:12px;color:#65758b;padding:24px 0}
+.concept-a .a-breadcrumb a {color:#577191}
+.concept-a .a-detail-intro {display:flex;align-items:center;justify-content:space-between;gap:40px;padding:7px 0 28px}
+.concept-a .a-detail-identity {display:flex;align-items:center;gap:24px;min-width:0}
+.concept-a .a-detail-identity h1 {font-size:41px;letter-spacing:-1.4px;line-height:1.2;font-weight:680;margin:0 0 13px;overflow-wrap:anywhere}
+.concept-a .a-detail-identity p:not(.a-kicker) {font-size:16px;line-height:1.7;color:var(--a-muted);margin:0;max-width:580px}
+.concept-a .a-detail-actions {display:flex;flex-direction:column;gap:10px;min-width:220px}
+.concept-a .a-detail-actions .button {font-size:12px}
+.concept-a .a-detail-visual {background:#f0f4f8;border-radius:19px;padding:27px 35px 20px}
+.concept-a .a-detail-visual .preview-image {background:transparent;padding:0}
+.concept-a .a-detail-visual img {max-height:410px;object-fit:contain}
+.concept-a .a-detail-visual figcaption {text-align:center;font-size:14px;margin-top:12px}
+.concept-a .a-detail-reading {display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.85fr);gap:75px;margin:37px 20px 40px}
+.concept-a .a-detail-reading>aside {border-left:1px solid var(--a-line);padding-left:28px}
+.concept-a .related-section {border-top:1px solid var(--a-line);padding-top:30px;margin-bottom:45px}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.concept-a .resource-card-simple{transition:border-color 160ms,transform 160ms}.concept-a .resource-card-simple:hover{border-color:#b7c8df;transform:translateY(-2px)}}
+@media(max-width:1100px){
+  .concept-a .a-container{width:calc(100% - 56px)}
+  .concept-a .a-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .concept-a .a-explore-intro{grid-template-columns:1fr;gap:22px}
+  .concept-a .a-explore-intro .hub-search{max-width:650px}
+  .concept-a .a-detail-reading{gap:38px;margin-inline:0}
+}
+@media(max-width:800px){
+  .concept-a .a-explore-layout{grid-template-columns:165px minmax(0,1fr);gap:25px}
+  .concept-a .a-filter-rail{padding-right:19px}
+  .concept-a .a-result-toolbar{display:block}
+  .concept-a .a-view-toggle{margin:-7px 0 20px}
+  .concept-a .a-detail-intro{display:block}
+  .concept-a .a-detail-actions{flex-direction:row;margin-top:24px}
+  .concept-a .a-detail-reading{grid-template-columns:1fr;gap:30px}
+  .concept-a .a-detail-reading>aside{border:0;border-top:1px solid var(--a-line);padding:24px 0 0}
+}
+@media(max-width:600px){
+  .concept-a .a-container{width:calc(100% - 36px)}
+  .concept-a .resource-card-simple{padding:19px 16px;border-radius:13px}
+  .concept-a .resource-card-simple>.app-icon{width:37px;height:37px;margin-bottom:16px}
+  .concept-a .resource-card-simple h3{font-size:17px}
+  .concept-a .resource-card-simple>p{font-size:12px;line-height:1.8}
+  .concept-a .a-explore{padding-top:26px}
+  .concept-a .a-explore-intro h1{font-size:31px}
+  .concept-a .a-explore-intro p:not(.a-kicker){font-size:13px}
+  .concept-a .a-explore-layout{display:block;margin-top:21px}
+  .concept-a .a-filter-rail{border:1px solid var(--a-line);padding:13px 16px;border-radius:11px;background:#f7f9fb;margin-bottom:23px}
+  .concept-a .a-filters summary{font-size:12px;min-height:33px}
+  .concept-a .filter-panel{display:grid;grid-template-columns:1fr 1fr;gap:15px 12px}
+  .concept-a .a-result-toolbar{display:flex;flex-wrap:wrap;gap:0 10px}
+  .concept-a .a-result-toolbar .results-block{flex:1 1 220px}
+  .concept-a .a-view-toggle{margin:0 0 17px}
+  .concept-a .a-catalog-grid{grid-template-columns:1fr;gap:13px}
+  .concept-a .a-catalog-grid .resource-card-simple{padding:22px}
+  .concept-a .a-catalog-grid .resource-card-simple>p{font-size:14px}
+  .concept-a .a-catalog-list .resource-card-simple{gap:6px 12px;grid-template-columns:37px minmax(0,1fr) 30px}
+  .concept-a .a-catalog-list .detail-link{font-size:0}
+  .concept-a .a-catalog-list .detail-link svg{width:20px;height:20px}
+  .concept-a .a-detail-identity{gap:17px;align-items:flex-start}
+  .concept-a .a-detail-identity>.app-icon{width:65px;height:65px;border-radius:15px}
+  .concept-a .a-detail-identity h1{font-size:32px;letter-spacing:-1px}
+  .concept-a .a-detail-identity p:not(.a-kicker){font-size:16px}
+  .concept-a .a-detail-identity .a-kicker{font-size:10px;margin-bottom:8px}
+  .concept-a .a-detail-actions{min-width:0;gap:9px}
+  .concept-a .a-detail-actions .button{font-size:14px;padding:11px;gap:7px;flex:1}
+  .concept-a .a-detail-visual{padding:20px 16px 16px;border-radius:15px}
+  .concept-a .a-detail-visual figcaption{text-align:left;font-size:14px}
+  .concept-a .a-breadcrumb{font-size:11px;padding:21px 0;gap:9px}
+  .concept-a .a-detail-reading{margin:29px 0}
+  .concept-a .related-section{margin-bottom:33px}
+}

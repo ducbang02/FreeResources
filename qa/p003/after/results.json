@@ -1,0 +1,327 @@
+{
+  "phase": "P00.3",
+  "date": "2026-11-03",
+  "runtime": "Playwright Core local, fresh isolated Chromium contexts",
+  "browser": "151.0.7922.34",
+  "checks": [
+    {
+      "name": "1440: Home hierarchy, first useful feature, images and overflow",
+      "status": "PASS",
+      "detail": {
+        "width": 1440,
+        "height": 900,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "overflow": false,
+        "brokenImages": [],
+        "featureTop": 123
+      }
+    },
+    {
+      "name": "1440: Search focus/default and bounded preview",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Native modal Tab/Shift+Tab remains inside",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Search loading/results and max4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Empty state",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Explicit simulated error and retry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Latest query wins",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Escape closes/restores focus without reopening",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Enter to full search and close",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Explore responsive and initial8",
+      "status": "PASS",
+      "detail": {
+        "width": 1440,
+        "height": 900,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "overflow": false,
+        "brokenImages": []
+      }
+    },
+    {
+      "name": "1440: Load more appends/ends",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Combined filters, grid/list and sort",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Detail facts/source and no fake rating",
+      "status": "PASS",
+      "detail": {
+        "width": 1440,
+        "height": 900,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "overflow": false,
+        "brokenImages": []
+      }
+    },
+    {
+      "name": "1440: Reduced motion applied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Home hierarchy, first useful feature, images and overflow",
+      "status": "PASS",
+      "detail": {
+        "width": 768,
+        "height": 1024,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "overflow": false,
+        "brokenImages": [],
+        "featureTop": 115
+      }
+    },
+    {
+      "name": "768: Search focus/default and bounded preview",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Native modal Tab/Shift+Tab remains inside",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Search loading/results and max4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Empty state",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Explicit simulated error and retry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Latest query wins",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Escape closes/restores focus without reopening",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Enter to full search and close",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Explore responsive and initial8",
+      "status": "PASS",
+      "detail": {
+        "width": 768,
+        "height": 1024,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "overflow": false,
+        "brokenImages": []
+      }
+    },
+    {
+      "name": "768: Load more appends/ends",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Combined filters, grid/list and sort",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Detail facts/source and no fake rating",
+      "status": "PASS",
+      "detail": {
+        "width": 768,
+        "height": 1024,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "overflow": false,
+        "brokenImages": []
+      }
+    },
+    {
+      "name": "768: Mobile/tablet menu click/Escape",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Reduced motion applied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Home hierarchy, first useful feature, images and overflow",
+      "status": "PASS",
+      "detail": {
+        "width": 390,
+        "height": 844,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": false,
+        "brokenImages": [],
+        "featureTop": 109
+      }
+    },
+    {
+      "name": "390: Search focus/default and bounded preview",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Native modal Tab/Shift+Tab remains inside",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Search loading/results and max4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Empty state",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Explicit simulated error and retry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Latest query wins",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Escape closes/restores focus without reopening",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Enter to full search and close",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Explore responsive and initial8",
+      "status": "PASS",
+      "detail": {
+        "width": 390,
+        "height": 844,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": false,
+        "brokenImages": []
+      }
+    },
+    {
+      "name": "390: Load more appends/ends",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Combined filters, grid/list and sort",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Detail facts/source and no fake rating",
+      "status": "PASS",
+      "detail": {
+        "width": 390,
+        "height": 844,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": false,
+        "brokenImages": []
+      }
+    },
+    {
+      "name": "390: Mobile/tablet menu click/Escape",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Reduced motion applied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "All viewports: no pageerror or console error",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "screenshots": [
+    "home-1440.png",
+    "home-1440-full.png",
+    "search-default-1440.png",
+    "search-results-1440.png",
+    "search-empty-1440.png",
+    "search-error-1440.png",
+    "explore-1440.png",
+    "detail-1440.png",
+    "home-768.png",
+    "home-768-full.png",
+    "search-default-768.png",
+    "search-results-768.png",
+    "explore-768.png",
+    "detail-768.png",
+    "home-390.png",
+    "home-390-full.png",
+    "search-default-390.png",
+    "search-results-390.png",
+    "explore-390.png",
+    "detail-390.png"
+  ],
+  "errors": [],
+  "limitations": [
+    "Headless Chromium, not physical iOS/Android keyboard or assistive technology.",
+    "Local prototype fixtures; no production backend/auth/AI/cloud integration."
+  ],
+  "status": "PASS"
+}

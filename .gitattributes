@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Preserve historical prototype snapshots and third-party asset/license bytes exactly.
+prototype/** -text
+prototype-p001/** -text
+public/assets/** -text
