@@ -10,7 +10,7 @@ Account đích được chủ dự án xác nhận là **`4ca521c6746d874c049fd8
 | --- | --- |
 | Worker | `digital-resource-hub-staging` |
 | Worker ID | `0540bcf9fa6448d6843935471fe0265c` |
-| Trạng thái Worker | Chỉ metadata, 0 versions, workers.dev tắt; chưa deploy code |
+| Trạng thái Worker | 1 version khởi tạo chưa deploy, không bindings; workers.dev tắt; chưa upload ứng dụng |
 | D1 cùng tên | `e28f4099-92cf-40bc-ab8c-c47138b4469d` |
 | D1 cloud | 13 tài nguyên, 17 nguồn, 0 lỗi khóa ngoại; FTS tìm thấy LocalSend |
 | Config | Binding DB top-level và Preview cùng UUID mới; target approved:true sau khi đọc lại |

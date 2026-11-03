@@ -12,7 +12,7 @@ Ngày 03/11/2026. Trạng thái hiện tại: **xác thực và tài nguyên đ�
 | Nhãn account | Nguyenducbang.uit@gmail.com's Account |
 | Xác thực | OAuth dự án thành công; whoami khớp chính xác account ID |
 | Worker staging | `digital-resource-hub-staging`, ID `0540bcf9fa6448d6843935471fe0265c` |
-| Worker runtime | Chỉ metadata, 0 versions, workers.dev tắt; chưa deploy ứng dụng |
+| Worker runtime | 1 version khởi tạo chưa deploy, không bindings; workers.dev tắt; chưa upload ứng dụng |
 | D1 staging cùng tên | `e28f4099-92cf-40bc-ab8c-c47138b4469d` |
 | D1 đã kiểm | Migrate/seed/query PASS: 13 tài nguyên, 17 nguồn, FK 0, FTS LocalSend |
 | Target/bindings | approved:true sau đọc lại; DB top-level và Preview cùng UUID trên |
@@ -43,6 +43,14 @@ Theo [Builds API reference](https://developers.cloudflare.com/workers/ci-cd/buil
 Browser Use và Computer Use đều không khởi tạo được do sandbox helper. Không đọc browser profile/cookie để vượt giới hạn. Người dùng hỗ trợ account đúng → Workers & Pages → `digital-resource-hub-staging` → Settings → Builds → Connect. Nếu cần cài GitHub App, chỉ cấp repo `ducbang02/FreeResources`; không mở toàn bộ repo.
 
 ## Kết nối và nghiệm thu còn lại
+
+### Chẩn đoán nút Connect bị khóa
+
+Chủ dự án xác nhận Connect bị mờ và con trỏ cấm thao tác. Đọc API trước sửa: Worker chưa có version, endpoint settings trả HTTP 404/code 10222. Đã tạo một module khởi tạo trả 503, không bindings, bằng Create Worker Version với `deploy=false`. Đọc lại PASS: 1 version, settings HTTP 200, `deployed_on:null`, workers.dev vẫn tắt. Sau refresh, chủ dự án xác nhận Connect dùng được. [Bằng chứng](../qa/p01/cloud-bootstrap.json). Ứng dụng vẫn triển khai qua GitHub; không kích hoạt deployment hoặc sửa D1 trong bước khởi tạo này.
+
+### Kết nối Git đã quan sát trên Dashboard
+
+Ảnh chủ dự án cung cấp xác nhận repo `ducbang02/FreeResources`, production branch `main`, build `npm run ci:build`, deploy `npm run ci:production`, Version command `npm run ci:preview:deploy`, root `/`, non-production builds bật. Token riêng `free-resources-staging-build` có D1 Edit và account đúng; không sửa token dự án khác. [Ghi nhận settings](../qa/p01/builds-dashboard.json). Dashboard đang bật các nhánh non-production; guard trong repo chỉ cho develop vượt qua. Chưa chứng minh build/Preview thành công; cần push develop rồi đọc log thật. Banner đề nghị đổi tên trong root wrangler là cảnh báo cần theo dõi: config local được giữ riêng, build staging chủ động chọn `deploy/wrangler.staging.json`.
 
 Dùng [runbook Preview](PHASE01_PREVIEW_RUNBOOK.md), đọc lại cấu hình trước build đầu:
 

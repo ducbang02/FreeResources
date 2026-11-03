@@ -1,0 +1,18 @@
+{
+  "status": "CONNECTION_SETTINGS_OBSERVED",
+  "evidenceSource": "User-provided Cloudflare Dashboard screenshots, 2026-11-03",
+  "workerName": "digital-resource-hub-staging",
+  "repository": "ducbang02/FreeResources",
+  "productionBranch": "main",
+  "nonProductionBuilds": true,
+  "disableBuilds": false,
+  "buildCommand": "npm run ci:build",
+  "deployCommand": "npm run ci:production",
+  "versionCommand": "npm run ci:preview:deploy",
+  "rootDirectory": "/",
+  "buildTokenName": "free-resources-staging-build",
+  "tokenD1Edit": true,
+  "tokenAccountLabel": "Nguyenducbang.uit@gmail.com's Account",
+  "branchRestriction": "Dashboard enables non-production branches; repository guard only permits develop",
+  "pipelineResult": "NOT_VERIFIED"
+}

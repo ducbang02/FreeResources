@@ -6,7 +6,7 @@
 
 - Phase hiện tại: **P01 / IN PROGRESS**; account đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực. Worker/D1 đúng account đã tạo và kiểm; còn kết nối Builds và nghiệm thu Preview.
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
-- Cloudflare: D1 staging đã migrate/seed/query PASS; Worker metadata có 0 versions, chưa deploy ứng dụng. Production chưa triển khai.
+- Cloudflare: D1 staging đã migrate/seed/query PASS; Worker có 1 version khởi tạo chưa deploy, không bindings, chưa upload ứng dụng. Chủ dự án đã nối Git trên Dashboard, settings đúng ba lệnh CI và main; token riêng có D1 Edit. Còn kiểm build thật và Preview. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
 - Git: repo public `ducbang02/FreeResources`, tác giả/push `sunny251010` đã được duyệt; main/develop đã push checkpoint `ace99a1`. Log chưa có Git của P00 là lịch sử.
 

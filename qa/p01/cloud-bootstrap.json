@@ -1,0 +1,17 @@
+{
+  "status": "UNDEPLOYED_BOOTSTRAP_VERSION_CREATED",
+  "accountId": "4ca521c6746d874c049fd829121ab59e",
+  "workerId": "0540bcf9fa6448d6843935471fe0265c",
+  "workerName": "digital-resource-hub-staging",
+  "versionId": "43646a1c-dad0-4fc3-be31-db231defad06",
+  "versionCount": 1,
+  "deployedOn": null,
+  "workersDevEnabled": false,
+  "settingsHttp": 200,
+  "settingsErrorCodes": [],
+  "bindings": [],
+  "applicationUploaded": false,
+  "dashboardConnect": "NOT_VERIFIED",
+  "source": "export default { fetch() { return new Response(\"Staging setup pending GitHub build\", { status: 503, headers: { \"x-robots-tag\": \"noindex, nofollow\", \"cache-control\": \"no-store\" } }); } };\n",
+  "timestamp": "2026-11-03T14:47:22.156Z"
+}
