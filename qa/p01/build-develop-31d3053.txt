@@ -12,7 +12,7 @@ Verbose seed SQL results/module tables omitted.
 2026-11-03T15:41:40.553Z	PASS: 13 resources, 7 types, evidence and duplicate checks.
 2026-11-03T15:41:43.709Z	🌀 Executing on local database DB (00000000-0000-0000-0000-000000000001) from .wrangler/state/v3/d1:
 2026-11-03T15:41:46.444Z	🌀 Executing on local database DB (00000000-0000-0000-0000-000000000001) from .wrangler/state/v3/d1:
-2026-11-03T15:42:04.700Z	Result (27 files): 
+2026-11-03T15:42:04.700Z	Result (27 files):
 2026-11-03T15:42:04.702Z	- 0 errors
 2026-11-03T15:42:04.703Z	- 0 warnings
 2026-11-03T15:42:04.703Z	- 0 hints
