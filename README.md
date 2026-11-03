@@ -3,7 +3,7 @@
 
 Ứng dụng Astro + TypeScript, Cloudflare Workers/D1, giao diện Concept A theo P00.3 và Noto Sans. Catalog có **13 tài nguyên thật, 7 loại và 17 nguồn kiểm chứng**. Không auth, rating, submission hoặc AI API thật trong P01.
 
-**P01 còn chờ kết nối Workers Builds và kiểm Preview.** Local typecheck/build, 21 tests, D1 và browser đã PASS. Cloud D1 trên account đúng đã PASS: 13 tài nguyên, 17 nguồn, không lỗi khóa ngoại và FTS tìm thấy LocalSend. Chưa deploy ứng dụng, chưa có Preview URL; không triển khai production.
+**Preview đã chạy qua GitHub → Workers Builds**, build `7de0b863` tại commit `508a96c`. Mở [website Preview](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev). Local có 22 tests PASS; browser cloud 45/45 checks PASS ở1440/768/390, 20 screenshot. D1 đúng account có 13 tài nguyên/17 nguồn/FK0/FTS PASS. P01 đang kiểm lần push tiếp theo tự cập nhật; production chưa triển khai.
 
 ## Chạy local trên Windows
 
@@ -27,7 +27,7 @@ npm run build
 ## GitHub và staging
 
 - Repo: [ducbang02/FreeResources](https://github.com/ducbang02/FreeResources), cộng tác viên/tác giả `sunny251010` được chủ dự án duyệt.
-- `main`: release khóa, production command no-op. `develop`: Preview khi Workers Builds được kết nối.
+- `main`: release khóa, production command no-op. `develop`: push sẽ tự checks/build, migrate/seed D1 staging và cập nhật Preview nếu mọi guard đều PASS.
 - Account staging: `4ca521c6746d874c049fd829121ab59e`; Worker `digital-resource-hub-staging`, D1 `e28f4099-92cf-40bc-ab8c-c47138b4469d`. Target chỉ được `approved:true` sau khi đọc lại đúng ID.
 - `wrangler.jsonc` chỉ local; staging dùng `deploy/wrangler.staging.json`. Không có production target.
 - Chỉ một Workers Builds pipeline, không thêm Actions song song. Builds API trên account đúng trả HTTP 403, code 10000; Browser Use/Computer Use không khởi tạo được nên chủ dự án hỗ trợ Dashboard.

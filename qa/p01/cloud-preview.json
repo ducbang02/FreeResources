@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "accountId": "4ca521c6746d874c049fd829121ab59e",
+  "databaseId": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
+  "buildIdPrefix": "7de0b863",
+  "commit": "508a96c",
+  "previewUrl": "https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev",
+  "previewId": "9198f00ce8c14f3cb2dc3aa5c32b53fa",
+  "deploymentId": "e4cac6f1-75af-43c0-8ab0-eb63e90ea122",
+  "deploymentAnnotations": {
+    "workers/message": "fix: recognize authenticated GitHub checkout URLs in CI",
+    "workers/repository_url": "https://github.com/ducbang02/FreeResources",
+    "workers/tag": "508a96c",
+    "workers/triggered_by": "create_preview_deployment_api"
+  },
+  "bindings": {
+    "APP_ENV": {
+      "text": "staging",
+      "type": "plain_text"
+    },
+    "ASSETS": {
+      "type": "assets"
+    },
+    "DB": {
+      "database_id": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
+      "id": "e28f4099-92cf-40bc-ab8c-c47138b4469d",
+      "type": "d1"
+    }
+  },
+  "parent": {
+    "id": "0540bcf9fa6448d6843935471fe0265c",
+    "name": "digital-resource-hub-staging",
+    "deployed_on": null,
+    "subdomain": {
+      "enabled": false,
+      "previews_enabled": true,
+      "url": "https://digital-resource-hub-staging.nguyenducbang-uit.workers.dev",
+      "preview_url_suffix": "-digital-resource-hub-staging.nguyenducbang-uit.workers.dev"
+    },
+    "references": {
+      "workers": [],
+      "domains": [],
+      "dispatch_namespace_outbounds": [],
+      "durable_objects": [],
+      "queues": []
+    }
+  },
+  "readOnlyD1Queries": {
+    "sql": "SELECT count(*) AS resources FROM resources; SELECT count(*) AS sources FROM sources; PRAGMA foreign_key_check; SELECT title FROM resources WHERE rowid IN (SELECT rowid FROM resource_search WHERE resource_search MATCH 'localsend');",
+    "results": [
+      [
+        {
+          "resources": 13
+        }
+      ],
+      [
+        {
+          "sources": 17
+        }
+      ],
+      [],
+      [
+        {
+          "title": "LocalSend"
+        }
+      ]
+    ]
+  },
+  "browserReport": "cloud/results.json",
+  "autoUpdateAfterNextPush": "PENDING",
+  "timestamp": "2026-11-03T15:31:05.627Z"
+}

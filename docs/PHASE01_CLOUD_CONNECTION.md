@@ -1,6 +1,6 @@
 # P01 — Bằng chứng kết nối Cloudflare
 
-Ngày 03/11/2026. Trạng thái hiện tại: **xác thực và tài nguyên đúng account PASS; Workers Builds/Preview chưa hoàn tất**. Tài liệu này thay các bảng account sai trong ghi nhận chuẩn bị trước đó; lịch sử cleanup được giữ riêng bên dưới.
+Ngày 03/11/2026. Trạng thái hiện tại: **Git connection, Workers Builds, Preview và browser cloud PASS; chờ kiểm auto-update sau push tiếp theo**. Tài liệu này thay các bảng account sai trong ghi nhận chuẩn bị trước đó; lịch sử cleanup được giữ riêng bên dưới.
 
 ## Đích hiện tại đã xác minh
 
@@ -12,12 +12,12 @@ Ngày 03/11/2026. Trạng thái hiện tại: **xác thực và tài nguyên đ�
 | Nhãn account | Nguyenducbang.uit@gmail.com's Account |
 | Xác thực | OAuth dự án thành công; whoami khớp chính xác account ID |
 | Worker staging | `digital-resource-hub-staging`, ID `0540bcf9fa6448d6843935471fe0265c` |
-| Worker runtime | 1 version khởi tạo chưa deploy, không bindings; workers.dev tắt; chưa upload ứng dụng |
+| Worker runtime | Parent chưa deploy, workers.dev tắt; ứng dụng đã deploy trong Preview develop |
 | D1 staging cùng tên | `e28f4099-92cf-40bc-ab8c-c47138b4469d` |
 | D1 đã kiểm | Migrate/seed/query PASS: 13 tài nguyên, 17 nguồn, FK 0, FTS LocalSend |
 | Target/bindings | approved:true sau đọc lại; DB top-level và Preview cùng UUID trên |
 
-[Bằng chứng tạo/đọc lại](../qa/p01/cloud-resources.json), [kết quả D1 cloud](../qa/p01/cloud-d1.json). Account ID/Worker ID/D1 ID không phải credential. Không có Preview URL hoặc deployment ứng dụng đã nghiệm thu.
+[Bằng chứng tạo/đọc lại ban đầu](../qa/p01/cloud-resources.json), [kết quả D1 cloud](../qa/p01/cloud-d1.json), [Preview readback hiện tại](../qa/p01/cloud-preview.json). Account ID/Worker ID/D1 ID không phải credential. Preview [develop](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev) có45 browser checks PASS; nghiệm thu chủ dự án vẫn chờ.
 
 Phiên dự án dùng `XDG_CONFIG_HOME=.cache/free-resources-auth` và `XDG_CACHE_HOME=.cache/free-resources-auth-cache`, đặt theo từng lệnh bằng đường dẫn tuyệt đối trong workspace. Không đổi HOME hoặc credential global Ctcm. Cache đã ignore; không đọc/in/copy token, cookie hoặc file auth vào chat/source/log. Không cần đổi tài khoản GitHub cộng tác viên sang owner.
 
@@ -53,6 +53,8 @@ Chủ dự án xác nhận Connect bị mờ và con trỏ cấm thao tác. Đ�
 Ảnh chủ dự án cung cấp xác nhận repo `ducbang02/FreeResources`, production branch `main`, build `npm run ci:build`, deploy `npm run ci:production`, Version command `npm run ci:preview:deploy`, root `/`, non-production builds bật. Token riêng `free-resources-staging-build` có D1 Edit và account đúng; không sửa token dự án khác. [Ghi nhận settings](../qa/p01/builds-dashboard.json). Dashboard đang bật các nhánh non-production; guard trong repo chỉ cho develop vượt qua. Chưa chứng minh build/Preview thành công; cần push develop rồi đọc log thật. Banner đề nghị đổi tên trong root wrangler là cảnh báo cần theo dõi: config local được giữ riêng, build staging chủ động chọn `deploy/wrangler.staging.json`.
 
 Build đầu `fdbb35ab` từ develop `2be13d0` đã clone/cài dependencies đúng Node/npm, nhưng FAIL ở kiểm origin trước migration/upload. [Record](../qa/p01/build-origin-failure.json). Guard được sửa để so danh tính GitHub host/repository bằng URL parser thay vì so toàn chuỗi chứa credentials; không cho fork/host khác, vẫn kiểm SHA từ develop chính thức. 22 tests local PASS; cloud retest chưa có kết quả. Không in origin hoặc credentials vào log. Chưa cần đổi build settings để xử lý lỗi này.
+
+Build tiếp theo `7de0b863` tại `508a96c` PASS theo ảnh Dashboard; readback Preview annotations khớp chính xác repo/tag. DB binding UUID e28f4099-92cf-40bc-ab8c-c47138b4469d, APP_ENV staging, ASSETS; Worker cha không deployment nhận traffic. Cloud browser 45 checks PASS,20PNG ở1440/768/390. Kiểm tiếp auto-update bằng push checkpoint QA. Full build logs chưa lấy tự động được vì Builds API403; ảnh Dashboard và API deployment là hai nguồn bằng chứng độc lập.
 
 Dùng [runbook Preview](PHASE01_PREVIEW_RUNBOOK.md), đọc lại cấu hình trước build đầu:
 

@@ -6,7 +6,7 @@
 
 - Phase hiện tại: **P01 / IN PROGRESS**; account đúng `4ca521c6746d874c049fd829121ab59e` đã xác thực. Worker/D1 đúng account đã tạo và kiểm; còn kết nối Builds và nghiệm thu Preview.
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
-- Cloudflare: D1 staging đã migrate/seed/query PASS; Worker có 1 version khởi tạo chưa deploy, không bindings, chưa upload ứng dụng. Git đã nối đúng settings/token. Build fdbb35ab từ develop 2be13d0 FAIL tại origin guard trước cloud mutation; bản sửa so danh tính URL GitHub có 22 tests PASS, chờ cloud retest. Production chưa triển khai.
+- Cloudflare: build7de0b863 tại508a96c PASS; Preview develop deploy đúng Worker/DB,45 browser checks PASS/20PNG/0 lỗi bình thường. Worker cha chưa active deployment. Còn kiểm push tiếp theo tự cập nhật. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
 - Git: repo public `ducbang02/FreeResources`, tác giả/push `sunny251010` đã được duyệt; main/develop đã push checkpoint `ace99a1`. Log chưa có Git của P00 là lịch sử.
 
@@ -92,8 +92,8 @@ Log P00.3: reuse HTML/CSS/native dialog, asset đã audit, Playwright Core1.62/C
 - [x] P01-07 — Repo ducbang02/FreeResources hiện public; sunny251010 có quyền push, được chủ dự án duyệt. App ddae9fe và đính chính ace99a1 đã push main/develop.
 - [x] P01-08 — OAuth dự án thành công, whoami đúng account đích; Worker/D1 staging đã tạo và đọc lại. D1 13 tài nguyên/17 nguồn/FK 0/FTS LocalSend PASS. Hai tài nguyên tạo nhầm đã xóa theo yêu cầu và GET trả 404; proof tại qa/p01/ctcm-cleanup.json.
 - [x] P01-09 — Một Workers Builds pipeline đã chuẩn bị: guard source/artifact/branch/commit/DB, main build và production deploy no-op;8 nhóm guard tests PASS.
-- [ ] P01-10 — Kết nối GitHub/Workers Builds trên account đúng. Builds API được kiểm lại độc lập trên account này vẫn trả HTTP 403, code 10000. Browser host lỗi; chủ dự án hỗ trợ Dashboard, không gửi token.
-- [ ] P01-11 — Develop push → Preview tự động → URL thật và cloud browser/runtime QA; kiểm push tiếp theo tự cập nhật. Chưa deploy thủ công ứng dụng.
+- [x] P01-10 — Kết nối GitHub/Workers Builds đúng account/repo/token và main no-op được đọc qua ảnh Dashboard; build7de0b863 PASS, API Preview khớp tag508a96c. Builds API OAuth403 còn là giới hạn đọc log, không chặn pipeline CI.
+- [ ] P01-11 — Develop push → Preview thật và45 cloud browser checks PASS; còn kiểm push tiếp theo tự cập nhật. Không deploy thủ công ứng dụng.
 - [ ] P01-12 — Báo cáo và nghiệm thu; chỉ READY FOR REVIEW khi cloud gates PASS. Không P02/production.
 
 Artifact staging từ account sai đã hủy. Artifact mới với account đúng/D1 mới đã build và kiểm generated config PASS cả top-level/Preview; dry-run PASS, gzip 173.80 KiB, không KV/Images tự phát sinh, không upload. Preview vẫn chưa deploy. Node 24.18.0 và npm 12.2.0 đã pin; main no-op, chỉ develop được Preview.

@@ -1,6 +1,6 @@
 # P01 — Foundation, catalog và GitHub → Cloudflare
 
-03/11/2026 · **IN PROGRESS**. Local và D1 cloud đã kiểm; kết nối Workers Builds/Preview còn BLOCKED. Chưa READY FOR REVIEW, chưa deploy ứng dụng, production hoặc P02.
+03/11/2026 · **IN PROGRESS**. GitHub → Workers Builds → Preview và 45 cloud browser checks đã PASS. Còn kiểm push tiếp theo tự cập nhật trước READY FOR REVIEW. Không production hoặc P02.
 
 ## Account và tài nguyên hiện tại
 
@@ -10,7 +10,8 @@ Account đích được chủ dự án xác nhận là **`4ca521c6746d874c049fd8
 | --- | --- |
 | Worker | `digital-resource-hub-staging` |
 | Worker ID | `0540bcf9fa6448d6843935471fe0265c` |
-| Trạng thái Worker | 1 version khởi tạo chưa deploy, không bindings; workers.dev tắt; chưa upload ứng dụng |
+| Trạng thái Worker cha | 1 version khởi tạo chưa deploy, workers.dev tắt, deployed_on:null; ứng dụng chạy trong Preview develop |
+| Preview | [develop](https://develop-digital-resource-hub-staging.nguyenducbang-uit.workers.dev), ID 9198f00ce8c14f3cb2dc3aa5c32b53fa |
 | D1 cùng tên | `e28f4099-92cf-40bc-ab8c-c47138b4469d` |
 | D1 cloud | 13 tài nguyên, 17 nguồn, 0 lỗi khóa ngoại; FTS tìm thấy LocalSend |
 | Config | Binding DB top-level và Preview cùng UUID mới; target approved:true sau khi đọc lại |
@@ -52,11 +53,12 @@ Schema 0001 có resources/resource_types/categories/tags/resource_categories/res
 | GitHub | PASS: repo public, sunny251010 có quyền push; main đến bf46b7a, develop đã push 2be13d0 trước bản sửa origin |
 | Workers Builds API đúng account | FAIL quyền hiện tại: HTTP 403, error code 10000 |
 | Git connection | PASS qua ảnh Dashboard: đúng repo, main no-op, Preview command và token riêng có D1 Edit |
-| Workers Builds develop | FAIL build fdbb35ab tại 2be13d0: origin guard chặn trước cloud mutation. Đã sửa nhận diện URL GitHub, cần chạy lại cloud |
-| Preview/cloud browser | SKIP: chưa có Preview URL đã kiểm |
+| Workers Builds develop | PASS build 7de0b863 tại 508a96c; ảnh Dashboard xanh cả build/deploy, API deployment annotations khớp repo/commit |
+| Preview/cloud browser | PASS: 45 checks thực qua HTTPS1440/768/390, 20 PNG, 0 lỗi console/page bình thường; Home/Explore/Detail/Search/D1, keyboard/filter/pagination/ảnh/font/noindex |
+| Preview auto-update | PENDING: cần deployment ID mới sau push tiếp theo |
 | Physical mobile/keyboard/AT/cross-browser | SKIP: chỉ Chromium và viewport emulation |
 
-[40 screenshot và JSON local](../qa/p01/index.html). UI/app local PASS không thay thế cloud browser PASS. Các lỗi harness đã được sửa và kiểm lại; không che lỗi runtime sản phẩm.
+[Gallery local và cloud](../qa/p01/index.html), [45 checks cloud](../qa/p01/cloud/results.json), [API readback binding/Worker/D1](../qa/p01/cloud-preview.json). Error/loading dùng QA interception có nhãn; 3 lỗi503 có chủ đích không bị gộp vào console bình thường. Một query QA ban đầu dùng nhầm resource_id trong FTS đã FAIL; sửa dùng rowid theo schema rồi read-only query PASS, không đổi schema hoặc dữ liệu.
 
 ## Git và việc còn lại
 
@@ -68,6 +70,6 @@ Builds API đã kiểm **riêng trên account đúng**, vẫn trả HTTP 403/cod
 
 `npm run ci:build` bỏ qua main, chỉ build develop; production `npm run ci:production` no-op; Preview `npm run ci:preview:deploy`. Dashboard bật non-production builds; guard chỉ cho develop qua. Node/npm đã pin trong repo, NODE_VERSION ở UI là tùy chọn.
 
-Sau connection: build từ GitHub, lấy Preview URL thật, kiểm cloud browser/runtime/D1 và push tiếp theo tự cập nhật. Chỉ sau các gate này mới READY FOR REVIEW. Một Workers Builds pipeline, không Actions song song; không production/DNS/paid plan/P02.
+Build xanh và Preview/D1 đã đọc lại: deployment e4cac6f1-75af-43c0-8ab0-eb63e90ea122, tag508a96c, DB đúng UUID staging, APP_ENV=staging, ASSETS; không binding khác. Parent deployed_on:null, workers.dev false. Cần push checkpoint QA để chứng minh Preview auto-update bằng deployment mới. Chỉ sau gate này mới READY FOR REVIEW. Một Workers Builds pipeline, không Actions song song; không production/DNS/paid plan/P02.
 
 [Runbook](PHASE01_PREVIEW_RUNBOOK.md), [kết nối cloud](PHASE01_CLOUD_CONNECTION.md), [SETUP](../SETUP.md), [tracker](../TASKS.md).
