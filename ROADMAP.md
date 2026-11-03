@@ -1,6 +1,6 @@
 # ROADMAP — Làm nhỏ, kiểm chứng, mở rộng
 
-> P00.3 READY FOR REVIEW: hướng A đã chọn, UI chưa nghiệm thu; P01 trở đi chưa triển khai. Mỗi phase có acceptance, không tự suy ra quyền deploy/API trả tiền/production từ roadmap.
+> P01 IN PROGRESS: local catalog da kiem, D1 staging da co du lieu; con ket noi Workers Builds va cloud-browser QA. Production va P02 chua duoc phep.
 
 ## Phase 00 — Product & technology validation
 
@@ -46,7 +46,7 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 **Gate:** dừng chờ chủ dự án nghiệm thu; chỉ bắt đầu P01 khi có lệnh riêng. Không backend/cloud/deploy hoặc đổi kiến trúc trong P00.3.
 
-## Phase 01 — Foundation & public catalog
+## Phase 01 — Foundation & public catalog (IN PROGRESS)
 
 **Mục tiêu:** website xem được nội dung thật, không cần AI hoặc login.
 
@@ -113,3 +113,5 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 `Inspect -> Reuse Audit -> Plan -> Implement -> Unit/Integration -> Browser/Runtime QA -> Security Review -> Document -> READY FOR REVIEW -> User Approval -> DONE`
 
 Mỗi phase ghi: file thay đổi, lệnh chạy với environment, PASS/FAIL/SKIP, những gì **chưa** kiểm thử, migration/rollback và commit/branch thực tế. Nếu có việc cần credential, production, DNS, paid plan, legal/takedown: dừng xin quyết định.
+
+P01 implementation status: source AstroSSR/TypeScript/D1FTS5/localCLI da co, localQA PASS; GitHub repo va account da chot. Chi taoWorker metadata vaD1staging, khonguploadcode. WorkersBuilds API403 va browserhostloi; cho thao tacDashboard de hoan tat Preview tuGitHub. Chi READY FOR REVIEW sau cloudworkflow/browserQA PASS.

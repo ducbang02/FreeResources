@@ -1,0 +1,11 @@
+---
+import type {Resource} from '../lib/catalog';
+import AppIcon from './AppIcon.astro';
+import Icon from './Icon.astro';
+interface Props { resource:Resource; visual?:boolean; }
+const {resource:r,visual=false}=Astro.props;
+---
+{visual?<article class="a-spotlight-card"><a class="a-spotlight-link" href={`/resources/${r.slug}`}>
+  {r.image&&<div class:list={['a-spotlight-visual',r.mediaKind==='artwork'?'spotlight-artwork':'spotlight-screenshot']}><img src={r.image} alt={r.mediaAlt||`Hình giới thiệu ${r.title}`} width="1200" height="675" loading="lazy" decoding="async"/>{r.mediaKind==='artwork'&&<span class="a-artwork-label">Artwork sản phẩm</span>}</div>}
+  <div class="a-spotlight-info"><AppIcon icon={r.icon} title={r.title}/><div><h3>{r.title}</h3><p>{r.summary}</p></div><span class="a-spotlight-arrow"><Icon name="arrow"/></span></div>
+</a></article>:<article class="resource-card resource-card-simple"><AppIcon icon={r.icon} title={r.title}/><h3><a href={`/resources/${r.slug}`}>{r.title}</a></h3><p>{r.summary}</p><a class="detail-link" href={`/resources/${r.slug}`} aria-label={`Tìm hiểu ${r.title}`}>Tìm hiểu <Icon name="arrow"/></a></article>}

@@ -1,0 +1,33 @@
+{
+  "name": "digital-resource-hub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.18.0 <25" },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "wrangler dev --ip 127.0.0.1 --port 4321",
+    "types": "wrangler types worker-configuration.d.ts",
+    "check": "npm run types && astro check",
+    "test": "node --test tests/*.test.mjs",
+    "db:migrate": "wrangler d1 migrations apply DB --local",
+    "db:validate": "node scripts/catalog.mjs validate data/catalog.json",
+    "db:seed": "node scripts/catalog.mjs generate data/catalog.json data/seed.sql && wrangler d1 execute DB --local --file data/seed.sql",
+    "ci:build": "node scripts/build-worker.mjs",
+    "ci:preview:plan": "node scripts/preview.mjs plan",
+    "ci:preview:build": "node scripts/preview.mjs build",
+    "ci:preview:deploy": "node scripts/preview.mjs deploy",
+    "ci:production": "node scripts/no-production.mjs"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "14.4.4",
+    "astro": "7.4.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@types/node": "24.19.2",
+    "typescript": "6.0.3",
+    "wrangler": "4.156.2"
+  }
+}

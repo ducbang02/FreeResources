@@ -24,6 +24,9 @@
 | D-018 | AGREED | Home giới thiệu/truyền cảm hứng; Search preview; Explore catalog; Detail quyết định | Home1 feature/3–4 công cụ, không nhồi taxonomy/thông số; tập trung refinement A, không tạo B/C mới |
 | D-019 | AGREED | Audit tooling read-only; hỏi trước global install/config/new permission/cost | P00.2 reuse Context7/Playwright đã có; chưa cài UI UX/Playwright MCP/DevTools MCP; không tool vào runtime production |
 | D-020 | AGREED brief; OPEN nghiệm thu | P00.3 giữ A Apple-inspired; hero full-width, headline hai dòng, giảm chữ, tối đa4 lựa chọn, thử Noto Sans Việt, giữ overlay và attribution | Hai card visual được triển khai; 68 browser checks PASS, 29 PNG. READY FOR REVIEW; chưa nghiệm thu, không P01/backend/cloud/deploy |
+| D-021 | AGREED P01 | Astro/TypeScript + Workers/D1, Concept A P00.3, Noto Sans, modular monolith; GitHub source + staging-only CI | User final P01 brief; permits Gitinit/commits and staging resources, forbids production/P02/auth/ratings/AI |
+| D-022 | AGREED target | Repo ducbang02/FreeResources; author/collaborator sunny251010; existing Cloudflare login nguyenducbang.uit@gmail.com/account4873c68031c0fc5e0284943a9119dac2 | User confirmed directly; Worker/D1 digital-resource-hub-staging separate, no newaccount |
+| D-023 | IMPLEMENTED local; OPEN cloud CI | Native Workers Builds onepipeline, main no-op, develop Preview with identity/binding guards | Worker metadata/D1 created; cloudDB PASS. Builds API403, browserhostfails; owner helpsDashboard; no deployment/Preview URL yet |
 
 ## Cần An xác nhận trước mốc triển khai tương ứng
 

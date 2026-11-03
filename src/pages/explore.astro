@@ -1,0 +1,29 @@
+---
+import {env} from 'cloudflare:workers';
+import {listResources,getTaxonomy} from '../lib/catalog';
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import SearchForm from '../components/SearchForm.astro';
+import ResourceCard from '../components/ResourceCard.astro';
+import Unavailable from '../components/Unavailable.astro';
+const params=Astro.url.searchParams,query=(params.get('q')||'').slice(0,160),list=params.get('view')==='list';
+let result:Awaited<ReturnType<typeof listResources>>|null=null,taxonomy:Awaited<ReturnType<typeof getTaxonomy>>|null=null;
+try{[result,taxonomy]=await Promise.all([listResources(env.DB,params),getTaxonomy(env.DB)]);}catch{Astro.response.status=503;}
+const url=(changes:Record<string,string|number>)=>{const p=new URLSearchParams(params);for(const [k,v] of Object.entries(changes))p.set(k,String(v));return '/explore?'+p.toString();};
+const pages=result?Math.max(1,Math.ceil(result.total/result.pageSize)):1;
+---
+<Layout title={query?`Tìm “${query}”`:'Khám phá thư viện'} description={query?`Tìm công cụ và tài nguyên phù hợp với “${query}” trong thư viện Nếp.`:'Tìm kiếm và lọc phần mềm, công cụ, repo và tài nguyên học tập theo nhu cầu.'}>
+  {!result||!taxonomy?<Unavailable/>:<div class="a-container a-explore"><section class="a-explore-intro"><div><p class="a-kicker">KHÁM PHÁ THƯ VIỆN</p><h1>{query?'Tìm đúng điều bạn cần.':'Có một công cụ cho việc đó.'}</h1><p>Thu gọn theo nhu cầu. Đọc kỹ trước khi chọn.</p></div><SearchForm id="a-discover-search" query={query} params={params} placeholder="Tìm tên, công dụng hoặc chủ đề…"/></section>
+    <div class="a-explore-layout"><aside class="a-filter-rail"><details class="a-filters" open><summary><Icon name="filter"/>Bộ lọc <Icon name="chevron"/></summary><form class="filter-panel" action="/explore" method="get" data-filters>
+      {query&&<input type="hidden" name="q" value={query}/>}<input type="hidden" name="view" value={list?'list':'grid'}/>
+      <label class="filter-field">Nhu cầu<select name="category"><option value="">Mọi nhu cầu</option>{taxonomy.categories.map(t=><option value={t.slug} selected={params.get('category')===t.slug}>{t.name}</option>)}</select></label>
+      <label class="filter-field">Loại tài nguyên<select name="type"><option value="">Mọi loại</option>{taxonomy.types.map(t=><option value={t.slug} selected={params.get('type')===t.slug}>{t.name}</option>)}</select></label>
+      <label class="filter-field">Nền tảng<select name="platform"><option value="">Mọi nền tảng</option>{taxonomy.platforms.map(t=><option value={t} selected={params.get('platform')===t}>{t}</option>)}</select></label>
+      <label class="filter-field">Sắp xếp<select data-sort name="sort"><option value="editorial" selected={!params.get('sort')||params.get('sort')==='editorial'}>Gợi ý biên tập</option><option value="name" selected={params.get('sort')==='name'}>Tên A–Z</option><option value="newest" selected={params.get('sort')==='newest'}>Mới cập nhật</option></select></label>
+      <div class="filter-actions"><button class="button" type="submit"><Icon name="filter"/>Áp dụng</button><a href={query?'/explore?'+new URLSearchParams({q:query}):'/explore'}>Xóa bộ lọc</a></div>
+    </form></details></aside>
+    <section class="a-results" aria-label="Kết quả tài nguyên"><div class="a-result-toolbar"><div class="results-block"><div class="results-heading"><p role="status"><strong>{result.total}</strong> tài nguyên{query&&` cho “${query}”`}</p></div></div><nav class="a-view-toggle" aria-label="Cách xem kết quả"><a href={url({view:'grid'})} class:list={['icon-button',!list&&'active']} aria-label="Xem dạng lưới" aria-current={!list?'true':undefined}><Icon name="grid"/></a><a href={url({view:'list'})} class:list={['icon-button',list&&'active']} aria-label="Xem dạng danh sách" aria-current={list?'true':undefined}><Icon name="list"/></a></nav></div>
+      {result.items.length?<><div class={list?'a-catalog-list':'a-catalog-grid'} id="a-catalog-results">{result.items.map(r=><ResourceCard resource={r}/>)}</div><nav class="a-pagination" aria-label="Phân trang"><span>Trang {result.page} / {pages}</span><div>{result.page>1&&<a class="button secondary" href={url({page:result.page-1})}>Trang trước</a>}{result.page<pages&&<a class="button secondary" href={url({page:result.page+1})}>Trang tiếp <Icon name="arrow"/></a>}</div></nav></>:<div class="empty-state"><Icon name="search"/><h2>Chưa có lựa chọn phù hợp.</h2><p>Thử từ khóa ngắn hơn hoặc bỏ bớt bộ lọc.</p><a class="button" href="/explore">Xem toàn bộ thư viện <Icon name="arrow"/></a></div>}
+    </section></div>
+  </div>}
+</Layout>

@@ -1,6 +1,6 @@
 # ARCHITECTURE — Phương án khởi đầu, có đường lớn lên
 
-> **AGREED về định hướng P01:** public catalog trước, ưu tiên Astro + TypeScript + Cloudflare Workers/D1 (chủ dự án xác nhận 03/11/2026). Chi tiết bên dưới vẫn PROPOSED, chưa runtime-verified; P01 chưa bắt đầu, chờ UI được duyệt và lệnh triển khai. Có đường lên VPS/Postgres khi cần, không cam kết di chuyển một click.
+> P01 implementation da duoc phe duyet: Astro + TypeScript, Cloudflare Workers/D1, modular monolith. Local runtime va cloudD1 da PASS; chua co deploy/Preview runtime. Production chua duoc phep.
 
 ## 1. Nguyên tắc kiến trúc
 
@@ -109,3 +109,13 @@ FTS là index tái tạo được. D1 hiện có hạn chế export với databa
 - Browser: search -> detail -> source; login -> rate/edit; submit -> preview -> moderation -> publish; responsive/keyboard.
 - Security: prompt injection README, SSRF, XSS nội dung, spam, forged role/ID, CSRF.
 - Staging có fixture giả, DB/keys tách production; không deploy/live data trước khi An duyệt.
+
+## 10. Physical implementation P01
+
+`src/lib/catalog.ts` is the narrow D1 query module; `validation.ts` handles localimport boundaries. Astro pages/components renderSSR, nativebrowserJS onlysearch/menu/dialog. No ORM/genericRepository or frontendframework. Runtimeimports cloudflare:workers env.DB; Wranglergeneratedtypes, sessionfalse/imagepassthrough.
+
+Schema0001: resources + resource_types + categories/tags + resource_categories/resource_tags + sources, FTS5 derivedindex/triggers. Primary type is one displaytype; category/tag many-to-many. Platform storedvalidatedJSON, optionallicense/pricing requireprovenance. No auth/users/ratings/AI/submission tables. Earlierlogicalmodel listsfutureproposals, notcreatedP01tables.
+
+PreparedSQL + published-only + boundedpagination, normalizedVietnameseFTS/tokenquotedMATCH. Resource summariesSSR; searchpreview bounded4. CLIJSONgeneratesupserts, schema uniqueness and atomicD1filebatch; no publicwriteAPI. No outboundfetch ofimportURLs at runtime.
+
+Localconfig fakeUUID + remotefalse. Stagingconfig account4873c68031c0fc5e0284943a9119dac2, Worker digital-resource-hub-staging, DBfea09243-1d9b-4836-82ac-0dea72ef1668 sameexplicitPreviewbinding. No productiontarget/routes/DNS, extraKV/R2/Images/services. MetadataWorkercreated with0versions; no applicationdeploy. WorkersBuilds preparedbutAPI403 andbrowserhostfailure blockconnection. Do not inferPreview isolationfromURL. One stagedD1sharedbydevelopPreview, neverprojectotherDB.

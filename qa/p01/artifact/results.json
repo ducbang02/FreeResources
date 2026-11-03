@@ -1,0 +1,293 @@
+{
+  "base": "http://127.0.0.1:4322",
+  "date": "2026-11-03",
+  "runtime": "Chromium, real HTTP application; database selected by target runtime",
+  "checks": [
+    {
+      "name": "1440: SSR Home, useful full-width feature, real images/fonts",
+      "status": "PASS",
+      "detail": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "overflow": false,
+        "broken": []
+      }
+    },
+    {
+      "name": "1440: Focus opens default search, bounded preview and keyboard trap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Actual D1 search and accent-insensitive matching",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Empty state",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Real HTTP failure handling and retry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Escape closes and restores without reopening",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Enter opens full server-rendered results",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Explore pagination, no overflow and initial8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: DB taxonomy/filter, sorting and list view",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Detail source/platform/license, unique SEO and genuine links",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Contribution clearly deferred and modal Escape",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Attribution/licenses route",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "1440: Reduced motion",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: SSR Home, useful full-width feature, real images/fonts",
+      "status": "PASS",
+      "detail": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": false,
+        "broken": []
+      }
+    },
+    {
+      "name": "768: Focus opens default search, bounded preview and keyboard trap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Actual D1 search and accent-insensitive matching",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Empty state",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Real HTTP failure handling and retry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Escape closes and restores without reopening",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Enter opens full server-rendered results",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Explore pagination, no overflow and initial8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: DB taxonomy/filter, sorting and list view",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Detail source/platform/license, unique SEO and genuine links",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Menu click/Escape",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Contribution clearly deferred and modal Escape",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Attribution/licenses route",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "768: Reduced motion",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: SSR Home, useful full-width feature, real images/fonts",
+      "status": "PASS",
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": false,
+        "broken": []
+      }
+    },
+    {
+      "name": "390: Focus opens default search, bounded preview and keyboard trap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Actual D1 search and accent-insensitive matching",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Empty state",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Real HTTP failure handling and retry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Escape closes and restores without reopening",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Enter opens full server-rendered results",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Explore pagination, no overflow and initial8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: DB taxonomy/filter, sorting and list view",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Detail source/platform/license, unique SEO and genuine links",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Menu click/Escape",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Contribution clearly deferred and modal Escape",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Attribution/licenses route",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "390: Reduced motion",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "HTTP integration: API limits, invalid query, unknown routes and indexing",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Search loading/cancellation/latest query wins",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Progressive enhancement: search without client JavaScript",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Normal journeys have zero console/page errors",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "screenshots": [
+    "home-1440.png",
+    "home-1440-full.png",
+    "search-default-1440.png",
+    "search-results-1440.png",
+    "search-empty-1440.png",
+    "search-error-1440.png",
+    "explore-1440.png",
+    "detail-1440.png",
+    "home-768.png",
+    "home-768-full.png",
+    "search-default-768.png",
+    "search-results-768.png",
+    "explore-768.png",
+    "detail-768.png",
+    "home-390.png",
+    "home-390-full.png",
+    "search-default-390.png",
+    "search-results-390.png",
+    "explore-390.png",
+    "detail-390.png"
+  ],
+  "errors": [],
+  "expectedErrors": [
+    {
+      "width": 1440,
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "width": 768,
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "width": 390,
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    }
+  ],
+  "limitations": [
+    "Viewport emulation, not physical mobile/software keyboard/screen reader.",
+    "503 and delay injected only by QA request interception; no fake product endpoint."
+  ],
+  "browser": "151.0.7922.34",
+  "status": "PASS"
+}

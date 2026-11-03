@@ -1,0 +1,8 @@
+---
+import Icon from './Icon.astro';
+interface Props { icon?:string|null; title:string; size?:'sm'|'md'|'lg'; }
+const {icon,title,size='md'}=Astro.props;
+---
+<span class:list={['app-icon',`icon-${size}`,!icon&&'category-icon']}>
+  {icon?<img src={icon} alt="" width="64" height="64" loading="lazy"/>:<><Icon name="grid"/><span class="sr-only">Ký hiệu tài nguyên {title}, không phải logo chính thức</span></>}
+</span>

@@ -1,0 +1,29 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "digital-resource-hub-staging",
+  "account_id": "4873c68031c0fc5e0284943a9119dac2",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-11-03",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": false,
+  "assets": { "directory": "../dist", "binding": "ASSETS" },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "digital-resource-hub-staging",
+    "database_id": "fea09243-1d9b-4836-82ac-0dea72ef1668",
+    "migrations_dir": "../migrations",
+    "remote": false
+  }],
+  "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } },
+  "vars": { "APP_ENV": "staging" },
+  "previews": {
+    "vars": { "APP_ENV": "staging" },
+    "d1_databases": [{
+      "binding": "DB",
+      "database_name": "digital-resource-hub-staging",
+      "database_id": "fea09243-1d9b-4836-82ac-0dea72ef1668",
+      "migrations_dir": "../migrations",
+      "remote": false
+    }]
+  }
+}

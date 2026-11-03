@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+---
+<dialog id="search-dialog" class="search-dialog" aria-labelledby="search-title" data-state="default">
+  <div class="search-surface"><div class="search-dialog-heading"><h2 id="search-title">Bạn đang cần tìm gì?</h2><button type="button" class="icon-button" data-search-close aria-label="Đóng tìm kiếm"><Icon name="close"/></button></div>
+    <form id="search-preview-form" class="search-preview-form" action="/explore" method="get" role="search"><label class="sr-only" for="search-preview-input">Tìm tài nguyên</label><Icon name="search"/><input id="search-preview-input" name="q" type="search" maxlength="160" autocomplete="off" placeholder="Tên công cụ, nhu cầu…"/><button type="submit" aria-label="Tìm tất cả kết quả"><Icon name="arrow"/></button></form>
+    <p id="search-preview-status" class="search-preview-status" role="status" aria-live="polite"></p><div id="search-preview-content" class="search-preview-content"></div>
+    <footer class="search-dialog-footer"><a id="search-all-link" href="/explore">Xem tất cả tài nguyên <Icon name="arrow"/></a></footer>
+  </div>
+</dialog>

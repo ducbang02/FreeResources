@@ -4,7 +4,7 @@
 
 ## Trạng thái chung
 
-- Current phase: **P00.3 / READY FOR REVIEW**; A đã chọn làm hướng, chưa nghiệm thu UI; P01 **NOT STARTED**.
+- Current phase: **P01 / IN PROGRESS**; P01 da duoc phe duyet, P00.3 la baseline; chiPreview/staging, khongproduction.
 - Code: có **prototype tĩnh** HTML/CSS/JS với fixture; chưa source ứng dụng/backend/auth/database/AI pipeline.
 - Production / Cloudflare: **chưa triển khai** cho dự án mới.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
@@ -81,15 +81,22 @@ Log P00.2: Context7 đã có resolve/query PASS; local Playwright binary/package
 
 Log P00.3: reuse HTML/CSS/native dialog, asset đã audit, Playwright Core1.62/Chromium151 có sẵn. Source-only UI UX guidance, không cài skill/MCP. Có lane font/license và review độc lập; placeholder contrast đã làm tối. Probe CDP đầu thiếu CSS.enable và assertion MIME WOFF2 ban đầu không phù hợp Python server Windows, đã sửa harness rồi chạy lại PASS; font thực đã render. MIME local application/octet-stream được ghi rõ, không suy ra cấu hình production. Font bị chặn là failure simulation có chủ đích. Physical iOS/Android/software keyboard/AT/Safari/Firefox SKIP. Chi tiết `docs/PHASE003_REPORT.md`, evidence `qa/p003/index.html`. Server local đã dừng sau QA, browser đóng; không Git repo/commit/push/backend/cloud/deploy/P01.
 
-## P01 — Catalog public (NOT STARTED)
+## P01 ? Foundation, catalog & GitHub ? Cloudflare (IN PROGRESS)
 
-- [ ] P01-01 — Tạo repo scaffold ở branch riêng, scripts test/lint/check/build phù hợp stack đã chốt.
-- [ ] P01-02 — Migrations/schema local + fixture; kiểm unique canonical + indexes, backup/restore.
-- [ ] P01-03 — Resource type, category/tag, nguồn gốc, giá/giấy phép; server validation.
-- [ ] P01-04 — Home, directory, search/filter, resource detail; responsive và SEO.
-- [ ] P01-05 — Add/edit thủ công qua tool/admin **được bảo vệ**, không expose API public nếu chưa auth.
-- [ ] P01-06 — Unit/integration/browser, keyboard/mobile và source link QA.
-- [ ] P01-07 — Báo P01, cập nhật tracker và docs, user nghiệm thu.
+- [x] P01-01 ? Audit/context, pin Astro7.4.5/adapter14.4.4/Wrangler4.156.2/TS6; Git develop initialized, baseline commit c862af9.
+- [x] P01-02 ? Versioned D1 schema/FTS5/indexes,13 resources/7types/17sources; local migrate/seed/restore/atomicrollback PASS.
+- [x] P01-03 ? Source-backed catalog, multi-category/tags, stableID/slug/canonicalunique; unknown metadata hidden, no fake ratings.
+- [x] P01-04 ? P00.3 AstroSSR Home/Explore/Detail, Noto Sans, DB featured/taxonomy, actualsearch overlay, facets/sort/pagination/grid-list, SEO/noindex/sitemap.
+- [x] P01-05 ? Offline JSON validator/SQL importer, no public admin/auth/AI.
+- [x] P01-06 ? Typecheck0errors, local/stagingbuild+dryrun,20tests,45dev+45artifact browser checks at1440/768/390,40PNG; zero normal console errors.
+- [x] P01-07 ? GitHub owner/repo duc bang02: ducbang02/FreeResources andsunny251010 collaborator confirmed; remote access PASS. Source push checkpoint follows docs integration.
+- [x] P01-08 ? Account4873...dac2 confirmed; Worker metadata-only000318...18428, D1fea09243...1668 createdseparately; remote migration/13resources/17sources/FK/FTS readback PASS.
+- [x] P01-09 ? One Workers Builds pipeline prepared; source/artifact/branch/commit/DB guards, mainbuild+productiondeploy no-op,7guardtests PASS.
+- [ ] P01-10 ? Connect GitHub App/Workers Builds and readback branchcontrols. OAuth API403; BrowserUse/ComputerUse hostfails. Owner helpsDashboard, no newtoken inchat.
+- [ ] P01-11 ? Develop push ? automatic Preview ? realURL/cloud browser/runtimeQA; verify nextpushauto-update. Not manually deployed.
+- [ ] P01-12 ? Final report/owner acceptance; only READY FOR REVIEW after requiredcloudproof. No P02/production.
+
+P01log03/11/2026: localPASS and cloudD1PASS are distinct. Cloudapp/CI/browser remainPENDING. Legacyprototype unchanged, nocredentials/globalMCPinstall/paidservice/DNS/prodmutation. Build/config packagechecksexact in SETUP and PHASE01reports. EarlierP00 SKIP and NOTSTARTED arehistorical.
 
 ## P02 — Import & biên tập
 

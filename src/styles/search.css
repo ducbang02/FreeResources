@@ -1,0 +1,74 @@
+body.search-open {overflow:hidden}
+.search-dialog {font-family:"Noto Sans","Segoe UI",Arial,sans-serif}
+.search-preview-status:empty {display:none}
+.search-dialog {width:min(740px,calc(100% - 40px));max-height:calc(100dvh - 64px);padding:0;margin:min(9vh,72px) auto auto;border:1px solid #d9e1ec;border-radius:18px;box-shadow:0 24px 100px #14263d30;overflow:hidden;color:#29364a}
+.search-dialog::backdrop {background:#152b4666;backdrop-filter:blur(3px)}
+.search-surface {display:flex;flex-direction:column;max-height:calc(100dvh - 64px);min-height:0}
+.search-dialog-heading {display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 23px 7px;flex-shrink:0}
+.search-dialog-heading h2 {font-size:15px;font-weight:600;letter-spacing:-.3px;margin:0}
+.search-dialog-heading .icon-button {font-size:27px;width:36px;min-height:36px;color:#64758b}
+.search-preview-form {display:flex;flex-direction:row;align-items:center;gap:13px;margin:0 23px;padding:8px 0 14px;border-bottom:1px solid #e2e7ef;flex-shrink:0}
+.search-preview-form>.ui-symbol {color:#64758b;width:21px;height:21px}
+.search-preview-form input {width:100%;min-width:0;flex:1;border:0;background:transparent;color:#293a52;font-size:20px;line-height:1.5;padding:9px 0}
+.search-preview-form input::placeholder {color:#64758b}
+.search-preview-form button {background:#f1f4f9;color:#7b8ca3;border:1px solid #e4eaf2;min-width:38px;min-height:36px;border-radius:7px;font-size:20px}
+.search-preview-status {font-size:14px;color:#64758b;line-height:1.8;margin:14px 24px 7px;flex-shrink:0}
+.search-preview-content {overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:12px 24px 22px;scrollbar-gutter:stable}
+.search-preview-content h3 {font-size:14px;font-weight:550;letter-spacing:.01em;color:#64758b;line-height:1.7;margin:0 0 13px}
+.search-suggestion-columns {display:grid;grid-template-columns:1fr 1fr;gap:30px;padding-bottom:19px;border-bottom:1px solid #edf0f5}
+.search-intents {display:flex;flex-direction:column;gap:3px}
+.search-intents button {display:flex;align-items:center;gap:10px;background:transparent;color:#526781;font-size:14px;min-height:38px;padding:7px 3px;text-align:left}
+.search-intents button>.ui-symbol:first-child {width:15px;height:15px;color:#9aa8ba}
+.search-intents button>.ui-symbol:last-child {width:14px;height:14px;margin-left:auto;color:#64758b}
+.search-chips {display:flex;gap:8px;flex-wrap:wrap}
+.search-chips a,.search-chips button {font-size:14px;color:#526781;background:#f3f6fb;border:1px solid #e8edf5;border-radius:7px;min-height:38px;padding:9px 12px;line-height:1.5}
+.search-featured {padding-top:20px}
+.search-preview-result {display:flex;align-items:center;gap:13px;min-height:73px;padding:12px 8px;border-radius:10px;color:#425773}
+.search-preview-result:hover,.search-preview-result:focus-visible {background:#f3f6fb}
+.search-preview-result>span:not(.app-icon) {min-width:0;flex:1}
+.search-preview-result strong {font-size:14px;line-height:1.5;font-weight:600;display:block}
+.search-preview-result small {font-size:14px;line-height:1.7;color:#64758b;display:block;margin-top:3px}
+.search-preview-result>.ui-symbol {width:17px;height:17px;color:#9aabc0}
+.search-dialog-footer {display:flex;align-items:center;justify-content:flex-end;gap:16px;padding:16px 24px;border-top:1px solid #e6ebf3;background:#fafbfd;flex-shrink:0;font-size:14px;line-height:1.7;color:#64758b}
+.search-dialog-footer a {display:flex;align-items:center;gap:10px;color:#496a9d;font-size:14px}
+.search-dialog-footer svg {width:16px;height:16px}
+.search-history {border-bottom:1px solid #edf0f5;padding-bottom:18px;margin-bottom:19px}
+.search-history>div:first-child {display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:11px}
+.search-history h3 {margin:0}
+.search-history>div>button {background:transparent;color:#64758b;font-size:14px;min-height:30px}
+.search-feedback {padding:25px 10px 35px;text-align:center}
+.search-feedback h3 {font-size:23px;letter-spacing:-.6px;font-weight:600;color:#465a78;margin:0 0 13px}
+.search-feedback p {font-size:14px;color:#64758b;line-height:1.8;margin:0 0 22px}
+.search-feedback .button {font-size:14px}
+.search-skeleton {display:flex;flex-direction:column;gap:15px;padding:20px 8px 35px}
+.search-skeleton span {height:47px;border-radius:8px;background:#f1f4f8}
+@media(max-width:600px){
+  .search-dialog {width:calc(100% - 24px);margin:12px auto auto;max-height:calc(100dvh - 24px);border-radius:14px}
+  .search-surface {max-height:calc(100dvh - 24px)}
+  .search-dialog-heading {padding:14px 17px 5px}
+  .search-dialog-heading h2 {font-size:14px}
+  .search-dialog-heading .icon-button {min-height:40px}
+  .search-preview-form {margin:0 17px;gap:10px;padding:4px 0 11px}
+  .search-preview-form input {font-size:16px;padding:10px 0}
+  .search-preview-form>.ui-symbol {width:18px;height:18px}
+  .search-preview-form button {min-width:32px;min-height:34px;font-size:18px}
+  .search-preview-status {margin:12px 18px 3px;font-size:14px}
+  .search-preview-content {padding:12px 18px 18px}
+  .search-suggestion-columns {grid-template-columns:1fr;gap:20px;padding-bottom:18px}
+  .search-intents {flex-direction:row;gap:8px;flex-wrap:wrap}
+  .search-intents button {font-size:14px;border:1px solid #e8edf4;border-radius:7px;padding:9px 11px;min-height:39px}
+  .search-intents button>.ui-symbol {display:none}
+  .search-chips a,.search-chips button {font-size:14px;min-height:39px}
+  .search-featured {padding-top:17px}
+  .search-preview-result {gap:11px;padding:11px 3px;min-height:77px}
+  .search-preview-result strong {font-size:14px}
+  .search-preview-result small {font-size:14px;line-height:1.8}
+  .search-preview-result>.ui-symbol {width:15px;height:15px}
+  .search-preview-result>.app-icon {width:35px;height:35px}
+  .search-dialog-footer {padding:13px 18px;gap:9px}
+  .search-dialog-footer>span {font-size:14px;max-width:90px}
+  .search-dialog-footer>a {font-size:14px;gap:6px}
+  .search-feedback {padding:24px 5px 30px}
+  .search-feedback h3 {font-size:22px}
+  .search-feedback p {font-size:14px}
+}

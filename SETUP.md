@@ -1,152 +1,94 @@
-# SETUP — Planning và prototype local
+﻿# SETUP — P01 / Windows / Astro + Workers + D1
 
-> Chưa có source ứng dụng/package.json/Wrangler. Prototype A P00.3 vẫn HTML/CSS/JS không dependency runtime; dev QA reuse Playwright Core và Chromium đã có. Lệnh npm phía dưới vẫn dự kiến P01.
+Ngày03/11/2026. Node24.18.0/npm12.2.0 được dùng. Lockfile pin Astro7.4.5, adapter14.4.4, Wrangler4.156.2, TypeScript6.0.3, checker0.9.12, Node types24.19.2. Không CLI global/framework frontend khác.
 
-## P00.3 — mở A và QA thật
+## Cài, chạy và kiểm thử
 
-Mở `prototype-p001/index.html` trực tiếp (đã test file://), mặc định A; `review.html` có khung1440/768/390. Mở `qa/p003/index.html` xem29 PNG trước/sau/bổ sung và JSON68 browser checks PASS (45+23). Noto Sans được tải từ hai WOFF2 local, kèm OFL; không cài font vào máy. Thiết kế chưa được chủ dự án nghiệm thu.
-
-Đã có Node24.18.0/npm12.2.0/Python3.13.15. Local playwright-core1.62.0 và Chromium151.0.7922.34 được reuse, không cài thêm. Package dev hiện ở `D:\Workspace\CloneWebsite\KatTattoo\node_modules\playwright-core`; chỉ đọc thư viện, không copy source ứng dụng dự án kia. Script nhận package path để không hardcode vào website.
-
-Muốn tái chạy QA, mở một terminal server và terminal riêng cho checks trong root workspace:
+Trong D:\Workspace\FreeResources:
 
 ```powershell
-python -m http.server 4175 --bind 127.0.0.1 --directory prototype-p001
-```
-
-```powershell
-node tools/qa-p002.cjs D:\Workspace\CloneWebsite\KatTattoo\node_modules\playwright-core http://127.0.0.1:4175/index.html qa/p003/after P00.3
-node tools/qa-p003.cjs D:\Workspace\CloneWebsite\KatTattoo\node_modules\playwright-core
-node prototype-p001/verify.mjs
-```
-
-Server4175 của phiên bàn giao đã dừng; tự dừng terminal server bằng Ctrl+C sau QA. Script đóng browser trong finally, ghi `qa/p003/after/results.json`, `qa/p003/results-specific.json`/PNG, không auto install/download. Máy mới cần đường package/binary hợp lệ đã được cài riêng; nếu cần cài/global config/new permission thì hỏi trước, không chạy npm install chỉ từ docs này.
-
-UI UX Pro Max chỉ đọc source, chưa cài/chạy. Context7 có sẵn/test. Playwright MCP/DevTools MCP chưa cài. [Tooling audit](docs/PHASE002_TOOLING_AUDIT.md) có official nguồn/license/installer/proposal chưa thực thi. Tooling không thuộc bundle production. Python http.server trên máy này phục vụ WOFF2 với MIME application/octet-stream; Chromium đã decode/render font thật. MIME font/woff2 cần kiểm trên runtime P01 khi được giao. Ảnh before là snapshot P00.2 đã chụp trước sửa, không ghi đè khi chạy lại QA.
-
-Muốn thử error search: mở `index.html#/A/home?qa=search-error`, focus search rồi nhập từ; đây là simulation, retry trở lại dữ liệu local. History/save chỉ trong phiên. Physical mobile keyboard/screen reader chưa test.
-
-## Xem prototype Phase 00.1 — log lịch sử
-
-Mở `D:\Workspace\FreeResources\prototype-p001\review.html` để so A/B/C và home/discover/detail ở khung1440/768/390; hoặc `prototype-p001\index.html` cho tương tác bình thường. Route `#/A/home`, `#/B/discover`, `#/C/detail/localsend`. Không npm/API/key; toàn bộ asset/script local. Viewport iframe là công cụ review, chưa phải QA/screenshot thật.
-
-Kiểm logic/template bằng Node có sẵn (trong root workspace):
-
-```powershell
-node prototype-p001/verify.mjs
-```
-
-Đã chạy PASS19 nhóm/63 template bằng Node VM và DOM stubs; không thay browser/console/keyboard/viewport thật. Muốn HTTP preview local có thể tự chạy:
-
-```powershell
-python -m http.server 4174 --bind 127.0.0.1 --directory prototype-p001
-```
-
-Mở `http://127.0.0.1:4174/review.html`; Ctrl+C để dừng. Server này chưa chạy trong P00.1. Browser/native host của phiên không hoạt động nên QA/screenshot SKIP; hướng dẫn trong `docs/PHASE001_REPORT.md`. Prototype P00 bên dưới giữ nguyên, không phải vòng mới.
-
-## Xem prototype Phase 00 — lưu tham chiếu
-
-Mở `D:\Workspace\FreeResources\prototype\index.html` bằng trình duyệt, chọn A/B rồi thử Home → Khám phá → Chi tiết và Admin demo. Có thể mở file trực tiếp, không cần Node/npm, backend hoặc API key. Toàn bộ dữ liệu, điểm số và AI draft là minh họa; reload không phải thao tác lưu lên database.
-
-Nếu cần HTTP preview local, chạy trong `D:\Workspace\FreeResources`:
-
-```powershell
-python -m http.server 4173 --bind 127.0.0.1 --directory prototype
-```
-
-Sau đó mở `http://127.0.0.1:4173`. Đây là lệnh tùy chọn cho người xem, **chưa chạy trong phiên P00**, dừng bằng Ctrl+C. Không expose server ra LAN.
-
-Môi trường đã đọc trong P00: Node `v24.18.0`, Python `3.13.15`, Git `2.53.0.windows.3`. Thư mục hiện không có `.git`, chưa có branch/commit/remote. Không tự `git init` trong P00.
-
-## 1. Môi trường phát triển của An
-
-- Windows + VS Code/Codex; Git; Node.js LTS và package manager sẽ xác nhận sau khi chốt stack.
-- Cloudflare account dùng cho project mới, **project-specific** Worker/D1/R2 và staging/production riêng; không đụng tài nguyên dự án khác.
-- GitHub API token (nếu cần quota phù hợp), Gemini API key tạo trong Google AI Studio; không nhập key vào prompt, docs hoặc commit.
-- Có thể phát triển/test local trước khi tạo resource Cloudflare thật.
-
-### Xác minh phiên bản (PowerShell, trong terminal VS Code)
-
-```powershell
-git --version
-node --version
-npm --version
-```
-
-Không chạy `wrangler`/`npm install` chỉ vì tài liệu này tồn tại; trước tiên kiểm tra `package.json`, version và script thực tế khi repo đã được tạo.
-
-## 2. Khởi tạo repo mới từ bộ tài liệu
-
-1. Tạo **folder/repo riêng**, không sao chép source của THEOLOI, Sunny, Sion hay tài nguyên R2 từ dự án khác.
-2. Giải nén bộ tài liệu vào root repo.
-3. Tài liệu `AGENTS.md` trong bộ này là **bản universal mới** để An review/dùng thay bản cũ; nên xem diff trước khi thay. Không giữ đồng thời hai file `AGENTS.md` với quy tắc mâu thuẫn.
-4. Đọc các file theo `README.md`; chốt phase P00 trước khi scaffold.
-5. Tạo `.gitignore` phù hợp stack khi đã có source; secrets và dữ liệu fixture nhạy cảm phải được ignore.
-
-## 3. Lệnh phát triển đề xuất — CHƯA KHẢ DỤNG
-
-Chỉ khi Codex đã tạo project, xác nhận `package.json` và viết scripts phù hợp, **mới có thể** dùng những tên lệnh kiểu:
-
-```powershell
-npm install
+npm ci --ignore-scripts
+npm run db:migrate
+npm run db:seed
 npm run dev
+```
+
+Mở http://127.0.0.1:4321, Ctrl+C để dừng. Phiên này dùng npm install --ignore-scripts với dependency pin để tạo lockfile; setup trên máy sạch chưa kiểm riêng. Native optional binaries hiện tại chạy được không postinstall.
+
+`wrangler.jsonc` chỉ local: binding DB, UUID giả, remote:false, D1 tại .wrangler/state/v3. Astro dev dùng workerd/Vite, remoteBindings:false. Không đổi sang remote để chữa lỗi local.
+
+```powershell
 npm run check
-npm run lint
 npm test
 npm run build
 ```
 
-Các lệnh trên **chưa được chạy và có thể chưa tồn tại**. Codex phải sửa thành thực tế, ghi cwd, version, và kết quả PASS/FAIL/SKIP. Không tự làm mờ lỗi bằng cách xóa test hoặc bỏ validation.
+Check sinh worker-configuration.d.ts rồi Astro check; không tự viết Env. File sinh/node_modules/dist/.astro/.wrangler/.cache không commit. 20 tests gồm validator, SQL/FTS/facets/draft/upsert/duplicates và guard CI; SQLite PASS không thay cloud PASS.
 
-## 4. Secrets và cấu hình môi trường
-
-Tên biến ví dụ (tùy provider chọn):
-
-```text
-GEMINI_API_KEY=<set via local secret / Cloudflare secret>
-GITHUB_TOKEN=<optional, server-side>
-OPENAI_API_KEY=<optional, future provider>
-```
-
-- Đây là **tên biến minh họa, không chứa giá trị thật**; file mẫu `.dev.vars.example` hoặc `.env.example` chỉ chứa placeholder.
-- Local secret (`.dev.vars`/`.env`) phải nằm trong `.gitignore` trước khi tạo file.
-- Với Cloudflare, dùng cơ chế `wrangler secret` hoặc binding chính thức cho môi trường tương ứng; không lưu khóa vào code, D1 hay client bundle.
-- Cấu hình quota, provider/model và prompt/schema version server-side; frontend chỉ nhận status/result đã qua kiểm duyệt.
-- Tách Cloudflare dev/staging/prod, DB và data fixture; rủi ro chi phí phải được An duyệt.
-
-## 5. GitHub / data ingest
-
-- Dùng API chính thức có auth hợp lệ và rate limits; fetch README/manifest theo scope nhỏ, lưu URL + thời điểm + content hash và source evidence.
-- Validate URL và target network trước server fetch (SSRF); giới hạn content bytes/timeout/redirect.
-- **Không auto `git clone` hoặc thực thi postinstall/build script của repo ngẫu nhiên** trong máy phát triển/server vì việc đọc README không cần chạy code.
-- Nếu sau này thử one-click installation: dùng Windows Sandbox/VM sạch, xem nguồn/phụ thuộc/checksum/signature và nhận diện quyền chạy trước khi phát hành.
-
-## 6. Ponytail: dùng một lần cho agent, không vendoring vào từng repo
-
-Repo: https://github.com/DietrichGebert/ponytail
-
-Nếu An dùng **Codex CLI hỗ trợ plugin** và đã kiểm tra phiên bản/tài liệu chính thức, có thể chủ động cài (tự quyết định sau khi review plugin/hook):
+Browser QA dùng Playwright Core đã có, không runtime dependency:
 
 ```powershell
-codex plugin marketplace add DietrichGebert/ponytail
-codex plugin add ponytail@ponytail
+node tools/qa-p01.cjs D:\Workspace\CloneWebsite\KatTattoo\node_modules\playwright-core http://127.0.0.1:4321 qa/p01/local
 ```
 
-Sau đó vào Codex CLI, mở `/hooks`, **review và chỉ trust hooks nếu An chấp nhận**, mở session mới. Tài liệu chính thức: https://github.com/DietrichGebert/ponytail/blob/main/INSTALL.md . Nếu bản VS Code extension/CLI của An không hỗ trợ lệnh `codex plugin`, **không ép cài**; dùng những rule Ponytail đã được nhúng trong `AGENTS.md`, hoặc tích hợp skill bằng đường hỗ trợ của phiên bản đó.
+Chỉ đọc thư viện dev ở repo khác, không copy source ứng dụng. Máy khác truyền package/browser đã cài; script không tự install. 1440/768/390, 20 screenshot mỗi lượt; physical mobile/software keyboard/AT chưa kiểm.
 
-Không tự install plugin thay An, không coi plugin là runtime dependency của web. `$ponytail:ponytail-review` là lệnh review diff có thể dùng **nếu plugin đã xuất hiện** trong môi trường; không nhận định nó đã được cài thành công nếu chưa kiểm chứng.
+## Local admin, migrations và phục hồi
 
-## 7. Checklist trước staging / production
+```powershell
+node scripts/catalog.mjs validate data/catalog.json
+node scripts/catalog.mjs generate data/catalog.json data/seed.sql
+npm run db:migrate
+npm run db:seed
+```
 
-- [ ] Test local DB migrations, rating uniqueness, auth/admin ACL, AI schema and failure paths.
-- [ ] Browser test từ user journey thật (390px/desktop), loading/error, accessibility.
-- [ ] Source/license/manual content review; không có ISO/game/tài liệu không rõ quyền trên máy chủ.
-- [ ] Rate limit, cache boundary, secrets scan, storage/AI quota/budget limit.
-- [ ] Staging riêng, backups/restore test, rollout/rollback plan.
-- [ ] An phê duyệt explicitly trước bất kỳ deploy, DNS, paid plan hoặc production mutation.
+Sửa JSON, giữ ID bất biến, URL chính thức và nguồn cho từng claim. Field chưa xác minh dùng null/[]; ảnh local phải tồn tại và có quyền. Validate/generate rồi review SQL. Upsert theo ID, giữ createdAt, unique slug/URL; không xóa mục vắng trong file, dùng draft/archived để ẩn. Không public mutation endpoint.
 
-## 8. Các báo cáo Codex cần cập nhật sau P00/P01
+Migrations có version; Wrangler D1 file execute dùng batch atomic, không thêm BEGIN. FTS là index tái tạo: [catalog report](docs/PHASE01_CATALOG.md) có restore/rollback drill D1 local riêng. JSON đã version + migrations là nguồn khôi phục của admin local; không khẳng định export nguyên DB có virtual tables hoặc tự drop FTS trên live.
 
-- Version và script thực tế, setup từ Windows mới, migration local, commands và kết quả.
-- File thay đổi, test pass/fail/skip, có thực chạy browser/nền tảng Windows hay chỉ mock.
-- Checklist task/phase, Git commit/branch, trạng thái cloud (local/staging/live), blocker và bước tiếp theo.
+## Build artifact staging, không deploy
+
+```powershell
+$env:P01_STAGING_BUILD='1'
+npm run build
+Remove-Item Env:P01_STAGING_BUILD
+node node_modules/wrangler/bin/wrangler.js deploy --dry-run --config dist/server/wrangler.json
+```
+
+Adapter sinh dist/server/wrangler.json và dist/client; không sửa artifact hoặc đổi env sau build. Guard kiểm account/Worker/D1/Preview bindings theo deploy/staging-target.json; sessions:false và imageService:passthrough tránh KV/Images tự tạo. Dry-run không upload.
+
+Artifact được kiểm riêng bằng simulator D1 ở .cache/artifact-runtime, cổng4322; mọi DB command dùng --local --persist-to .cache/artifact-runtime, không ghi test lỗi vào D1 cloud. `npm run preview` dùng config artifact gần nhất; bỏ P01_STAGING_BUILD và build local lại khi cần target local.
+
+## Git workflow
+
+Repo https://github.com/ducbang02/FreeResources.git; author/collaborator sunny251010 đã được chủ dự án xác nhận. Main khóa release, develop cho Preview. Commit checkpoint, review staged diff/secrets; không force push/rewrite hoặc commit token/.env/.dev.vars/generated artifacts.
+
+.gitattributes giữ byte prototype/asset/license, tránh autocrlf làm sai hash. Sandbox thấy owner khác thì dùng per-command, không sửa global:
+
+```powershell
+git -c safe.directory=D:/Workspace/FreeResources status
+```
+
+## Cloudflare Preview qua GitHub
+
+Account4873c68031c0fc5e0284943a9119dac2 qua login nguyenducbang.uit@gmail.com. Worker staging metadata-only ID000318f0fc78496aad07c79236818428, tên digital-resource-hub-staging, workers.dev tắt, chưa upload code. D1 riêng cùng tên IDfea09243-1d9b-4836-82ac-0dea72ef1668: migrate/13resources/17sources/FTS/FK cloud PASS. Không DB dự án khác/production.
+
+[Runbook Dashboard](docs/PHASE01_PREVIEW_RUNBOOK.md) và [bằng chứng kết nối](docs/PHASE01_CLOUD_CONNECTION.md). Các ô phải đặt trước lần build đầu:
+
+| Ô | Giá trị |
+| --- | --- |
+| Repo | ducbang02/FreeResources |
+| Production branch | main |
+| Build command | npm run ci:build |
+| Deploy command | npm run ci:production |
+| Preview builds | Bật, include chỉ develop |
+| Preview command | npm run ci:preview:deploy |
+| Build variable | NODE_VERSION=24.18.0 |
+
+ci:build bỏ qua main, chỉ checks/build staging trên develop; nhánh khác bị từ chối. ci:production no-op, không upload/migrate/deploy. Preview wrapper yêu cầu native CI branch/commit/origin/clean tree, proof local checks/build và đúng account/DB trước remote migration/seed/Preview. Một Workers Builds pipeline, không Actions song song; GitHub App chỉ đúng repo.
+
+OAuth hiện đủ Worker/D1 nhưng Builds API403; Browser Use/Computer Use host không khởi tạo được. Chủ dự án hỗ trợ nối Dashboard. Không gửi token/mật khẩu vào chat. Chỉ sau connection/branch controls, build GitHub thật và cloud browser PASS mới nghiệm thu deploy workflow. Noindex không phải access control.
+
+## Production dự kiến, chưa thực hiện
+
+Không có production deploy path trong P01. Cần lệnh duyệt riêng, Worker/D1/domain production riêng, kiểm budget/backup/rollback và staging QA trước release. Không tự DNS/paid plan/migration production/auth/ratings/Gemini/P02.

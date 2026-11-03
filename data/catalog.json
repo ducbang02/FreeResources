@@ -1,0 +1,171 @@
+{
+  "types": [
+    {"slug":"application","name":"Ứng dụng"},
+    {"slug":"repository","name":"Repo mã nguồn"},
+    {"slug":"online_tool","name":"Công cụ trực tuyến"},
+    {"slug":"learning_resource","name":"Tài nguyên học tập"},
+    {"slug":"game","name":"Trò chơi"},
+    {"slug":"operating_system_resource","name":"Tài nguyên hệ điều hành"},
+    {"slug":"collection","name":"Bộ sưu tập"}
+  ],
+  "categories": [
+    {"slug":"van-phong","name":"Văn phòng"},
+    {"slug":"hoc-tap","name":"Học tập"},
+    {"slug":"sang-tao","name":"Sáng tạo"},
+    {"slug":"lap-trinh","name":"Lập trình"},
+    {"slug":"he-dieu-hanh","name":"Hệ điều hành"},
+    {"slug":"giai-tri","name":"Giải trí"}
+  ],
+  "tags": [
+    {"slug":"chuyen-file","name":"Chuyển file"},
+    {"slug":"ve-so-do","name":"Vẽ sơ đồ"},
+    {"slug":"ghi-man-hinh","name":"Ghi màn hình"},
+    {"slug":"office","name":"Soạn văn bản và bảng tính"},
+    {"slug":"game-development","name":"Phát triển game"},
+    {"slug":"hoc-lap-trinh","name":"Học lập trình"},
+    {"slug":"mo-phong","name":"Mô phỏng khoa học"},
+    {"slug":"web","name":"HTML CSS JavaScript"},
+    {"slug":"windows","name":"Tiện ích Windows"},
+    {"slug":"linux","name":"Linux"},
+    {"slug":"self-hosted","name":"Tự host"},
+    {"slug":"van-tai","name":"Mô phỏng vận tải"}
+  ],
+  "resources": [
+    {
+      "id":"localsend","slug":"localsend","title":"LocalSend",
+      "summary":"Chuyển tệp giữa điện thoại và máy tính trong cùng mạng.",
+      "description":"LocalSend là ứng dụng chia sẻ tệp giữa các thiết bị trong mạng nội bộ. Cài ứng dụng trên các thiết bị, chọn tệp rồi gửi đến thiết bị nhận; không cần tài khoản. Khả năng kết nối còn phụ thuộc mạng và tường lửa của bạn.",
+      "type":"application","canonicalUrl":"https://localsend.org/",
+      "platforms":["Windows","macOS","Linux","Android","iOS"],"license":"Apache-2.0","pricing":"Miễn phí",
+      "icon":"/assets/localsend.png","image":"/assets/localsend-desktop.webp","mobileImage":"/assets/localsend-mobile.webp",
+      "heroTitle":"Chuyển tệp.\nNhẹ như không.",
+      "mediaAlt":"LocalSend trên máy tính và điện thoại, hình sản phẩm từ website chính thức",
+      "mediaCredit":"Tien Nam Do / LocalSend contributors · Apache-2.0. Ảnh gốc không chỉnh sửa, đổi kích thước bằng CSS.","mediaKind":"screenshot",
+      "status":"published","featuredRank":0,"curatedRank":null,"categories":["van-phong"],"tags":["chuyen-file"],
+      "sources":[
+        {"url":"https://localsend.org/","label":"Website LocalSend","fields":["title","summary","description","canonicalUrl","platforms","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"},
+        {"url":"https://raw.githubusercontent.com/localsend/localsend/main/LICENSE","label":"License mã nguồn LocalSend","fields":["license"],"verifiedAt":"2026-11-03T00:00:00Z"}
+      ],"createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"excalidraw","slug":"excalidraw","title":"Excalidraw",
+      "summary":"Vẽ ý tưởng thành hình bằng bảng trắng trực tuyến.",
+      "description":"Excalidraw là bảng vẽ ảo để phác thảo các sơ đồ có nét vẽ tay. Có thể dùng bản web hoặc tìm hiểu mã nguồn. Giấy phép MIT ở đây áp dụng cho mã nguồn; các dịch vụ hoặc gói thương mại có thể có điều khoản riêng.",
+      "type":"online_tool","canonicalUrl":"https://excalidraw.com/","platforms":["Web"],"license":"MIT cho mã nguồn","pricing":null,
+      "icon":"/assets/excalidraw-responsive.svg","image":"/assets/excalidraw-promo.png",
+      "mediaAlt":"Artwork giới thiệu Excalidraw từ kho chính thức, không phải screenshot",
+      "mediaCredit":"Excalidraw contributors · MIT. Artwork nguyên bản; icon thêm viewBox responsive, giữ đường nét/màu và lưu bản gốc.","mediaKind":"artwork",
+      "status":"published","featuredRank":null,"curatedRank":0,"categories":["sang-tao","hoc-tap"],"tags":["ve-so-do"],
+      "sources":[
+        {"url":"https://github.com/excalidraw/excalidraw","label":"Kho chính thức Excalidraw","fields":["title","summary","description","canonicalUrl","platforms"],"verifiedAt":"2026-11-03T00:00:00Z"},
+        {"url":"https://raw.githubusercontent.com/excalidraw/excalidraw/master/LICENSE","label":"License mã nguồn Excalidraw","fields":["license"],"verifiedAt":"2026-11-03T00:00:00Z"}
+      ],"createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"godot","slug":"godot","title":"Godot Engine",
+      "summary":"Tạo thế giới của riêng bạn với game engine 2D và 3D.",
+      "description":"Godot Engine cung cấp môi trường tạo trò chơi 2D và 3D, với hệ thống node và scene. Engine được phát hành theo MIT; license của engine không cấp quyền cho artwork, âm thanh hoặc tài nguyên bên thứ ba trong trò chơi.",
+      "type":"application","canonicalUrl":"https://godotengine.org/","platforms":[],"license":"MIT cho engine","pricing":"Miễn phí",
+      "icon":"/assets/godot.svg","image":"/assets/godot-editor.jpg",
+      "mediaAlt":"Godot editor với TPS demo, screenshot từ kho godot-design chính thức",
+      "mediaCredit":"Icon: Andrea Calabro / Godot contributors. Screenshot: Godot Engine contributors · CC BY 4.0. Tệp không chỉnh sửa, chỉ đổi kích thước hiển thị.","mediaKind":"screenshot",
+      "status":"published","featuredRank":null,"curatedRank":1,"categories":["lap-trinh","sang-tao"],"tags":["game-development"],
+      "sources":[
+        {"url":"https://godotengine.org/","label":"Website Godot Engine","fields":["title","summary","description","canonicalUrl","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"},
+        {"url":"https://godotengine.org/license/","label":"License engine và nội dung tạo ra","fields":["license","description"],"verifiedAt":"2026-11-03T00:00:00Z"}
+      ],"createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"obs-studio","slug":"obs-studio","title":"OBS Studio",
+      "summary":"Ghi hình màn hình và phát trực tiếp từ nhiều nguồn.",
+      "description":"OBS Studio là phần mềm ghi hình và phát trực tiếp. Có thể tổ chức màn hình, camera và âm thanh thành các scene. Nên thử âm thanh và quyền thiết bị trước khi ghi một bài giảng hoặc buổi trình bày.",
+      "type":"application","canonicalUrl":"https://obsproject.com/","platforms":["Windows","macOS","Linux"],"pricing":"Miễn phí",
+      "status":"published","categories":["sang-tao","hoc-tap"],"tags":["ghi-man-hinh"],
+      "sources":[{"url":"https://obsproject.com/","label":"Website OBS Project","fields":["title","summary","description","canonicalUrl","platforms","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"libreoffice","slug":"libreoffice","title":"LibreOffice",
+      "summary":"Soạn văn bản, làm bảng tính và tạo bài trình chiếu.",
+      "description":"LibreOffice là bộ công cụ văn phòng, bao gồm Writer để viết tài liệu, Calc cho bảng tính và Impress cho trình chiếu. Trang chính thức cung cấp bản tải và hướng dẫn. Kiểm tra định dạng tài liệu khi trao đổi với các bộ Office khác.",
+      "type":"application","canonicalUrl":"https://www.libreoffice.org/","platforms":[],"pricing":"Miễn phí",
+      "status":"published","categories":["van-phong","hoc-tap"],"tags":["office"],
+      "sources":[{"url":"https://www.libreoffice.org/","label":"Website LibreOffice","fields":["title","summary","description","canonicalUrl","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"visual-studio-code","slug":"visual-studio-code","title":"Visual Studio Code",
+      "summary":"Soạn mã, duyệt dự án và làm việc với công cụ lập trình.",
+      "description":"Visual Studio Code là trình soạn thảo mã với công cụ chỉnh sửa, điều hướng mã và debug. Bản tải chính thức được cung cấp cho Windows, macOS và Linux. Điều khoản bản phân phối khác với license của kho mã nguồn; mục này chưa xác minh chi tiết license.",
+      "type":"application","canonicalUrl":"https://code.visualstudio.com/","platforms":["Windows","macOS","Linux"],"pricing":"Miễn phí",
+      "status":"published","categories":["lap-trinh"],"tags":["hoc-lap-trinh"],
+      "sources":[
+        {"url":"https://code.visualstudio.com/","label":"Website Visual Studio Code","fields":["title","summary","description","canonicalUrl"],"verifiedAt":"2026-11-03T00:00:00Z"},
+        {"url":"https://code.visualstudio.com/download","label":"Bản tải chính thức và nền tảng","fields":["platforms","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"}
+      ],"createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"phet","slug":"phet","title":"PhET Interactive Simulations",
+      "summary":"Khám phá khoa học và toán học qua mô phỏng tương tác.",
+      "description":"PhET của University of Colorado cung cấp mô phỏng tương tác về khoa học và toán học. Trang web là điểm bắt đầu để chọn mô phỏng phù hợp cho việc học hoặc giảng dạy. License từng mô phỏng cần được kiểm tại nguồn trước khi sao chép hay phân phối lại.",
+      "type":"learning_resource","canonicalUrl":"https://phet.colorado.edu/","platforms":["Web"],"pricing":"Miễn phí",
+      "status":"published","categories":["hoc-tap"],"tags":["mo-phong"],
+      "sources":[{"url":"https://phet.colorado.edu/","label":"PhET · University of Colorado","fields":["title","summary","description","canonicalUrl","platforms","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"mdn-web-docs","slug":"mdn-web-docs","title":"MDN Web Docs",
+      "summary":"Tra cứu HTML, CSS, JavaScript và các API web.",
+      "description":"MDN Web Docs là nguồn tài liệu tham khảo và hướng dẫn về công nghệ web. Có thể tra cứu ngôn ngữ, ví dụ và thông tin tương thích trình duyệt. License nội dung và code sample chưa được xác minh trong đợt seed này.",
+      "type":"learning_resource","canonicalUrl":"https://developer.mozilla.org/en-US/","platforms":["Web"],
+      "status":"published","categories":["hoc-tap","lap-trinh"],"tags":["web","hoc-lap-trinh"],
+      "sources":[{"url":"https://developer.mozilla.org/en-US/","label":"MDN Web Docs chính thức","fields":["title","summary","description","canonicalUrl","platforms"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"freecodecamp","slug":"freecodecamp","title":"freeCodeCamp",
+      "summary":"Học lập trình qua giáo trình và bài tập trực tuyến.",
+      "description":"freeCodeCamp cung cấp giáo trình học lập trình và khoa học máy tính miễn phí. Kho chính thức công khai mã nguồn và curriculum của nền tảng. Đây là liên kết đến nguồn học, không phải bản sao giáo trình hoặc chứng nhận đã hoàn thành khóa học.",
+      "type":"learning_resource","canonicalUrl":"https://www.freecodecamp.org/","platforms":["Web"],"pricing":"Miễn phí",
+      "status":"published","categories":["hoc-tap","lap-trinh"],"tags":["hoc-lap-trinh"],
+      "sources":[{"url":"https://github.com/freeCodeCamp/freeCodeCamp","label":"Kho mã nguồn và curriculum chính thức","fields":["title","summary","description","canonicalUrl","platforms","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"powertoys","slug":"powertoys","title":"Microsoft PowerToys",
+      "summary":"Khám phá bộ tiện ích tùy chỉnh cách làm việc trên Windows.",
+      "description":"PowerToys là bộ tiện ích mã nguồn mở của Microsoft dành cho Windows. Các công cụ hỗ trợ quản lý cửa sổ, tùy chỉnh bàn phím và những thao tác làm việc thường ngày. Liên kết tài nguyên dẫn đến kho mã nguồn chính thức, có tài liệu cài đặt riêng.",
+      "type":"repository","canonicalUrl":"https://github.com/microsoft/PowerToys","platforms":["Windows"],"pricing":"Miễn phí",
+      "status":"published","categories":["van-phong","he-dieu-hanh"],"tags":["windows"],
+      "sources":[{"url":"https://learn.microsoft.com/en-us/windows/powertoys/","label":"Microsoft Learn · PowerToys","fields":["title","summary","description","canonicalUrl","platforms","pricing"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"openttd","slug":"openttd","title":"OpenTTD",
+      "summary":"Xây dựng và vận hành mạng lưới vận tải trong game mô phỏng.",
+      "description":"OpenTTD là trò chơi mô phỏng vận tải mã nguồn mở. Dự án có nhiều loại phương tiện và cách tổ chức mạng lưới vận tải. License GPL của trò chơi không tự cấp quyền cho mọi gói đồ họa, âm thanh hoặc nội dung bên ngoài được đưa vào game.",
+      "type":"game","canonicalUrl":"https://www.openttd.org/","platforms":[],"license":"GNU GPL version 2.0 cho trò chơi",
+      "status":"published","categories":["giai-tri"],"tags":["van-tai"],
+      "sources":[{"url":"https://www.openttd.org/about","label":"OpenTTD · About","fields":["title","summary","description","canonicalUrl","license"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"ubuntu-desktop-guide","slug":"ubuntu-desktop-guide","title":"Hướng dẫn cài Ubuntu Desktop",
+      "summary":"Đọc quy trình cài đặt Ubuntu từ tài liệu chính thức.",
+      "description":"Tài liệu Ubuntu Desktop hướng dẫn quy trình cài hệ điều hành trên máy tính. Mục này chỉ liên kết đến hướng dẫn chính chủ, không tải lại ISO hoặc thực hiện cài đặt. Việc cài hệ điều hành có thể ảnh hưởng dữ liệu; cần đọc hướng dẫn và sao lưu trước khi thao tác.",
+      "type":"operating_system_resource","canonicalUrl":"https://ubuntu.com/desktop/docs/en/latest/tutorial/install-ubuntu-desktop/","platforms":["Web"],
+      "status":"published","categories":["he-dieu-hanh","hoc-tap"],"tags":["linux"],
+      "sources":[{"url":"https://ubuntu.com/desktop/docs/en/latest/tutorial/install-ubuntu-desktop/","label":"Ubuntu Desktop documentation · Canonical","fields":["title","summary","description","canonicalUrl","platforms"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id":"awesome-selfhosted","slug":"awesome-selfhosted","title":"Awesome Selfhosted",
+      "summary":"Khám phá bộ sưu tập phần mềm và dịch vụ có thể tự host.",
+      "description":"Awesome Selfhosted là danh sách tuyển chọn các dịch vụ mạng và ứng dụng web có thể triển khai trên máy chủ của bạn. Mỗi dự án trong danh sách có yêu cầu vận hành và license riêng; việc có tên trong danh sách không bảo chứng an toàn hoặc phù hợp cho mọi môi trường.",
+      "type":"collection","canonicalUrl":"https://github.com/awesome-selfhosted/awesome-selfhosted","platforms":[],
+      "status":"published","categories":["lap-trinh"],"tags":["self-hosted"],
+      "sources":[{"url":"https://github.com/awesome-selfhosted/awesome-selfhosted","label":"Kho Awesome Selfhosted chính thức","fields":["title","summary","description","canonicalUrl"],"verifiedAt":"2026-11-03T00:00:00Z"}],
+      "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    }
+  ]
+}

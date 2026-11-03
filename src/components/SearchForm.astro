@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+interface Props { id:string; query?:string; placeholder?:string; params?:URLSearchParams; }
+const {id,query='',placeholder='Tìm tài nguyên…',params}=Astro.props;
+const allowed=['category','type','platform','sort','view'];
+---
+<form class="hub-search" action="/explore" method="get" role="search" data-search>
+  <label class="sr-only" for={id}>{placeholder}</label><Icon name="search"/>
+  <input id={id} data-search-trigger aria-haspopup="dialog" aria-controls="search-dialog" type="search" name="q" maxlength="160" autocomplete="off" placeholder={placeholder} value={query}/>
+  {params&&allowed.filter(k=>params.has(k)).map(k=><input type="hidden" name={k} value={params.get(k)||''}/>)}
+  <button type="submit" aria-label="Tìm tài nguyên"><Icon name="arrow"/></button>
+</form>

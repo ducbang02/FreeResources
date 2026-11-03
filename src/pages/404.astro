@@ -1,0 +1,6 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+Astro.response.status=404;
+---
+<Layout title="Không tìm thấy trang" description="Trang bạn đang tìm không có trong thư viện Nếp."><div class="basic-page"><p class="a-kicker">404</p><h1>Trang này chưa có trong thư viện.</h1><p class="lead">Thử khám phá tài nguyên hoặc quay lại trang chủ.</p><a class="button" href="/explore">Khám phá thư viện <Icon name="arrow"/></a></div></Layout>

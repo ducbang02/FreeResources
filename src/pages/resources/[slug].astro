@@ -1,0 +1,21 @@
+---
+import {env} from 'cloudflare:workers';
+import {getResource} from '../../lib/catalog';
+import Layout from '../../layouts/Layout.astro';
+import AppIcon from '../../components/AppIcon.astro';
+import Icon from '../../components/Icon.astro';
+import Unavailable from '../../components/Unavailable.astro';
+let resource:Awaited<ReturnType<typeof getResource>>=null,unavailable=false;
+try{resource=await getResource(env.DB,Astro.params.slug||'');}catch{unavailable=true;Astro.response.status=503;}
+if(!unavailable&&!resource)Astro.response.status=404;
+const r=resource;
+const sourceFieldLabels:Record<string,string>={summary:'mô tả',canonicalUrl:'đường dẫn chính thức',platforms:'nền tảng',license:'giấy phép',pricing:'chi phí',description:'công dụng',title:'tên tài nguyên'};
+---
+<Layout title={r?r.title:unavailable?'Tạm gián đoạn':'Không tìm thấy tài nguyên'} description={r?.summary||'Khám phá công cụ và tài nguyên số trong thư viện Nếp.'}>
+  {unavailable?<Unavailable/>:!r?<div class="basic-page"><p class="a-kicker">404</p><h1>Chưa tìm thấy tài nguyên này.</h1><p class="lead">Đường dẫn có thể đã thay đổi hoặc tài nguyên chưa được xuất bản.</p><a class="button" href="/explore">Khám phá thư viện <Icon name="arrow"/></a></div>:<div class="a-container"><nav class="a-breadcrumb" aria-label="Đường dẫn"><a href="/explore">Thư viện</a><span>/</span>{r.categories[0]&&<><a href={'/explore?'+new URLSearchParams({category:r.categories[0].slug})}>{r.categories[0].name}</a><span>/</span></>}<span>{r.title}</span></nav>
+    <section class="a-detail-intro"><div class="a-detail-identity"><AppIcon icon={r.icon} title={r.title} size="lg"/><div><p class="a-kicker">{r.typeName}</p><h1>{r.title}</h1><p>{r.summary}</p></div></div><div class="a-detail-actions"><a class="button" href={r.canonicalUrl} target="_blank" rel="noopener noreferrer">Đến nguồn chính thức <Icon name="external"/></a></div></section>
+    {r.image&&<div class="a-detail-visual"><figure class="product-preview"><div class="preview-image"><img src={r.image} alt={r.mediaAlt||`Hình giới thiệu ${r.title}`} decoding="async"/></div><figcaption>{r.mediaKind==='artwork'?'Artwork sản phẩm · Không phải screenshot':'Screenshot từ nguồn chính thức'}{r.mediaCredit&&` · ${r.mediaCredit}`} · <a href="/credits">Nguồn ảnh &amp; giấy phép</a></figcaption></figure></div>}
+    <div class="a-detail-reading"><article class="editorial-article"><section><h2>Một tài nguyên cho việc gì?</h2>{r.description.split('\n').filter(Boolean).map(p=><p>{p}</p>)}</section>{r.categories.length>0&&<section><h2>Khám phá cùng nhu cầu</h2><div class="detail-terms">{r.categories.map(t=><a href={'/explore?'+new URLSearchParams({category:t.slug})}>{t.name}</a>)}</div></section>}{r.tags.length>0&&<section><h2>Chủ đề liên quan</h2><ul>{r.tags.map(t=><li>{t.name}</li>)}</ul></section>}<section class="source-note"><h2>Nguồn và kiểm chứng</h2><p>Thông tin được đối chiếu từ các nguồn dưới đây. Khả năng và điều kiện sử dụng có thể thay đổi; hãy kiểm tra lại trước khi dùng.</p><ul class="provenance-list">{r.sources.map(s=><li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label} <Icon name="external"/></a><p>Đối chiếu: <time datetime={s.verifiedAt}>{s.verifiedAt.slice(0,10)}</time>{s.fields.length>0&&` · ${s.fields.map(field=>sourceFieldLabels[field]||field).join(', ')}`}</p></li>)}</ul></section></article>
+    <aside><p class="a-kicker">TRƯỚC KHI BẠN THỬ</p><dl class="resource-facts"><div><dt>Loại tài nguyên</dt><dd>{r.typeName}</dd></div>{r.platforms.length>0&&<div><dt>Nền tảng đã xác minh</dt><dd>{r.platforms.join(', ')}</dd></div>}{r.license&&<div><dt>Giấy phép</dt><dd>{r.license}</dd></div>}{r.pricing&&<div><dt>Chi phí</dt><dd>{r.pricing}</dd></div>}<div><dt>Cập nhật thông tin</dt><dd><time datetime={r.updatedAt}>{r.updatedAt.slice(0,10)}</time></dd></div></dl></aside></div>
+  </div>}
+</Layout>

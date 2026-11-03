@@ -71,3 +71,7 @@ Reuse HTML/CSS/JS, asset/manifest hiện có và local Playwright. [UI UX guidan
 - Logic regression: `node prototype-p001/verify.mjs`, 19 nhóm/63 template; đây là VM, không phải browser.
 
 **Dừng chờ chủ dự án nghiệm thu P00.3. Không bắt đầu P01, backend, cloud hoặc deploy.**
+
+## P01 implementation
+
+Chu du an chonConceptA/P00.3/NotoSanslambaseline. Astroapp reuse reviewedassetsandfull-widthhero, themmotcau dinhvi theo briefP01. Featured/curated/taxonomy fromD1, nothardcodedLocalSend. CleanSSRroutes /,/explore,/resources/[slug]; searchoverlayGET/api/search realD1 withloading/empty/error/retry/abort. Detailprovenanceverified, unknownmetadatahidden; nofakeratings. LocaldevandbuiltWorker browserPASS1440/768/390; cloudPreviewpending, no physicaldevice/AT claim. Oldprototypesunchanged.

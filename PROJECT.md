@@ -1,6 +1,6 @@
 # PROJECT — Cổng tài nguyên số cộng đồng
 
-> Bản định hướng0.6,03/11/2026. Đã chọn A Editorial Discovery làm hướng; visual simplification P00.3 READY FOR REVIEW, chưa nghiệm thu UI. Hướng P01 catalog/Astro/TypeScript + Workers/D1 giữ nguyên, chưa runtime-verified/chưa bắt đầu P01. Thương hiệu/domain chưa chốt.
+> P01 IN PROGRESS, da duoc chu du an phe duyet. Astro/TypeScript + Workers/D1, Concept A P00.3 va Noto Sans la baseline. Local runtime va D1 staging da kiem; GitHub-to-Preview chua hoan tat, production chua duoc phep.
 
 ## 1. Tầm nhìn
 
@@ -96,3 +96,7 @@ P00.2 có QA Chromium thật45 checks/20 screenshot ở1440/768/390, không còn
 A giữ Apple-inspired, hero nền trải ngang với ảnh LocalSend desktop/mobile đúng tỷ lệ, headline hai dòng, không đoạn giải thích dư. Home hai card Excalidraw/Godot có icon và hình thật, không rating giả; search overlay giữ các luồng P00.2. Noto Sans Latin/Việt tự host, không cài font hệ thống. Attribution ở Detail/credits, không mất license.
 
 68 browser checks PASS (45 luồng +23 P00.3), 29 PNG trước/sau/bổ sung; font thật/fallback và Excalidraw đã kiểm. [Bàn giao](docs/PHASE003_REPORT.md), [so sánh](qa/p003/index.html). P00.3 READY FOR REVIEW, chờ chủ dự án nghiệm thu. P01 NOT STARTED; không backend/cloud/deploy; B/C và P00 source giữ nguyên.
+
+## 13. P01 hien tai
+
+App SSR Astro co Home/Explore/Detail, search overlay API D1, taxonomy tu DB, filter/sort/pagination, localadminJSON co validator. 13tai nguyen/7loai/17nguon; khong auth/rating/submission/AIthat. Local check/build/tests/browser PASS; Worker metadata vaD1staging riengda tao, cloudD1migrate/seed/query PASS. Repo duc bang: `ducbang02/FreeResources`, collaborator `sunny251010`. WorkersBuilds API403, browserhostloi; chu duan ho troDashboard. Chi duocPreview/staging, khongproduction/P02. Bao cao `docs/PHASE01_REPORT.md`. Cac muc NOTSTARTED o logP00 phananhlichsu, duocbriefP01thaythe.

@@ -1,0 +1,10 @@
+{
+  "approved": false,
+  "accountId": "",
+  "workerName": "digital-resource-hub-staging",
+  "databaseName": "digital-resource-hub-staging",
+  "databaseId": "",
+  "repository": "",
+  "branch": "develop",
+  "previewName": "develop"
+}

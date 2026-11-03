@@ -1,0 +1,10 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import SearchForm from './SearchForm.astro';
+const path=Astro.url.pathname;
+---
+<header class="hub-header editorial"><div class="header-inner"><Brand/>
+  <nav class="hub-navigation" id="primary-nav" aria-label="Điều hướng chính"><a href="/" aria-current={path==='/'?'page':undefined}>Trang chủ</a><a href="/explore" aria-current={path==='/explore'?'page':undefined}>Khám phá</a><a href="/about" aria-current={path==='/about'?'page':undefined}>Về thư viện</a></nav>
+  <div class="header-actions"><SearchForm id="header-search"/><a class="icon-button mobile-search" href="/explore" aria-label="Tìm tài nguyên" data-mobile-search><Icon name="search"/></a><button class="button contribute-button" type="button" data-contribute aria-label="Đóng góp tài nguyên"><Icon name="plus"/><span>Đóng góp</span></button><button class="icon-button nav-toggle" type="button" data-navtoggle aria-controls="primary-nav" aria-expanded="false" aria-label="Mở điều hướng"><Icon name="menu"/></button></div>
+</div></header>

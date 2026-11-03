@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Local-only config. Remote staging requires a separate, reviewed config with real IDs.
+  "name": "digital-resource-hub-local",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-11-03",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": false,
+  "assets": { "directory": "./dist", "binding": "ASSETS" },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "digital-resource-hub-local",
+    "database_id": "00000000-0000-0000-0000-000000000001",
+    "migrations_dir": "migrations",
+    "remote": false
+  }],
+  "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } },
+  "vars": { "APP_ENV": "local" }
+}
