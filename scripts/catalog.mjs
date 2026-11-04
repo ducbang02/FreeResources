@@ -30,8 +30,11 @@ export function catalogSql(input){
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   try{
     const [command='validate',input='data/catalog.json',output='data/seed.sql']=process.argv.slice(2);
-    if(!['validate','generate'].includes(command))throw Error('Usage: node scripts/catalog.mjs validate|generate [input.json] [output.sql]');
+    if(!['validate','generate'].includes(command)){
+      const {main}=await import('./editorial/cli.mjs');await main(process.argv.slice(2));
+    }else{
     const data=JSON.parse(fs.readFileSync(input,'utf8')),seed=validateCatalog(data);validateMediaFiles(seed);
     if(command==='generate'){fs.writeFileSync(output,catalogSql(data));console.log(`Generated ${output}: ${seed.resources.length} validated resources; no database mutation performed.`);}else console.log(`PASS: ${seed.resources.length} resources, ${seed.types.length} types, evidence and duplicate checks.`);
+    }
   }catch(error){console.error(error.message);process.exitCode=1;}
 }

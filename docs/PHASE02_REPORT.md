@@ -15,3 +15,9 @@
 ## P02.1 — URL, identity và network boundary
 
 P02.0 checkpoint `0aed560`. **PASS:** `node --test tests/editorial-network.test.mjs tests/catalog.test.mjs`18/18. GitHub .git/www/case/query variants, website normalization, aliases/stable IDs, không merge theo tên; DNS mixed-private/internal/IPv6 transition blocks, timeout, pin lookup trước TLS; redirect kiểm lại từng hop, API credentials chỉ cùng allowlist host. Không thực thi HTML/source, không npm dependency. Validator giữ optional sourceIdentity/editorial metadata trong Git, SQL projection P01 không đổi; không migrate/backfill catalog thật. Live socket/redirect tests mở rộng tại P02.6; đây chưa phải integration cloud.
+
+## P02.2 — GitHub API và nháp bền vững
+
+P02.1 checkpoint `0f7807a`. Reuse entrypoint `scripts/catalog.mjs`; lệnh cũ validate/generate không đổi. Import/show/list/refresh lưu nháp/source/cache local, fsync+atomic rename và single-writer lock; không reset khi CLI restart. GitHub public REST **không dùng token**, tránh lỡ đọc private repo; rate headers/ETag/negative cache, không retry ẩn. README/license có thể thiếu; giữ unknown và cần review, không chuyển GitHub detection thành license đã xác minh. Refresh giữ editorial sửa tay, identity/aliases ổn định; không gọi AI hoặc sửa catalog.
+
+**PASS:**8 tests P02 network/import; mock API public/private404/invalid/oversize/license missing/rename/ETag304/rate limit/restart/dedup/manual edit. CLI help chạy thực tế. GitHub document selector có allowlist path/extension, không clone/tải/chạy repo. Live GitHub request và CLI E2E đầy đủ thực hiện riêng ở QA cuối; chưa dùng credentials.
