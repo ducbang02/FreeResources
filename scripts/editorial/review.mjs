@@ -17,7 +17,7 @@ export function contentDigest(draft,seed){
 export function patchDraft(draft,patch,seed,now){
   if(!patch||typeof patch!=='object'||Array.isArray(patch)||Object.keys(patch).some(k=>!['editorial','policy','verifiedSources','manualEvidence'].includes(k)))throw Error('EDIT_PATCH_INVALID');
   for(const [key,value] of Object.entries(patch.editorial??{})){
-    if(key in editorFields){draft.editorial[key]=value===null&&['license','pricing'].includes(key)?null:text(value,editorFields[key]);}
+    if(Object.hasOwn(editorFields,key)){draft.editorial[key]=value===null&&['license','pricing'].includes(key)?null:text(value,editorFields[key]);}
     else if(['categories','tags','platforms'].includes(key))draft.editorial[key]=strings(value,key==='platforms'?null:seed[key].map(t=>t.slug));
     else throw Error('EDIT_FIELD_NOT_ALLOWED');
   }

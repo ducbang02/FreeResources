@@ -7,6 +7,7 @@ import {importGithub} from './github.mjs';
 import {importWebsite} from './website.mjs';
 import {rulesFor,contentDigest,patchDraft,candidate} from './review.mjs';
 import {githubDocument} from './github.mjs';
+import {analyzeDraft,analysisContext,aiConfig} from './gemini.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 export class Editor{
   constructor({stateDir=path.join(root,'.local/editorial'),catalog=path.join(root,'data/catalog.json'),request,now=()=>new Date()}={}){this.store=new Store(stateDir);this.catalog=path.resolve(catalog);this.request=request;this.now=now;}
@@ -36,6 +37,15 @@ export class Editor{
     if(draft.identity.kind!=='github')throw Error('GITHUB_DOCUMENT_ONLY');
     const evidence=await githubDocument(draft.identity,file,{store:this.store,request:this.request,now:this.now});
     const docs=draft.source.evidence.filter(e=>e.id!==evidence.id);if(docs.length>=10)throw Error('DOCUMENT_LIMIT');draft.source.evidence=[...docs,evidence];
+  });}
+  async analyze(id,mode,options){return analyzeDraft(this,id,mode,options);}
+  async applyAnalysis(id,mode,{apply=false,expect=null}={}){return this.store.locked(async()=>{
+    const draft=this.store.draft(id),seed=this.seed(),analysis=draft.analyses[mode];if(analysis?.status!=='complete')throw Error('COMPLETED_ANALYSIS_REQUIRED');
+    const context=analysisContext(draft,seed,mode,aiConfig(this.store));if(analysis.cacheKey!==context.cacheKey)throw Error('AI_ANALYSIS_STALE');
+    const value=analysis.result,editorial={};if(value.summary_vi)editorial.summary=value.summary_vi;if(value.description_vi)editorial.description=value.description_vi;if(value.primary_category)editorial.categories=[value.primary_category];if(value.tags.length)editorial.tags=value.tags;
+    const patch={editorial},planId=digest({id,revision:draft.revision,cacheKey:analysis.cacheKey,patch});
+    if(apply){if(expect!==planId)throw Error('AI_APPLY_PLAN_CHANGED');patchDraft(draft,patch,seed,this.now().toISOString());draft.preliminary={status:'pending'};draft.finalReview=null;draft.revision++;draft.updatedAt=this.now().toISOString();this.store.save(draft);}
+    return{patch,planId,applied:apply,note:'Explicit editorial fields only; platforms/requirements/rights claims remain suggestions for human review.'};
   });}
   async exportDraft(id,{apply=false,expect=null}={}){return this.store.locked(()=>withLock(this.catalog+'.editor.lock',async()=>{
     const draft=this.store.draft(id),seed=this.seed(),review=draft.finalReview;

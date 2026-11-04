@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "enabled": false,
+  "projectId": "",
+  "model": "",
+  "maxOutputTokens": 2000,
+  "freeTierConfirmation": null
+}
