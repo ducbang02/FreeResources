@@ -129,7 +129,7 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 ## P02 — Triển khai local05/11 (IN PROGRESS)
 
 - [x] P02.0 — Working tree sạch tại363c7f1; audit source/schema/seed/CI và cập nhật quyết định theo brief05/11. Không tự nghiệm thu P01.
-- [ ] P02.1 — URL/identity/dedupe và network SSRF boundary.
+- [x] P02.1 — URL/identity/dedupe và network SSRF boundary;18 focused/catalog tests PASS, optional metadata round-trip, P01 IDs giữ nguyên.
 - [ ] P02.2 — GitHub public import/cache/draft/errors.
 - [ ] P02.3 — Official website adapter và manual fallback.
 - [ ] P02.4 — Rules/edit/preliminary/final review/export conflict/idempotency.

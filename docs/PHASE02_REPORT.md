@@ -11,3 +11,7 @@
 **Reuse Audit:** mở rộng CLI/catalog validator/SQL generator; Node24 stdlib filesystem/crypto/DNS/HTTPS/SQLite có sẵn. Không thêm npm package/MCP/global tool/admin web/DB/schema D1/public UI. REST nhỏ phù hợp hai adapter và một Gemini provider; không cần crawler framework hoặc AI SDK/router. Context7 + official GitHub/Gemini docs đã kiểm; không có Gemini key/project/free tier được xác nhận nên live AI phải SKIP. API/free quota không được bảo đảm chỉ theo tên model.
 
 **Milestones:** P02.0 audit PASS; P02.1–6 đang thực hiện. Commit/test/giới hạn mỗi mốc sẽ được bổ sung sau khi chạy thật. Snapshot Archify05 vẫn mô tả proposal04/11, không xem là sơ đồ implementation05/11.
+
+## P02.1 — URL, identity và network boundary
+
+P02.0 checkpoint `0aed560`. **PASS:** `node --test tests/editorial-network.test.mjs tests/catalog.test.mjs`18/18. GitHub .git/www/case/query variants, website normalization, aliases/stable IDs, không merge theo tên; DNS mixed-private/internal/IPv6 transition blocks, timeout, pin lookup trước TLS; redirect kiểm lại từng hop, API credentials chỉ cùng allowlist host. Không thực thi HTML/source, không npm dependency. Validator giữ optional sourceIdentity/editorial metadata trong Git, SQL projection P01 không đổi; không migrate/backfill catalog thật. Live socket/redirect tests mở rộng tại P02.6; đây chưa phải integration cloud.

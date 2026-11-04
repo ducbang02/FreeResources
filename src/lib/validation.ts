@@ -1,6 +1,8 @@
 /** Shared by offline catalog CLI and the read-only query module. No network or cloud SDK. */
 export type Term = { slug: string; name: string };
 export type Source = { url: string; label: string; fields: string[]; verifiedAt: string };
+export type SourceIdentity = {kind:'github'|'website';canonicalUrl:string;aliases:string[];githubId?:string;fullName?:string};
+export type Editorial = {groups:string[];freeModel:'freeware'|'open_source'|'freemium'|'free_resource';licenseStatus:'verified'|'author_claim'|'unknown';freeEvidenceUrl:string;freeLimitations:string;reviewedBy:string;reviewedAt:string};
 export type CatalogRecord = {
   id: string; slug: string; title: string; summary: string; description: string; type: string;
   canonicalUrl: string; platforms: string[]; license: string | null; pricing: string | null;
@@ -8,6 +10,7 @@ export type CatalogRecord = {
   mediaAlt: string | null; mediaCredit: string | null; mediaKind: 'screenshot' | 'artwork' | null;
   status: 'draft' | 'published' | 'archived'; featuredRank: number | null; curatedRank: number | null;
   categories: string[]; tags: string[]; sources: Source[]; createdAt: string; updatedAt: string;
+  sourceIdentity?:SourceIdentity; editorial?:Editorial;
 };
 export type CatalogSeed = { types: Term[]; categories: Term[]; tags: Term[]; resources: CatalogRecord[] };
 const types = ['repository','application','online_tool','learning_resource','game','operating_system_resource','collection'];
@@ -63,8 +66,28 @@ export function validateCatalog(value:unknown):CatalogSeed {
     for(const field of ['license','pricing'] as const)if(out[field]&&!evidenced(field))throw Error(`Missing ${field} evidence: ${id}`);
     if(out.platforms.length&&!evidenced('platforms'))throw Error('Missing platform evidence: '+id);
     if(Date.parse(out.updatedAt)<Date.parse(out.createdAt))throw Error('updatedAt precedes createdAt: '+id);
+    if(r.sourceIdentity!=null){
+      const s=object(r.sourceIdentity,'sourceIdentity');
+      if(!['github','website'].includes(s.kind as string))throw Error('Invalid source identity kind');
+      const aliases=list(s.aliases??[],'sourceIdentity.aliases',12).map(v=>canonicalUrl(text(v,'sourceIdentity.alias',1000)));unique(aliases,'sourceIdentity.aliases');
+      const identity:SourceIdentity={kind:s.kind as SourceIdentity['kind'],canonicalUrl:canonicalUrl(text(s.canonicalUrl,'sourceIdentity.canonicalUrl',1000)),aliases};
+      if(s.kind==='github'){
+        const githubId=text(s.githubId,'sourceIdentity.githubId',30),fullName=text(s.fullName,'sourceIdentity.fullName',140);
+        if(!/^[1-9]\d*$/.test(githubId)||! /^[a-z0-9-]+\/[a-z0-9_.-]+$/i.test(fullName)||identity.canonicalUrl.toLowerCase()!=='https://github.com/'+fullName.toLowerCase())throw Error('Invalid GitHub identity');
+        identity.githubId=githubId;identity.fullName=fullName;
+      }
+      out.sourceIdentity=identity;
+    }
+    if(r.editorial!=null){
+      const e=object(r.editorial,'editorial'),groups=strings(e.groups,'editorial.groups');
+      if(!groups.length||groups.some(g=>!['free_resources','free_apps','github'].includes(g))||!['freeware','open_source','freemium','free_resource'].includes(e.freeModel as string)||!['verified','author_claim','unknown'].includes(e.licenseStatus as string))throw Error('Invalid editorial classification');
+      const freeLimitations=typeof e.freeLimitations==='string'?e.freeLimitations.trim():'';
+      if(freeLimitations.length>1000||(e.freeModel==='freemium'&&!freeLimitations))throw Error('Freemium needs Free-tier limitations');
+      out.editorial={groups,freeModel:e.freeModel as Editorial['freeModel'],licenseStatus:e.licenseStatus as Editorial['licenseStatus'],freeEvidenceUrl:canonicalUrl(text(e.freeEvidenceUrl,'freeEvidenceUrl',1000)),freeLimitations,reviewedBy:text(e.reviewedBy,'reviewedBy',100),reviewedAt:timestamp(e.reviewedAt,'reviewedAt')};
+    }
     seed.resources.push(out);
   }
   for(const key of ['id','slug','canonicalUrl'] as const)unique(seed.resources.map(r=>r[key]),key);
+  unique(seed.resources.map(r=>r.sourceIdentity?.githubId).filter((v):v is string=>Boolean(v)),'GitHub IDs');
   return seed;
 }

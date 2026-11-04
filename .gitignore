@@ -3,6 +3,8 @@ dist/
 .astro/
 .wrangler/
 .cache/
+# Durable local editorial drafts, API snapshots, AI usage/config (never publish).
+.local/
 coverage/
 test-results/
 # Generated QA evidence stays local; keep only hand-authored gallery/viewer source.
