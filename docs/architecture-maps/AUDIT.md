@@ -1,6 +1,29 @@
 # Audit Archify & validation
 
-04/11/2026 · **READY FOR REVIEW**, browser interaction QA đã PASS. Chủ dự án yêu cầu commit checkpoint Archify local ở lượt tiếp theo; chưa push/deploy, không đổi logic app/Cloudflare/D1/CI/CD, P02 NOT STARTED.
+05/11/2026 · **READY FOR REVIEW** sau chuẩn hóa. P02 local đã chốt riêng ở `73a6cb9`; lượt này chỉ docs/tooling Archify, không đổi business logic hoặc cloud/CI. Chủ dự án yêu cầu một commit riêng, không push/deploy. Các phần audit cài đặt04/11 bên dưới là lịch sử tại thời điểm P02 chưa triển khai.
+
+## Chuẩn hóa05/11 — bốn sơ đồ theo trách nhiệm
+
+| Xử lý | File và lý do |
+| --- | --- |
+| Giữ nguyên byte | `01-system.html`/JSON, `02-cicd.html`/JSON, `04-search.html`/JSON: public runtime, pipeline và Search không có thay đổi thuộc scope; giữ pin P01 a84c55a |
+| Hợp nhất/cập nhật | `03-data.html`, `sources/03-data.dataflow.json`: URL GitHub/website, metadata/rules, nháp local/cache, quick/deep manual gates, admin CLI preliminary/final/export, Git JSON→SQL→D1→website.12 nodes/14 flows,27 source ranges kiểm tại P02 commit73a6cb9 |
+| Loại bỏ | Sơ đồ cấp cao dư `05-p02-proposed.html`, JSON workflow tương ứng và ignored delivery sidecar; đã thay links/lệnh tái tạo. Historical QA receipts04/11 vẫn ignored, không là input sinh sơ đồ |
+| Giữ thiết kế | `docs/PHASE02_DESIGN.md` và ROADMAP giữ proposal/lịch sử; thay link hiện trạng sang03, không mô tả proposal cũ là runtime |
+| Sửa metadata/hướng dẫn | `index.html`, README/AUDIT, root README, ARCHITECTURE, tracker: bốn câu hỏi và per-map revision/scope; Gemini có code/mocks nhưng chưa live, admin web/community/production vẫn proposed |
+| Sửa tooling | `tools/architecture-maps.mjs` registry cố định4 tên/type/output, từ chối input ngoài registry; QA đọc pin/link_mode của từng source JSON, không hardcode mọi diagram cùng P01 SHA |
+
+**Validation PASS:** native finalize03 schema/layout/source Git/strict provenance/browser gate; per-run [summary](../../qa/architecture-maps/archify/03-data.dataflow/2026-11-04T18-41-17-909Z/03-data.finalize-summary.json).27 ranges dựa source committed, không source từ notes hoặc code chưa commit. Update networking disabled; không đổi upstream skill/runtime/license/dependency.
+
+**PASS browser:** Chrome156/file://,37 interaction checks cho index+4 maps ở1440/768/390,19 screenshot/8 PNG/SVG exports,0 automatic HTTP/page/console errors; [receipt](../../qa/architecture-maps/browser/results.json). Đã xem ảnh03 desktop/mobile: desktop đọc được, mobile dùng canvas pan/zoom và node index. Một số nhãn advanced viewer/legend còn Anh; không chứng nhận physical mobile/AT/WebM/clipboard. Browser PASS không nghiệm thu ý nghĩa tài liệu thay người dùng.
+
+**PASS registry/scope:** đúng4 HTML/4 JSON, từ chối argument05 và JSON ngoài registry trước render; thử file QA tạm đã gỡ trong finally. [Static receipt](../../qa/architecture-maps/normalization/static.json). App/scripts/tests/catalog/migrations/package/cloud config và01/02/04 không diff so với73a6cb9. Không chạy app tests/build hoặc deploy lại vì lượt này chỉ docs/tooling; kết quả P02 nằm trong báo cáo riêng.
+
+**Giới hạn nguồn:**03 pin local73a6cb9 với link_mode local-only, có path/dòng/verified metadata nhưng không có GitHub links cho commit chưa push.01/02/04 giữ GitHub links P01 cần mạng khi mở. Không nhúng toàn bộ source hoặc hứa code card offline. Nếu sau này được phép push và muốn web links, cập nhật mode theo source thật rồi regenerate/QA; không push để làm link đẹp trong task này.
+
+**Quy tắc duy trì:** feature/phase mới ưu tiên cập nhật01 System/02 CI/03 Data/04 Search; không tự thêm05/06 theo số phase. Chỉ đề xuất thêm khi có subsystem độc lập hoặc luồng phức tạp cần một góc nhìn riêng, được review rõ trước khi đổi registry/index. Không đổi thuộc tính sơ đồ khác khi trách nhiệm của chúng không đổi.
+
+## Audit gốc04/11 — lịch sử cài đặt và bốn bản đồ P01
 
 ## Reuse Audit
 

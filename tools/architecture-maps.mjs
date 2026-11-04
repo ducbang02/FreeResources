@@ -22,10 +22,15 @@ env['GIT_CONFIG_KEY_'+configIndex]='safe.directory';
 env['GIT_CONFIG_VALUE_'+configIndex]=root.replaceAll('\\','/');
 const only=process.argv[2];
 if(only&&!/^0[1-4]$/.test(only))throw Error('Usage: node tools/architecture-maps.mjs [01|02|03|04]');
+// Four purpose-based overviews. New phases/features update these; no phase-number discovery.
+const maps=[['01-system.architecture.json','architecture','01-system.html'],['02-cicd.workflow.json','workflow','02-cicd.html'],['03-data.dataflow.json','dataflow','03-data.html'],['04-search.sequence.json','sequence','04-search.html']];
+const extras=fs.readdirSync(path.join(folder,'sources')).filter(f=>f.endsWith('.json')&&!maps.some(([name])=>name===f));
+if(extras.length)throw Error('Unregistered high-level maps: '+extras.join(', ')+'. Consolidate into the four overviews; a new independent subsystem requires explicit review.');
 const run=new Date().toISOString().replace(/[:.]/g,'-');
 let failed=false;
-for(const filename of fs.readdirSync(path.join(folder,'sources')).filter(f=>/^0[1-4]-.*\.json$/.test(f)&&(!only||f.startsWith(only)))){
+for(const [filename,type,output] of maps.filter(([name])=>!only||name.startsWith(only))){
   const input=path.join(folder,'sources',filename),data=JSON.parse(fs.readFileSync(input,'utf8'));
+  if(data.diagram_type!==type||data.meta.output!=='docs/architecture-maps/'+output)throw Error('Map registry/type/output mismatch: '+filename);
   const outDir=path.join(root,'qa/architecture-maps/archify',filename.replace('.json',''),run);
   fs.mkdirSync(outDir,{recursive:true});
   const result=spawnSync(process.execPath,[cli,'finalize',data.diagram_type,input,path.join(root,data.meta.output),'--repo-root',root,'--quality','showcase','--out-dir',outDir,'--json'],{cwd:root,env,encoding:'utf8',timeout:180000,maxBuffer:12*1024*1024});

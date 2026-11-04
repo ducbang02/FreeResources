@@ -126,7 +126,13 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] Chủ dự án yêu cầu commit checkpoint Archify local riêng trước khi tiếp tục thiết kế P02.
 - [ ] Chủ dự án review nội dung trước push. Không triển khai P02, thay app/cloud/D1/CI/CD hoặc nghiệm thu UI thay người dùng.
 
-## P02 — Triển khai local05/11 (READY FOR REVIEW)
+## Archify normalization05/11 — READY FOR REVIEW
+
+- [x] Giữ bốn sơ đồ cấp cao; Smart Import hợp nhất vào03 Data, bỏ05 HTML/JSON/sidecar sau kiểm tham chiếu.01/02/04 giữ nguyên byte.
+- [x] Data pin P02 local73a6cb9, tách local code/mocks/liveness/proposed; proposal/roadmap vẫn được giữ. Native gates và37 Chrome interaction checks PASS,19 screenshots/8 exports ignored.
+- [x] Registry chỉ nhận4 tên/type/output, reject05/JSON lạ; hướng dẫn/index/QA per-map pin cập nhật. Không đổi business logic/CI/cloud, commit riêng sau P02; không push/deploy. [Audit](docs/architecture-maps/AUDIT.md).
+
+## P02 — Milestones local05/11 (READY FOR REVIEW)
 
 - [x] P02.0 — Working tree sạch tại363c7f1; audit source/schema/seed/CI và cập nhật quyết định theo brief05/11. Không tự nghiệm thu P01.
 - [x] P02.1 — URL/identity/dedupe và network SSRF boundary;18 focused/catalog tests PASS, optional metadata round-trip, P01 IDs giữ nguyên.

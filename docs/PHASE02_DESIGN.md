@@ -12,7 +12,7 @@ Giữ **Git/JSON là nguồn biên tập chính cho P02 nhỏ**, quản trị b�
 
 Luồng mục tiêu: **URL GitHub → chuẩn hóa/trùng → GitHub API public → validate/quy tắc → Gemini tùy chọn → nháp → người duyệt → xuất Git/JSON → review diff/commit/push được phép → CI P01 → kiểm Preview**. Các mũi tên trước bước xuất Git là đề xuất chưa triển khai. AI không được gọi trên Search hoặc Detail.
 
-[Sơ đồ đề xuất riêng](architecture-maps/05-p02-proposed.html) · [Bốn sơ đồ P01 hiện có](architecture-maps/index.html). Sơ đồ P02 là mô tả thiết kế, không gắn dấu xác minh code cho các thành phần chưa tồn tại.
+[Data flow hiện trạng P01/P02](architecture-maps/03-data.html) · [Index bốn sơ đồ](architecture-maps/index.html). Theo yêu cầu chuẩn hóa05/11, luồng P02 được hợp nhất vào Data; proposal04/11 vẫn được giữ trong tài liệu này/roadmap như lịch sử thiết kế. Sơ đồ phân biệt local implementation, Gemini live chưa kiểm và backlog proposed, không coi đề xuất là runtime.
 
 ## 2. Audit hiện trạng và bằng chứng
 
@@ -214,7 +214,7 @@ API-first, AI không tự publish, một request nhiều fields, three discovery
 | File thay đổi trong lượt thiết kế | Nội dung |
 | --- | --- |
 | `docs/PHASE02_DESIGN.md` | Báo cáo audit/đề xuất/schema/quota/test/milestones và ba quyết định |
-| `docs/architecture-maps/05-p02-proposed.html`, `sources/05-p02-proposed.workflow.json` | Diagram thiết kế tương tác và nguồn để tái tạo |
+| Diagram P02 riêng04/11 | Sau chuẩn hóa05/11 đã hợp nhất vào `03-data`; proposal được giữ ở tài liệu này, không sinh thêm sơ đồ cấp cao theo phase |
 | `PROJECT.md`, `ROADMAP.md`, `TASKS.md`, `README.md` | Định hướng và tracker/link, không ghi implementation đã hoàn thành |
 | `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/AI_PROVIDERS.md` | AGREED/PROPOSED, nguồn biên tập, API/code/AI và gates |
 | `docs/architecture-maps/README.md` | Link05, giới hạn và lệnh tái tạo riêng; helper01–04 không đổi |

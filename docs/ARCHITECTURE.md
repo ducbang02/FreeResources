@@ -2,9 +2,9 @@
 
 > [Bốn sơ đồ tương tác P01](architecture-maps/index.html) pin source `a84c55a`: system, CI/CD, data flow và Search. Mở index bằng Chrome. [Hướng dẫn cập nhật](architecture-maps/README.md); giữ ranh giới phần đã có với mô hình dài hạn trong tài liệu này.
 
-> Thiết kế P02 mới04/11: [API trước, AI sau](PHASE02_DESIGN.md), [luồng đề xuất](architecture-maps/05-p02-proposed.html). Git/JSON canonical + D1 read projection + draft local là **PROPOSED**, chưa chuyển dữ liệu hoặc thêm runtime. Gemini là provider AI đầu tiên khi thật sự cần; không nằm trên request Search/Detail. Các bảng/auth/AI/queues dài hạn bên dưới không phải implementation P01/P02 đã có.
+> [Data flow hiện trạng P01/P02](architecture-maps/03-data.html) hợp nhất luồng Smart Import; [proposal04/11 và quyết định05/11](PHASE02_DESIGN.md) giữ lịch sử thiết kế. Các bảng/auth/admin web/queues dài hạn bên dưới vẫn PROPOSED, không phải runtime đã có. Không tạo sơ đồ cấp cao theo feature/phase.
 
-> **Cập nhật thực thi05/11:** P02 CLI local đã triển khai ở `scripts/editorial/` qua entrypoint `scripts/catalog.mjs`: URL/network, adapters GitHub/website, nháp/review/export, optional Gemini quick/deep/cache/shared quota. Git/JSON writer duy nhất, D1 projection; không schema/admin web/public API/CI mới. Local/mocks/native D1/browser đã kiểm; Gemini thật/cloud sync chưa kiểm. [Báo cáo](PHASE02_REPORT.md), [CLI](PHASE02_CLI.md). Ghi chú PROPOSED04/11 và diagram05 là lịch sử, sẽ hợp nhất vào Data theo yêu cầu chuẩn hóa riêng.
+> **Cập nhật thực thi05/11:** P02 CLI local đã triển khai ở `scripts/editorial/` qua entrypoint `scripts/catalog.mjs`: URL/network, adapters GitHub/website, nháp/review/export, optional Gemini quick/deep/cache/shared quota. Git/JSON writer duy nhất, D1 projection; không schema/admin web/public API/CI mới. Local/mocks/native D1/browser đã kiểm; Gemini thật/cloud sync chưa kiểm. [Báo cáo](PHASE02_REPORT.md), [CLI](PHASE02_CLI.md). Data pin source P02 local73a6cb9; System/CI/Search giữ phạm vi runtime P01 và source a84c55a vì phần đó không đổi.
 
 > P01 được phê duyệt: Astro + TypeScript, Workers/D1, modular monolith. Local runtime, cloud D1, GitHub→Preview và45 cloud browser checks PASS. Production chưa được phép.
 

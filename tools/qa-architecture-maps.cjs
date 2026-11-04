@@ -27,8 +27,11 @@ async function noOverflow(p){assert.equal(await p.evaluate(()=>document.document
     const first=p.locator('svg g[data-node-id]').first();
     await check(file+': keyboard focus, explanation, relationships and pinned sources',async()=>{
       await first.focus();await p.keyboard.press('Enter');await p.locator('#focus-chip').waitFor({state:'visible'});assert.equal(await first.getAttribute('aria-pressed'),'true');assert.ok((await p.locator('#focus-label').innerText()).trim());assert.ok((await p.locator('#focus-summary').innerText()).length>0);
-      const evidence=await p.locator('#archify-source-evidence-data').textContent(),data=JSON.parse(evidence);assert.equal(data.verified,true);assert.equal(data.repository.revision,'a84c55ac84a463585cc11940036e43ea31da9866');
-      const links=await p.locator('#focus-evidence-links a').evaluateAll(as=>as.map(a=>({href:a.href,target:a.target,rel:a.rel})));assert.ok(links.length);for(const a of links){assert.ok(a.href.startsWith('https://github.com/ducbang02/FreeResources/blob/'+data.repository.revision+'/'));assert.equal(a.target,'_blank');assert.ok(a.rel.includes('noopener'));}
+      const sourceFile=fs.readdirSync(path.join(folder,'sources')).find(name=>name.startsWith(file.slice(0,2)+'-')&&name.endsWith('.json')),spec=JSON.parse(fs.readFileSync(path.join(folder,'sources',sourceFile),'utf8'));
+      const evidence=await p.locator('#archify-source-evidence-data').textContent(),data=JSON.parse(evidence);assert.equal(data.verified,true);assert.equal(data.repository.revision,spec.meta.repository.revision);
+      const links=await p.locator('#focus-evidence-links a').evaluateAll(as=>as.map(a=>({href:a.href,target:a.target,rel:a.rel})));
+      if(spec.meta.repository.link_mode==='local-only'){assert.equal(data.repository.linkMode,'local-only');assert.equal(links.length,0);assert.ok((await p.locator('#focus-evidence').innerText()).includes(spec.nodes[0].sources[0].path));}
+      else{assert.ok(links.length);for(const a of links){assert.ok(a.href.startsWith('https://github.com/ducbang02/FreeResources/blob/'+data.repository.revision+'/'));assert.equal(a.target,'_blank');assert.ok(a.rel.includes('noopener'));}}
       await shot(p,file.replace('.html','')+'-focus.png');await p.keyboard.press('Escape');await p.locator('#focus-chip').waitFor({state:'hidden'});return{sourceReferences:data.referenceCount,links};
     });
     await check(file+': zoom, drag and reset',async()=>{

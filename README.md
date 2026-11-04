@@ -2,7 +2,7 @@
 
 [Bản đồ kiến trúc tương tác](docs/architecture-maps/index.html): hệ thống, CI/CD, dữ liệu và Search; mở local bằng Chrome. [Cách dùng và cập nhật](docs/architecture-maps/README.md).
 
-[P02 local — READY FOR REVIEW](docs/PHASE02_REPORT.md): nhập GitHub/website, nháp/review/export Git JSON, Gemini quick/deep thủ công dùng chung5 lượt/ngày. [Hướng dẫn PowerShell](docs/PHASE02_CLI.md), [contract](docs/PHASE02_DESIGN.md). Chưa push/deploy hoặc gọi Gemini thật; sơ đồ Archify được chuẩn hóa ở lượt tài liệu riêng.
+[P02 local — READY FOR REVIEW](docs/PHASE02_REPORT.md): nhập GitHub/website, nháp/review/export Git JSON, Gemini quick/deep thủ công dùng chung5 lượt/ngày. [Hướng dẫn PowerShell](docs/PHASE02_CLI.md), [contract](docs/PHASE02_DESIGN.md), [Data flow đã hợp nhất Smart Import](docs/architecture-maps/03-data.html). Chưa push/deploy hoặc gọi Gemini thật.
 > Account staging đã xác minh: 4ca521c6746d874c049fd829121ab59e — Nguyenducbang.uit@gmail.com's Account. Worker/D1 đúng account đã tạo và đọc lại; tài nguyên tạo nhầm đã xóa theo yêu cầu. [Bằng chứng](docs/PHASE01_CLOUD_CONNECTION.md).
 
 Ứng dụng Astro + TypeScript, Cloudflare Workers/D1, giao diện Concept A theo P00.3 và Noto Sans. Catalog có **13 tài nguyên thật, 7 loại và 17 nguồn kiểm chứng**. Không auth, rating, submission hoặc AI API thật trong P01.

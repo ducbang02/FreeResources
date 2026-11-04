@@ -1,41 +1,33 @@
 # FreeResources — bản đồ kiến trúc
 
-04/11/2026 · **READY FOR REVIEW**, chủ dự án đã yêu cầu commit checkpoint Archify local; nội dung vẫn chờ review trước push. P01 vẫn READY FOR REVIEW; P02 NOT STARTED.
+05/11/2026 · **READY FOR REVIEW** cho nội dung tài liệu. P01 và P02 local vẫn chờ chủ dự án nghiệm thu. Chuẩn hóa này chỉ đổi docs/tooling Archify, không logic ứng dụng/cloud/CI, không push/deploy.
 
-Mở **[index.html](index.html)** bằng Chrome (double-click hoặc Ctrl+O). Không cần server, npm, Archify hoặc tài khoản để xem. Mỗi sơ đồ là một HTML tự chứa; giữ index và bốn HTML cùng thư mục để dùng menu. Metadata file/dòng nằm sẵn trong HTML; xem nội dung source qua link GitHub cần mạng. Viewer này không nhúng toàn bộ code hoặc mở code card offline.
+Mở **[index.html](index.html)** bằng Chrome (double-click hoặc Ctrl+O). Không cần server, npm, Archify hoặc tài khoản để xem. Mỗi sơ đồ là một HTML tự chứa; giữ index và bốn HTML cùng thư mục. Metadata file/dòng nằm sẵn trong HTML;01/02/04 có link GitHub cần mạng,03 giữ chứng cứ path/dòng local vì commit chưa push. Viewer không nhúng toàn bộ code hoặc có code card offline.
 
 | Sơ đồ | Dùng khi muốn hiểu | Nguồn cập nhật |
 | --- | --- | --- |
 | [01 · System](01-system.html) | Frontend Astro render trên Worker; module SQL, API, D1, static assets và website bên ngoài có trách nhiệm gì | [JSON](sources/01-system.architecture.json) |
 | [02 · CI/CD](02-cicd.html) | Local → checks/review → develop → guarded staging Preview; main no-op; production chưa có deploy path | [JSON](sources/02-cicd.workflow.json) |
-| [03 · Data](03-data.html) | Nguồn → biên tập JSON → validate/generate SQL → migrate/seed → D1 → trang web; P02-A còn là đề xuất | [JSON](sources/03-data.dataflow.json) |
+| [03 · Data](03-data.html) | Smart Import GitHub/website → nháp/rules → AI thủ công tùy chọn → admin review/export JSON → SQL/D1 → website | [JSON](sources/03-data.dataflow.json) |
 | [04 · Search](04-search.html) | Từ overlay tới FTS5/filter, Results và Detail; empty/error và giới hạn query | [JSON](sources/04-search.sequence.json) |
 
 Click thành phần để mở focus, quan hệ và nguồn code. Dùng `?` cho hướng dẫn, `+`/`-` để zoom, `0` đặt lại, kéo canvas khi zoom; `T` đổi nền, `E` mở menu Xuất. PNG/SVG tải về máy. Chuyển động chỉ minh họa đường đã vẽ; không phải traffic hay thời gian đo. Nội dung và các điều khiển phổ biến đã Việt hóa; các công cụ nâng cao còn fallback tiếng Anh (68/486 chuỗi viewer được override, không gọi đây là bản dịch đầy đủ).
 
 ## Nguồn sự thật và trạng thái
 
-Sơ đồ pin code tại **`a84c55ac84a463585cc11940036e43ea31da9866`**, repo `ducbang02/FreeResources`. Nguồn có path/dòng trên từng semantic node; renderer kiểm byte của Git revision, không tin suy đoán từ tên module. Thẻ ghi chú giải thích điều kiện trên các luồng. Đây là snapshot đọc source và bằng chứng P01 đã ghi, không phải lần kiểm live hạ tầng mới.
+Nguồn có path/dòng trên từng semantic node; renderer kiểm byte của Git revision. **01/02/04** pin runtime P01 `a84c55ac84a463585cc11940036e43ea31da9866`, repo `ducbang02/FreeResources`: public runtime/CI/Search không đổi. **03** pin P02 local `73a6cb9c9b57cdc34efec82002e5232ee26ea5dd`, link_mode local-only vì chưa push; vẫn có metadata path/dòng được kiểm Git local, không hứa GitHub source URL đã truy cập được. Đây là source snapshot, không phải dashboard live hoặc lần kiểm cloud mới.
 
-- **ĐÃ CÓ:** P01 code đã triển khai, đang chờ nghiệm thu. Astro SSR, overlay/API/query, D1/FTS5, CLI, migration/seed và staging CI hiện có.
-- **ĐANG PHÁT TRIỂN:** không có tính năng sản phẩm mới được mở trong snapshot này; task hiện tại chỉ tạo tài liệu.
-- **DỰ KIẾN:** production và P02-A trong các sơ đồ là đề xuất chưa triển khai. Không vẽ đường main→production vì chưa có deploy path; không nối nháp P02 vào DB vì nguồn biên tập chính chưa được quyết định.
+- **ĐÃ CÓ LOCAL:** P02 CLI URL/identity/metadata/draft/rules/review/export; GitHub/OBS public import và local native D1/browser đã kiểm. P01 runtime/CI/Search hiện có.
+- **CODE / MOCK PASS, LIVE CHƯA KIỂM:** Gemini quick/deep optional đã implement, chỉ gọi thủ công khi đủ gates. Chưa có key/project/model/free tier xác nhận để gọi thật; không vẽ AI như service mặc định đang chạy.
+- **DỰ KIẾN:** admin web/community/ratings/facets public mới và production. Giữ ở proposal/roadmap/thẻ ghi chú; không vẽ service hoặc đường main→production chưa có. Không có feature mới được triển khai trong lượt chuẩn hóa docs này.
 
-`docs/ARCHITECTURE.md` còn chứa thiết kế dài hạn (auth, bảng users/ratings, AI, các folder domain/features). Các phần đó không tồn tại trong runtime P01 và không được đưa vào bản đồ như thành phần đang chạy. CLI chỉ sinh SQL offline; Wrangler mới là bên ghi D1. Browser đọc assets/API/HTML, không đọc DB trực tiếp. Website nguồn chỉ được mở qua link, không fetch metadata mỗi lượt xem.
+`docs/ARCHITECTURE.md` còn chứa thiết kế dài hạn (auth, bảng users/ratings, các folder domain/features). Không đưa chúng lên bản đồ như runtime hiện có. CLI mới có thể fetch metadata nhập liệu, nhưng export chỉ ghi JSON; CLI validate/generate sinh SQL offline. Wrangler mới ghi D1 theo lệnh local hoặc CI được phép. Browser đọc assets/API/HTML, không đọc DB trực tiếp. Public Search/Detail không fetch nguồn hoặc gọi Gemini mỗi lượt xem.
 
-## Đề xuất P02 riêng, 04/11/2026
+## Quy tắc tổ chức: bốn câu hỏi, không phải mỗi phase một sơ đồ
 
-[05 · Luồng nhập GitHub P02](05-p02-proposed.html) và [JSON nguồn](sources/05-p02-proposed.workflow.json) là **PROPOSED, chưa triển khai**, chờ Q-09–11 trong [thiết kế P02](../PHASE02_DESIGN.md). Bốn HTML/JSON P01 ở trên giữ nguyên byte và revision. Diagram05 không có chứng nhận repository source: nó mô tả thiết kế, không giả các node dự kiến có code. Chi tiết/gates triển khai nằm trong báo cáo thiết kế, không suy thành lệnh deploy.
+Giữ đúng01 System /02 CI/CD /03 Data /04 Search. Feature hoặc phase mới cập nhật sơ đồ có trách nhiệm tương ứng; Smart Import/P02 thuộc **Data**, không sinh sơ đồ cấp cao thứ năm. Chỉ đề xuất sơ đồ mới khi subsystem độc lập hoặc luồng đủ phức tạp cần tách, nêu lý do và chờ review trước khi thêm registry/index.
 
-Helper `tools/architecture-maps.mjs` tiếp tục chỉ tái tạo01–04. Tái tạo05 riêng từ JSON sau review nội dung, dùng thư mục evidence mới cho mỗi lần:
-
-```powershell
-$env:ARCHIFY_UPDATE_CHECK_DISABLED = '1'
-$p02MapRun = Get-Date -Format 'yyyyMMdd-HHmmss'
-node .agents/skills/archify/bin/archify.mjs finalize workflow docs/architecture-maps/sources/05-p02-proposed.workflow.json docs/architecture-maps/05-p02-proposed.html --quality showcase --out-dir "qa/architecture-maps/p02-design/$p02MapRun" --json
-```
-
-Chrome/file:// ở1440/768/390, keyboard focus/giải thích, zoom/pan/theme/export PNG/SVG được kiểm riêng; receipts/screenshot/downloads vẫn ignored. Một số nhãn nâng cao của viewer fallback tiếng Anh. Kết quả này kiểm HTML tài liệu, không phải nghiệm thu importer hoặc website P02.
+Proposal P02 giữ trong [PHASE02_DESIGN](../PHASE02_DESIGN.md) và [ROADMAP](../../ROADMAP.md); chức năng local đã triển khai xem [PHASE02_REPORT](../PHASE02_REPORT.md). Sơ đồ P02 riêng cũ đã hợp nhất vào03, HTML/JSON dư và lệnh tái tạo riêng đã loại bỏ sau kiểm tham chiếu. Historical QA receipts chỉ ở ignored qa, không là nguồn sinh sơ đồ.
 
 ## Archify đã cài ở đâu?
 
@@ -54,7 +46,7 @@ node tools/architecture-maps.mjs       # cả bốn
 node tools/architecture-maps.mjs 04    # chỉ Search
 ```
 
-Helper xác minh SHA-256 của SKILL/CLI so với lock, gọi `finalize --quality showcase --repo-root` và ghi receipts dưới `qa/architecture-maps/` (ignored). Mỗi lượt có thư mục evidence riêng. Nó đặt `ARCHIFY_UPDATE_CHECK_DISABLED=1` cho child processes: không kiểm cập nhật hoặc ghi reminder state. Safe-directory Git chỉ đặt trong child environment, không sửa global Git config. Helper không gọi cloud, build app hay install/update tự động.
+Helper có **registry bốn tên/type/output chính xác**, từ chối JSON sơ đồ cấp cao ngoài registry thay vì tự khám phá theo phase. Nó xác minh SHA-256 của SKILL/CLI so với lock, gọi `finalize --quality showcase --repo-root` và ghi receipts dưới `qa/architecture-maps/` (ignored). Mỗi lượt có thư mục evidence riêng. Nó đặt `ARCHIFY_UPDATE_CHECK_DISABLED=1` cho child processes: không kiểm cập nhật hoặc ghi reminder state. Safe-directory Git chỉ đặt trong child environment, không sửa global Git config. Helper không gọi cloud, build app hay install/update tự động.
 
 4. Kiểm tra HTML trong browser: nội dung/nguồn, thao tác focus/zoom/pan/export, keyboard, console, offline và viewport nhỏ. Chỉ nhận claim đã kiểm; automated PASS không thay thế review ý nghĩa sơ đồ.
 5. Review diff rồi mới commit/push theo lệnh của chủ dự án. HTML/JSON là tài liệu bàn giao nên giữ trong Git; raw receipts, ảnh test và downloads chỉ local. `.delivery.json` cạnh HTML được ignore; clone mới cần render để tạo provenance trước khi chạy lại strict checker, nhưng mở HTML không cần receipts.
