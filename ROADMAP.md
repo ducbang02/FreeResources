@@ -58,16 +58,18 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 **Gate:** catalog fixture và tài nguyên thật có nguồn, bài hiển thị đúng, SQL tests và browser QA local pass; không upload/download file bên thứ ba.
 
-## Phase 02 — Editorial & smart URL import
+## Phase 02 — GitHub import, API trước / AI sau (thiết kế READY FOR REVIEW; code NOT STARTED)
 
-**Mục tiêu:** admin thêm link nhanh, kiểm soát dữ liệu.
+Định hướng mới do chủ dự án nêu rõ: GitHub API lấy facts, code normalize/duplicate/validation/rules/cache, Gemini chỉ khi cần ngữ nghĩa, một request nhiều fields. [Thiết kế và acceptance đầy đủ](docs/PHASE02_DESIGN.md). Nguồn biên tập/trigger/caps/phạm vi “Khác” vẫn PROPOSED, chưa tự khóa.
 
-- Auth/admin role nếu chưa có; CSRF/session/permission tests.
-- Nhập URL -> fetch GitHub/metadata bằng provider nguồn -> canonicalize, dedupe -> draft.
-- Form edit, taxonomy, source provenance, review queue, publish/archive, revision audit.
-- **Có thể** thêm Gemini classification ở phase này nếu đã thông qua provider interface; nếu không, form manual vẫn phải dùng được.
+1. **M0 — Duyệt contract:** Q09–11, baseline P01 và quyền bắt đầu riêng.
+2. **M1 — URL/identity:** GitHub-only, dedup/rename/stable ID; validator optional metadata round-trip.
+3. **M2 — API→draft:** public-only, README/license unknown, cache/ETag/limits/errors; nháp bền vững chưa public.
+4. **M3 — Rules/review/export:** chỉnh sửa, approved digest/conflict check, Git/JSON→CI P01→Preview theo lệnh được phép. Ưu tiên CLI/Git, D1 projection; chưa duyệt chuyển writer.
+5. **M4 — Gemini tùy chọn:** manual opt-in/disabled mặc định, structured response, local cache/usage/budget/queue; API-only vẫn chạy.
+6. **M5 — Public facets, gate riêng:** nếu được giao ba khu vực/verification/requirements UI, chốt contract+migration trước; không ép schema P01 hoặc tự sửa thiết kế A.
 
-**Gate:** metadata đúng nguồn, chống SSRF/duplicate/XSS, không tài nguyên nào tự public khi thiếu duyệt.
+Admin web/auth là phương án mở rộng nếu chủ dự án chọn D1 writer, cần thiết kế chuyển seed/permissions riêng; không là dependency bắt buộc của CLI-first proposal. Không community ratings/submissions/upload/cron/provider thứ hai ở M1–4. Mọi milestone chỉ triển khai sau lệnh rõ; schema/API tests không thay browser/staging acceptance.
 
 ## Phase 03 — Accounts, ratings & trust
 
@@ -81,7 +83,7 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 ## Phase 04 — AI discovery pipeline (multi-provider)
 
-**Mục tiêu:** tiết kiệm thời gian biên tập mà không để AI tự xuất bản.
+**Mục tiêu:** mở rộng discovery/provider khi cần, không để AI tự xuất bản. Nếu Gemini đơn lẻ đã được duyệt và triển khai tại P02-M4 thì reuse, không xây lại adapter/ledger; cron/multi-provider vẫn là phase sau riêng.
 
 - Triển khai `AIProvider` interface, Gemini adapter, model/task config, server secret, schema tests.
 - Lưu input evidence, output draft, prompt/schema version, audit, caching, quota và budget cap.

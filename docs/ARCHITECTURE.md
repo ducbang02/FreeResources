@@ -2,6 +2,8 @@
 
 > [Bốn sơ đồ tương tác P01](architecture-maps/index.html) pin source `a84c55a`: system, CI/CD, data flow và Search. Mở index bằng Chrome. [Hướng dẫn cập nhật](architecture-maps/README.md); giữ ranh giới phần đã có với mô hình dài hạn trong tài liệu này.
 
+> Thiết kế P02 mới04/11: [API trước, AI sau](PHASE02_DESIGN.md), [luồng đề xuất](architecture-maps/05-p02-proposed.html). Git/JSON canonical + D1 read projection + draft local là **PROPOSED**, chưa chuyển dữ liệu hoặc thêm runtime. Gemini là provider AI đầu tiên khi thật sự cần; không nằm trên request Search/Detail. Các bảng/auth/AI/queues dài hạn bên dưới không phải implementation P01/P02 đã có.
+
 > P01 được phê duyệt: Astro + TypeScript, Workers/D1, modular monolith. Local runtime, cloud D1, GitHub→Preview và45 cloud browser checks PASS. Production chưa được phép.
 
 ## 1. Nguyên tắc kiến trúc

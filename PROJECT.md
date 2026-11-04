@@ -2,11 +2,15 @@
 
 > P01 READY FOR REVIEW: ba P1 theo Final Audit đã sửa, local và Preview PASS. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans giữ nguyên. GitHub→Preview và main no-op đã PASS; Failed attempts giữ riêng. Chờ chủ dự án nghiệm thu, không production/P02. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
 
+> Định hướng04/11: **API trước, AI sau**; GitHub importer được thiết kế tại [P02 proposal](docs/PHASE02_DESIGN.md), READY FOR REVIEW, chưa implementation. Ba khu vực sản phẩm là Mã nguồn mở & GitHub / Tài nguyên miễn phí / Tài nguyên khác, có thể chồng lấp; phạm vi “Khác” và nguồn biên tập P02 còn chờ duyệt. Chưa đổi UI, D1 hoặc CI/CD.
+
 ## 1. Tầm nhìn
 
 Một địa chỉ tiếng Việt giúp học sinh, sinh viên, giáo viên, nhân viên văn phòng và người làm công nghệ **tìm được tài nguyên thực sự hữu ích, hiểu nó làm gì và dùng được**. Giá trị khác biệt không phải số lượng link, mà là nội dung được biên tập dễ hiểu, nguồn minh bạch, tìm kiếm theo nhu cầu thực tế và đánh giá cộng đồng.
 
 Mô hình nội dung kết hợp: (1) admin tự biên tập; (2) khám phá từ nguồn đáng tin cậy như GitHub và kho phần mềm; (3) người dùng đề xuất; (4) AI hỗ trợ mô tả và phân loại nhưng **con người duyệt trước khi xuất bản**.
+
+API chính thức và code xử lý metadata, URL/trùng, validation, rules, cache/quota; Gemini chỉ cho ngữ nghĩa/biên tập cần thiết và ưu tiên một response nhiều fields. Public repo không tự thành open source; unknown license giữ unknown. Phân biệt GitHub facts, lời tác giả, dữ liệu được đối chiếu và gợi ý AI; stars là popularity, không phải community rating. Search/Detail chỉ dùng dữ liệu đã lưu, không gọi AI theo lượt xem.
 
 ## 2. Nhóm người dùng và nhu cầu
 
@@ -36,7 +40,7 @@ Mô hình nội dung kết hợp: (1) admin tự biên tập; (2) khám phá t�
 2. Xem nguồn, giấy phép/điều kiện sử dụng, tính tương thích, độ khó, đánh giá cộng đồng, thời điểm kiểm tra gần nhất.
 3. Có tài khoản -> đề xuất link và mô tả -> theo dõi trạng thái: chờ duyệt, cần bổ sung, đã xuất bản, từ chối.
 4. Có tài khoản -> đánh giá/chấm điểm; có thể chỉnh đánh giá của chính mình; report tài nguyên lỗi hoặc vi phạm.
-5. Admin nhập URL (repo/app/tài liệu) -> lấy metadata đã xác minh -> AI đề xuất loại, tag và bài nháp -> admin chỉnh sửa, bổ sung bằng chứng -> xuất bản.
+5. Luồng P02 được thiết kế trước cho GitHub public: URL → code chuẩn hóa/trùng → GitHub API + validation/nguồn → rules → Gemini tùy chọn khi cần ngữ nghĩa → nháp → người biên tập đối chiếu/chỉnh/duyệt → export và quy trình Preview có quyền. Metadata lấy được chưa đồng nghĩa đã xác minh; không tự publish hoặc bắt buộc AI. App/tài liệu từ nguồn khác để phase được giao sau.
 
 ## 5. Chất lượng nội dung
 

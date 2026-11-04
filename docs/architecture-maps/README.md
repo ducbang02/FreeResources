@@ -23,6 +23,20 @@ Sơ đồ pin code tại **`a84c55ac84a463585cc11940036e43ea31da9866`**, repo `d
 
 `docs/ARCHITECTURE.md` còn chứa thiết kế dài hạn (auth, bảng users/ratings, AI, các folder domain/features). Các phần đó không tồn tại trong runtime P01 và không được đưa vào bản đồ như thành phần đang chạy. CLI chỉ sinh SQL offline; Wrangler mới là bên ghi D1. Browser đọc assets/API/HTML, không đọc DB trực tiếp. Website nguồn chỉ được mở qua link, không fetch metadata mỗi lượt xem.
 
+## Đề xuất P02 riêng, 04/11/2026
+
+[05 · Luồng nhập GitHub P02](05-p02-proposed.html) và [JSON nguồn](sources/05-p02-proposed.workflow.json) là **PROPOSED, chưa triển khai**, chờ Q-09–11 trong [thiết kế P02](../PHASE02_DESIGN.md). Bốn HTML/JSON P01 ở trên giữ nguyên byte và revision. Diagram05 không có chứng nhận repository source: nó mô tả thiết kế, không giả các node dự kiến có code. Chi tiết/gates triển khai nằm trong báo cáo thiết kế, không suy thành lệnh deploy.
+
+Helper `tools/architecture-maps.mjs` tiếp tục chỉ tái tạo01–04. Tái tạo05 riêng từ JSON sau review nội dung, dùng thư mục evidence mới cho mỗi lần:
+
+```powershell
+$env:ARCHIFY_UPDATE_CHECK_DISABLED = '1'
+$p02MapRun = Get-Date -Format 'yyyyMMdd-HHmmss'
+node .agents/skills/archify/bin/archify.mjs finalize workflow docs/architecture-maps/sources/05-p02-proposed.workflow.json docs/architecture-maps/05-p02-proposed.html --quality showcase --out-dir "qa/architecture-maps/p02-design/$p02MapRun" --json
+```
+
+Chrome/file:// ở1440/768/390, keyboard focus/giải thích, zoom/pan/theme/export PNG/SVG được kiểm riêng; receipts/screenshot/downloads vẫn ignored. Một số nhãn nâng cao của viewer fallback tiếng Anh. Kết quả này kiểm HTML tài liệu, không phải nghiệm thu importer hoặc website P02.
+
 ## Archify đã cài ở đâu?
 
 **`.agents/skills/archify`**, project-local, nằm trong `.gitignore` sẵn có. Skill được Codex nhận ở lượt tiếp theo; lượt hiện tại đã đọc và dùng trực tiếp SKILL/CLI. Không cài global/MCP, không thay package.json/lockfile hay CI/CD. Snapshot tool pin tại [archify.lock.json](archify.lock.json): package3.2.0 từ upstream commit `a4065941f12be7967436261d9934784e381d423c`, không mặc định đồng nhất với archive release v3.2.0 cũ.

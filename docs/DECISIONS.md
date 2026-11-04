@@ -1,6 +1,6 @@
 # DECISIONS — Sổ quyết định
 
-> Cập nhật 03/11/2026. **AGREED** = đã nói rõ trong trao đổi; **PROPOSED** = trợ lý gợi ý, chưa được khóa; **OPEN** = cần An chọn; **VERIFIED** = đã kiểm thử với bằng chứng, ghi rõ local hay cloud. Các log P00 là lịch sử; D-021 trở đi và báo cáo P01 mô tả phạm vi hiện tại.
+> Cập nhật 04/11/2026. **AGREED** = đã nói rõ trong trao đổi; **PROPOSED** = trợ lý gợi ý, chưa được khóa; **OPEN** = cần An chọn; **VERIFIED** = đã kiểm thử với bằng chứng, ghi rõ local hay cloud. Các log P00 là lịch sử; D-021 trở đi và báo cáo P01 mô tả phạm vi hiện tại. P01 READY FOR REVIEW; thiết kế P02 READY FOR REVIEW, implementation NOT STARTED.
 
 | ID | Trạng thái | Quyết định / giả định | Lý do hoặc ghi chú |
 | --- | --- | --- | --- |
@@ -30,18 +30,25 @@
 | D-024 | AGREED, VERIFIED cleanup | Xóa cả Worker và D1 của dự án đã tạo nhầm; tạo lại trên account đích | Người dùng yêu cầu rõ; cả hai đã xóa, GET trả 404. D1 mới e28f4099-92cf-40bc-ab8c-c47138b4469d; proof qa/p01/ctcm-cleanup.json và cloud-resources.json |
 | D-025 | AGREED, VERIFIED main no-op có giới hạn | Một lần fast-forward main từ bf46b7a đến31d3053 để kiểm workflow thật; không đổi deploy settings hoặc cho phép production | Chủ dự án duyệt rõ sau automatic review rejection, push thành công. Lần aa369850 timeout là lịch sử. Log main Ready43s do chủ dự án bổ sung xác nhận hai no-op commands PASS, Dashboard không active deployment; UUID/SHA riêng của dòng xanh chưa hiện. Không suy quyền này thành release production hoặc pushmain về sau |
 
+| D-026 | AGREED nguyên tắc, chưa triển khai | API/code trước; Gemini là AI provider đầu tiên khi cần ngữ nghĩa/biên tập, một request nhiều fields, dữ liệu thiếu giữ unknown | Brief P02 ngày04/11: public GitHub-only bước đầu; stars không phải rating, public không mặc nhiên OSS; không AI trên lượt xem/Search, không tự publish, không dùng key/chi phí hoặc code P02 trong lượt thiết kế |
+| D-027 | PROPOSED | P02 nhỏ CLI-first, Git/JSON là nguồn biên tập, D1 phục vụ đọc; nháp bền vững local và AI manual opt-in sau M1–3 | Chờ Q-09/Q-10; không thêm D1 writer bên cạnh seed hiện tại. Schema/caps/cache/migration gates tại [thiết kế P02](PHASE02_DESIGN.md); chưa có importer/AI/draft store thật |
+| D-028 | AGREED hướng sản phẩm; PROPOSED mapping | Ba khu vực Mã nguồn mở & GitHub / Tài nguyên miễn phí / Tài nguyên khác có thể giao nhau, tách type/license/pricing/use case | Phạm vi “Khác” còn Q-11; không sửa UI hoặc taxonomy public trong lượt này. Community score/popularity/suitability tách biệt; tính năng cộng đồng chưa bắt buộc P02 |
+
 ## Cần An xác nhận trước mốc triển khai tương ứng
 
 | ID | Câu hỏi | Đề xuất mặc định | Quyết định cuối |
 | --- | --- | --- | --- |
 | Q-01 | Giai đoạn đầu có đăng nhập/đánh giá và đóng góp ngay, hay admin catalog trước? | Public catalog trước; auth, community ratings, submissions hoàn chỉnh và AI thật theo phase sau | AGREED — đã giao P01 theo D-021 |
 | Q-02 | Người dùng gửi link hay có thể upload PDF/file thật? | Chỉ gửi URL + metadata trước | OPEN |
-| Q-03 | Mức độ AI tự động: chỉ khi admin bấm, hay cron tự quét GitHub? | Bấm phân tích thủ công trước; tự quét sau khi có kiểm duyệt | OPEN |
+| Q-03 | Mức độ AI tự động: chỉ khi admin bấm, hay cron tự quét GitHub? | Lựa chọn P02 được cụ thể hóa ở Q-10; cron ngoài phạm vi bước đầu | OPEN, theo Q-10, không hỏi trùng |
 | Q-04 | Login: Google trước, email magic link, hay cả hai? | Google trước, tùy yêu cầu người dùng | OPEN |
 | Q-05 | Tên thương hiệu, domain, ngôn ngữ thứ hai, thị trường? | Tiếng Việt, đặt tên sau bản mẫu UI | OPEN |
-| Q-06 | DB D1 hay PostgreSQL managed như Supabase/Neon? | Ưu tiên D1 với Workers cho hướng khởi đầu; kiểm chứng runtime ở P01 | AGREED; local runtime và cloud D1 P01 đã kiểm, CI/Preview còn mở |
+| Q-06 | DB D1 hay PostgreSQL managed như Supabase/Neon? | Ưu tiên D1 với Workers cho hướng khởi đầu; kiểm chứng runtime ở P01 | AGREED; local/cloud D1 và CI/Preview P01 đã kiểm; nghiệm thu P01 còn mở |
 | Q-07 | UI/UX nào đạt chất lượng để triển khai? | Visual simplification A trong P00.3, xem hero/card/search | AGREED dùng A/P00.3 làm baseline P01 theo D-021; nghiệm thu P01 còn mở |
 | Q-08 | Khi vượt quota free: dừng tính năng động hay xin nâng gói? | Dừng job AI/import, giữ nội dung tĩnh; không tự phát sinh chi phí | OPEN trước vận hành cloud |
+| Q-09 | Nguồn biên tập P02: Git/JSON + CLI hay D1 + admin web? | Git/JSON + CLI trên một máy, D1 read projection; không tạo hai writer | OPEN — [so sánh và gate chuyển đổi](PHASE02_DESIGN.md#6-nguồn-biên-tập-lựa-chọn-và-migration) |
+| Q-10 | Trigger/caps Gemini P02? | Disabled mặc định; manual opt-in M4 sau M1–3, free-only đã xác nhận, cap5 attempts/ngày; model/billing/live spike có gate riêng | OPEN — [budget đề xuất](PHASE02_DESIGN.md#8-cache-quota-lỗi-và-chi-phí); không tự bật paid hoặc cron |
+| Q-11 | Phạm vi khu vực Tài nguyên khác? | Freemium/trial có nguồn chính thức và use case rõ; không catch-all | OPEN — có thể chỉ định tập nội dung khác có giới hạn |
 
 ## Kết quả audit Phase 00 — 03/11/2026
 

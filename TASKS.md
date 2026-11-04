@@ -5,6 +5,7 @@
 ## Trạng thái chung
 
 - Phase hiện tại: **P01 / READY FOR REVIEW**; ba P1 đã sửa và kiểm local/Preview ở1440/768/390. Account đúng `4ca521c6746d874c049fd829121ab59e`. Main live no-op PASS theo log Ready43s; không retry lịch sử. [Kết quả mới nhất](docs/PHASE01_P1_FIXES.md).
+- **P02 thiết kế READY FOR REVIEW / implementation NOT STARTED**: API trước, AI sau; [đề xuất nguồn biên tập/schema/cache/milestones](docs/PHASE02_DESIGN.md), chờ Q-09–11 và lệnh triển khai riêng. Không tự chuyển P01 sang DONE.
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
 - Cloudflare: build7de0b863 tại508a96c PASS; push31d3053 tự cập nhật Preview,45 browser checks+5 smoke checks PASS/20PNG/0 lỗi bình thường, đúng Worker/DB. Main aa369850 timeout trước clone; parent vẫn chưa active deployment, workers.dev tắt. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
@@ -125,13 +126,20 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] Chủ dự án yêu cầu commit checkpoint Archify local riêng trước khi tiếp tục thiết kế P02.
 - [ ] Chủ dự án review nội dung trước push. Không triển khai P02, thay app/cloud/D1/CI/CD hoặc nghiệm thu UI thay người dùng.
 
-## P02 — Import & biên tập (chưa bắt đầu)
+## P02 — Thiết kế API trước, AI sau (READY FOR REVIEW)
 
-- [ ] P02-01 — Chốt auth/role; implement secure session/admin guard.
-- [ ] P02-02 — Fetch URL có giới hạn, SSRF guard, GitHub API quota và provenance.
-- [ ] P02-03 — Dedupe, taxonomy suggestion rules, tạo draft/manual edit, publish revision.
-- [ ] P02-04 — Moderation + audit log, chống sai link, missing license, XSS/HTML unsafe.
-- [ ] P02-05 — API + browser QA cho đường admin, báo kết quả, nghiệm thu.
+- [x] P02-D01 — Audit source/importer/validator/D1/CI/P01/Archify, phân biệt đã có và đề xuất; đọc remote refs và HTTP smoke Preview4/4, không cloud mutation.
+- [x] P02-D02 — Phân chia GitHub API/code/Gemini, provenance/unknown/license; schema draft/approval và một payload AI nhiều fields, không auto-publish.
+- [x] P02-D03 — So sánh Git/JSON với D1, đề xuất một writer CLI-first, cache/quota/errors/cost guards và test matrix/milestones trong PHASE02_DESIGN.
+- [x] P02-D04 — Cập nhật PROJECT/ROADMAP/DECISIONS/ARCHITECTURE/AI_PROVIDERS và sơ đồ P02 riêng, giữ bốn bản đồ P01. Kết quả validation ở báo cáo thiết kế.
+- [ ] P02-M0 — Chủ dự án review Q-09–11, nghiệm thu/chấp nhận baseline P01 và gửi lệnh triển khai riêng. Duyệt thiết kế chưa tự cho phép code.
+- [ ] P02-M1 — URL GitHub/identity/dedupe và optional Git metadata round-trip, giữ ID/slug/createdAt cũ.
+- [ ] P02-M2 — API public-only → draft bền vững, validation/evidence/ETag/cache/errors có giới hạn.
+- [ ] P02-M3 — Rules/manual edit/approved digest/export Git JSON, conflict check; không tự push, không writer D1 thứ hai.
+- [ ] P02-M4 — Gemini tùy chọn manual, một analysis/cache/usage/budget/queue; free/project/model spike chỉ khi có quyền. M1–3 phải dùng được khi AI off.
+- [ ] P02-M5 — Ba khu vực public/facets/requirements nếu được giao; schema/migration/UI có gate riêng và browser QA, không tự thiết kế lại.
+
+Auth/admin web/ratings/submissions/cron/provider thứ hai chưa thuộc M1–4 mặc định. Các checklist trên là kế hoạch chưa code; unit/mock/live API/migration/feature browser P02 đều SKIP trong lượt thiết kế.
 
 ## P03 — Đánh giá cộng đồng
 
@@ -143,8 +151,10 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 
 ## P04 — Gemini adapter, nhiều provider
 
+Nếu P02-M4 đã được giao và nghiệm thu, tái sử dụng phân tích/cache/quota đang có; chỉ mở rộng phần thực sự cần. Các mục sau là backlog tương lai, không yêu cầu xây registry/framework hoặc benchmark lớn trong P02.
+
 - [ ] P04-01 — Chuẩn hóa `SourceEvidence`, `AITask`, schema và validation.
-- [ ] P04-02 — Interface/provider registry + `GeminiProvider`, tests với mock API và lỗi.
+- [ ] P04-02 — Boundary/provider adapter nhỏ khi cần provider thứ hai, tests với mock API và lỗi; không tạo registry động mặc định.
 - [ ] P04-03 — Server-side secret, quota, budget, caching, retry, task/model config.
 - [ ] P04-04 — Admin AI analysis/draft review flow, không auto publish, ghi nguồn, không đè sửa tay.
 - [ ] P04-05 — Bộ benchmark có 50–100 mẫu, hallucination/confidence/chi phí được báo cáo.

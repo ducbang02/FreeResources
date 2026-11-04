@@ -1,35 +1,34 @@
-# AI_PROVIDERS — Thiết kế Gemini-first, multi-provider
+# AI_PROVIDERS — API trước, AI sau; Gemini là provider AI đầu tiên
 
-> Quyết định kiến trúc **AGREED**: dùng Google AI Studio/Gemini trước, nhưng hỗ trợ nhiều nhà cung cấp AI về sau. Implementation cụ thể **chưa làm**. Rà Phase 00 ngày 03/11/2026: contract dưới đây là **PROPOSED**, chưa test API/runtime; chỉ phân tích và tạo draft, admin duyệt trước xuất bản theo yêu cầu Phase 00.
+> Cập nhật04/11/2026: **AGREED nguyên tắc** GitHub API/code trước, Gemini chỉ khi cần ngữ nghĩa/biên tập; không AI trên Search/Detail hoặc tự publish. Gemini là AI provider đầu tiên, không phải bước bắt buộc trước API. **P02 implementation NOT STARTED**, contract/caps/trigger vẫn PROPOSED tại [thiết kế P02](PHASE02_DESIGN.md); P01 chưa DONE. Các nghiên cứu Phase00 bên dưới giữ ý nghĩa lịch sử.
 
 ## 1. AI làm gì, không làm gì?
 
-**Làm:** đọc metadata công khai của repo, README/manifest/release/official docs trong giới hạn; gợi ý chức năng, danh mục, chủ đề, nền tảng, độ khó, tiếng Việt dễ hiểu và bài viết **draft** cho admin.
+**Làm khi thực sự cần:** hiểu README/evidence công khai được cấp, gợi ý công dụng/đối tượng, summary/description tiếng Việt, category/use case/tags khi luật chưa đủ và nội dung Detail dạng **draft**. Một request `analyze_repository` trả nhiều fields. API/code lấy metadata, normalize/validate/dedupe/rules/cache/quota/queue; không cần LLM cho các việc đó. Platforms/requirements chỉ từ nguồn được đối chiếu, không suy bằng AI.
 
 **Không làm:** khẳng định code an toàn, kết luận pháp lý/giấy phép nếu thiếu bằng chứng, tự động execute repo/script, tự công bố nội dung, tự rewrite đoạn đánh giá do người dùng viết, dùng AI để bịa thông số/chấm sao.
 
 ## 2. Luồng tổng quát
 
 ```text
-Admin nhập URL / crawler tìm candidate
-  -> kiểm URL, chống SSRF và duplicate
-  -> metadata fetcher đọc API GitHub hoặc trang nguồn có quyền
-  -> chuẩn hóa thành SourceEvidence (văn bản + URL + timestamp)
-  -> AI Task Router (task='classify' hoặc 'draft')
-  -> Provider adapter theo cấu hình + model registry
-  -> schema validation + evidence check + quality guards
-  -> Draft + provenance + chi phí + trạng thái cần duyệt
-  -> Admin chỉnh sửa -> duyệt -> publish
+Admin nhập URL GitHub public
+  -> code chuẩn hóa + kiểm trùng
+  -> GitHub API + response validation + resolve stable repository ID
+  -> code kiểm trùng lại, rules + taxonomy + evidence
+  -> nếu cần ngữ nghĩa và được yêu cầu: cache/budget gate -> Gemini một request
+  -> nháp: GitHub facts + rules + AI suggestion/lỗi tách riêng
+  -> admin sửa -> approved digest -> export Git/JSON
+  -> review diff -> commit/push được phép -> CI P01 -> kiểm Preview
 ```
 
-Metadata có cấu trúc (license field, stars, language, tags, platform files) được ưu tiên làm **sự thật nền**; AI chỉ suy luận tính năng từ nội dung. Ví dụ `Rust` là **ngôn ngữ repo**, không có nghĩa đó là app dành cho developer; `RustDesk` là **remote desktop**, không xếp đơn giản vào “Lập trình” chỉ vì tên.
+Metadata cấu trúc vẫn phải phân biệt **quan sát GitHub / lời tác giả / code suy ra / AI gợi ý / người đã đối chiếu / unknown**. Description/topics/README là lời tác giả; license detection không xác minh toàn bộ quyền; stars không phải rating. Ví dụ `Rust` là ngôn ngữ repo, không đủ để xếp `RustDesk` vào Lập trình. AI lỗi/quota vẫn giữ GitHub data; người biên tập có thể hoàn thiện thủ công. Crawler/discovery và nhiều provider là khả năng về sau, không nằm trong P02 importer nhỏ.
 
 ## 3. Contract phía domain, không khóa vendor
 
 Ví dụ TypeScript minh họa (không coi là code phải copy nguyên):
 
 ```ts
-type AITask = 'classify_resource' | 'draft_resource_page' | 'suggest_tags';
+type AITask = 'analyze_repository'; // Một request nhiều fields; contract minh họa, chưa implement.
 
 type AIRequest = {
   task: AITask;
@@ -67,38 +66,37 @@ Contract cần truyền schema thực, không chỉ `schemaVersion`: adapter ph�
 | `WorkersAIProvider` | Khi muốn thử chi phí/tính năng Cloudflare | Adapter cho Workers AI; kiểm khả năng structured output thực tế |
 | `LocalModelProvider` | Khi có máy/VPS/GPU đủ điều kiện | HTTP adapter đến model host riêng; không giả định có thể chạy model nặng trong Worker |
 
-Task router chọn model từ **server config** theo `task`, capability (JSON/schema, language, context), độ trễ, privacy và ngân sách. Không hardcode provider trong trang admin, schema DB hoặc business logic. Thêm vendor mới = adapter + tests + config, không đổi luồng publish.
+P02 nhỏ ưu tiên native REST `fetch` của Node đã có nếu spike đáp ứng; chưa cần SDK, router framework hoặc provider registry động. Model/timeout/output cap là cấu hình môi trường quản trị, không nằm trong frontend. Một hàm phân tích có boundary rõ là đủ; provider thứ hai chỉ thêm khi thực sự cần và được duyệt. Thay provider không thay approval/publish contract.
 
-Ví dụ config logic: `classify_resource -> gemini/model-A`; `draft_resource_page -> gemini/model-B`; `fallback -> disabled` khi MVP. Không hardcode model name/version trong docs: lấy từ tài liệu chính thức và cấu hình tại thời điểm implement.
+Config logic đề xuất: `analyze_repository -> gemini/<model đã benchmark>`; AI và provider fallback mặc định disabled. Không chia classify/draft/tags thành ba lượt gọi. Model/phiên bản/API schema phải chốt theo tài liệu và live spike lúc M4 được phép, không lấy tên model trong sample làm quyết định production.
 
 ## 5. Output schema gợi ý
 
 ```json
 {
-  "resourceType": "repository",
-  "additionalResourceTypes": ["application"],
-  "primaryCategoryId": "dev-tools",
-  "suggestedTagIds": ["remote-access", "open-source"],
-  "oneLineSummaryVi": "Công cụ truy cập máy tính từ xa.",
-  "features": ["Điều khiển từ xa"],
-  "audiences": ["support", "office"],
-  "platforms": ["windows", "linux"],
-  "license": {"claimedSpdx": null, "sourceUrl": null, "needsReview": true},
-  "draftMarkdownVi": "...",
-  "citations": [{"url": "https://example.org/official", "field": "features"}],
-  "unknowns": ["Chưa xác minh phiên bản Windows tối thiểu"],
-  "confidenceHint": "needs_review"
+  "summary_vi": "...",
+  "description_vi": "...",
+  "primary_category": null,
+  "primary_use_case": null,
+  "tags": [],
+  "target_users": [],
+  "key_features": [],
+  "strengths": [],
+  "limitations": [],
+  "source_references": [],
+  "unknowns": ["Cần người biên tập đối chiếu nguồn"],
+  "confidence": "low"
 }
 ```
 
-ID category/tag chỉ được chọn từ taxonomy thật (không tin AI tự tạo ID). `resourceType` chính chỉ phục vụ hiển thị; additional types và chủ đề là đa nhãn theo [reuse audit](PHASE00_REUSE_AUDIT.md), không loại trừ app vì có repo. Server validate enum, size, URL, JSON shape và **ý nghĩa**; `confidenceHint` không phải điểm xác suất tin cậy. Nguồn/license là **claim kèm evidence**, không thành sự thật chỉ vì model đã viết ra. Bất kỳ trường nào thiếu bằng chứng -> `unknown` hoặc `needs_review`, không bịa.
+Đây là shape minh họa, không phải fixture đã phân tích. Contract chi tiết/limits/provenance ở [P02 schema](PHASE02_DESIGN.md#7-schema-nháp-và-nguồn--proposed-v1). Category/use-case/tag chỉ từ ID được cấp; features/strengths/limitations là claims có evidence IDs, source_references chỉ trỏ IDs input. Type/identity/license/price/stars/platforms/system requirements không do model ghi. Code đặt requires_review=true; confidence không phải xác suất/rating hoặc quyền publish. Validate cả shape/enum/length và nguồn/ý nghĩa; thiếu bằng chứng giữ null/[]/unknown. Schema provider không thay validator/reviewer.
 
 ## 6. Bảo vệ chi phí và độ tin cậy
 
-- Quota **mỗi admin/ngày**, giới hạn số job đồng thời, timeout/size mỗi nguồn, budget cap; ẩn nút Analyze khi hết hạn mức.
-- **Cache** bằng `normalizedUrl + sourceContentHash + task + promptVersion + schemaVersion + provider + model` để tránh AI gọi lại nếu không cần; admin có nút Force refresh có kiểm soát.
-- Ghi `status`: queued/running/succeeded/needs_review/failed; lỗi schema hoặc thiếu bằng chứng không được âm thầm chuyển thành public.
-- Retry có backoff + jitter **chỉ** với timeout/rate limit/transient error; không loop vô hạn. Fallback sang provider khác chỉ khi được cấu hình và có budget/consent phù hợp; log rõ provider nào đã dùng.
+- P02 đề xuất một máy/người biên tập, ledger atomic và cap request/token/ngày, concurrency/timeout/size. CLI không gửi request khi thiếu budget; không có nút/admin web đã triển khai. Ledger local không giới hạn toàn bộ ứng dụng khác cùng project provider.
+- **Cache** theo toàn bộ input thực gửi + content hash/excerpt + taxonomy/rule/prompt/schema/config/model version/ngôn ngữ; không thêm stars biến động nếu không dùng trong prompt. Force-analyze có lý do và vẫn chịu budget. Chi tiết cap/TTL ở PHASE02_DESIGN, chưa phải cấu hình runtime.
+- Tách `metadataState`, `aiState`, `reviewState` như schema P02; lỗi schema/quota không xóa GitHub facts hoặc âm thầm chuyển thành approved/public. Human edit/refresh làm mất hiệu lực approved digest.
+- Retry có backoff+jitter, attempt cap và budget reservation. Rate limit ngày thì giữ queue; timeout có outcome_unknown không được mặc định là API chưa xử lý để gọi lại ngay. JSON sai schema không tự tạo vòng “AI sửa AI”. Không đổi provider/key/tài khoản để né quota hoặc tự fallback lên model trả phí.
 - Lưu `provider/model`, usage/cost estimate, version prompt, input digest, trích nguồn, trạng thái admin edit. Giữ bản nháp và nội dung đã publish tách riêng; không overwrite chỉnh sửa thủ công.
 - Không gửi bí mật nội bộ, email người dùng, token, source private hoặc nội dung độc quyền lên API AI khi chưa có cơ sở xử lý/cho phép.
 - **Prompt injection:** README/manifest/webpage/issue là input không đáng tin; cắt/escape độ dài hợp lý, cô lập khỏi system instructions và không cấp tool quyền thực thi, duyệt output trước khi publish.
@@ -112,7 +110,7 @@ ID category/tag chỉ được chọn từ taxonomy thật (không tin AI tự t
 
 ## 8. Đánh giá chất lượng trước khi tự động hóa
 
-Chuẩn bị tập 50–100 nguồn đa dạng (TTS, Rust language project, RustDesk, LocalSend, game, PDF tool, tutorial...) có nhãn do người xác nhận. So sánh theo accuracy loại/công năng, taxonomy, citation coverage, hallucination, chi phí, độ trễ. Khi thêm provider mới, chạy lại cùng bộ test. Không tự động xuất bản dù benchmark tốt.
+P02-M4 đề xuất bộ nhỏ10–20 repo public có nhãn người xác nhận (TTS, Rust language project/RustDesk, LocalSend, PDF, thiếu README/license), chia lượt trong cap thay vì gọi hàng loạt. So sánh tiếng Việt, taxonomy/evidence, hallucination, token/chi phí và độ trễ. Rules-only baseline và đường AI off phải hoạt động trước. Bộ50–100/cron/multi-provider chỉ mở rộng khi được giao về sau; benchmark tốt không cho phép auto-publish.
 
 ## 9. Tài liệu chính thức cần xác minh khi triển khai
 
