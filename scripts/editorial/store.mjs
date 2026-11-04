@@ -8,6 +8,11 @@ export function atomicJson(file,value){
   fs.mkdirSync(path.dirname(file),{recursive:true});const temp=file+'.'+randomUUID()+'.tmp';let fd;
   try{fd=fs.openSync(temp,'wx',0o600);fs.writeFileSync(fd,JSON.stringify(value,null,2)+'\n');fs.fsyncSync(fd);fs.closeSync(fd);fd=undefined;fs.renameSync(temp,file);}finally{if(fd!==undefined)fs.closeSync(fd);if(fs.existsSync(temp))fs.unlinkSync(temp);}
 }
+export async function withLock(lock,action){
+  fs.mkdirSync(path.dirname(lock),{recursive:true});let fd;
+  try{fd=fs.openSync(lock,'wx',0o600);}catch(e){if(e.code==='EEXIST')throw Error('EDITOR_BUSY: another command is active; inspect the lock after a crash, never delete an active lock');throw e;}
+  try{fs.writeFileSync(fd,JSON.stringify({pid:process.pid,startedAt:new Date().toISOString()}));fs.fsyncSync(fd);return await action();}finally{fs.closeSync(fd);fs.unlinkSync(lock);}
+}
 export class Store{
   constructor(root='.local/editorial'){this.root=path.resolve(root);}
   file(name){if(!/^[a-zA-Z0-9_./-]+$/.test(name)||name.split('/').includes('..'))throw Error('LOCAL_PATH_INVALID');return path.join(this.root,name);}
@@ -18,8 +23,6 @@ export class Store{
   draftId(id){if(!/^draft-[a-f0-9]{16}$/.test(id))throw Error('DRAFT_ID_INVALID');}
   list(){const dir=this.file('drafts');return fs.existsSync(dir)?fs.readdirSync(dir).filter(f=>/^draft-[a-f0-9]{16}\.json$/.test(f)).map(f=>this.draft(f.slice(0,-5))):[];}
   async locked(action){
-    fs.mkdirSync(this.root,{recursive:true});const lock=this.file('editor.lock');let fd;
-    try{fd=fs.openSync(lock,'wx',0o600);}catch(e){if(e.code==='EEXIST')throw Error('EDITOR_BUSY: another command is active; inspect editor.lock after a crash, never delete an active lock');throw e;}
-    try{fs.writeFileSync(fd,JSON.stringify({pid:process.pid,startedAt:new Date().toISOString()}));fs.fsyncSync(fd);return await action();}finally{fs.closeSync(fd);fs.unlinkSync(lock);}
+    return withLock(this.file('editor.lock'),action);
   }
 }

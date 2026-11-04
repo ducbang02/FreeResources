@@ -27,3 +27,11 @@ P02.1 checkpoint `0f7807a`. Reuse entrypoint `scripts/catalog.mjs`; lệnh cũ v
 P02.2 checkpoint `1b2d974`. Adapter website dùng HTTPS/DNS boundary chung, tối đa256KiB response/64KiB head; lấy title/meta description dạng text, không chạy JS/nhúng ảnh/tải installer/crawl links. HTTP chặn/CAPTCHA/encoding/metadata thiếu → partial và cho phép thủ công; `--manual` không gọi mạng. Website/Free/giấy phép đều chưa xác minh cho đến người biên tập đối chiếu, không tin quảng cáo trong meta. Redirect lưu aliases, kiểm trùng, không tự chứng nhận domain chính thức.
 
 **PASS:**11 P02 tests network/import/website; metadata/script/comment sanitization, free/license unknown, manual no-network, timeout403/non-HTML/CAPTCHA/missing head, redirect aliases/duplicate. Không thêm dependency hay public UI. Chưa chứng nhận website bên thứ ba live; fallback không phải bằng chứng nguồn đó đúng.
+
+## P02.4 — Rules, edit/review và export
+
+P02.3 checkpoint `b0fa89d`. Rules whitelist topics có version, không suy mục đích từ language. Edit patch chỉ cho fields biên tập/policy/nguồn được duyệt; không sửa approval/source identity bằng patch. Preliminary suitable/unsuitable/needs_check riêng với final; edit/semantic source/taxonomy đổi làm approval cũ không hợp lệ. Checkout giữ P01 ID/slug/media/createdAt; export kiểm baseline hash, URL/ID collision và final digest. Plan mặc định không ghi catalog; apply yêu cầu đúng planId và lock cả state/catalog. AI không bắt buộc. Freemium Free limitations được chiếu vào pricing public hiện có, không mở schema/navigation mới.
+
+**PASS:**17 P02 tests, bao gồm review/export→SQL SQLite/re-import idempotent, manual edits, stale approval/plan/catalog conflicts, trial/paid/unknown, website freeware/freemium, source changes vs stars-only. `projection-check` chỉ đọc SQLite local so với Git baseline **trước thay đổi**, báo FAIL khi có DB-only edit và không sửa để che drift. CI cloud hiện tại không được đổi: trước sync cloud sau này phải được phép readback/backup/reconcile riêng; local guard không tự chứng minh cloud không drift. Không chạy migration hoặc ghi DB cloud trong milestone.
+
+Một fixture checkout ban đầu bỏ mất nguồn license cũ nên final validation từ chối đúng; sửa fixture để giữ/merge nguồn, không nới validator. Unit/SQLite PASS không thay cloud hoặc browser acceptance.

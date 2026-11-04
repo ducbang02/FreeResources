@@ -132,7 +132,7 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] P02.1 — URL/identity/dedupe và network SSRF boundary;18 focused/catalog tests PASS, optional metadata round-trip, P01 IDs giữ nguyên.
 - [x] P02.2 — GitHub public import/cache/draft/errors, CLI import/show/list/refresh;8 P02 focused tests PASS, no AI/catalog mutation.
 - [x] P02.3 — Official website adapter và manual fallback;11 P02 focused tests PASS, không tự xác minh free/license hoặc thực thi HTML.
-- [ ] P02.4 — Rules/edit/preliminary/final review/export conflict/idempotency.
+- [x] P02.4 — Rules/edit/preliminary/final review/export plan/apply, conflict/idempotency và read-only local projection drift check;17 P02 tests PASS.
 - [ ] P02.5 — Gemini quick/deep manual, shared5 requests/ngày Việt Nam, cache/fail-closed.
 - [ ] P02.6 — Unit/integration/CLI E2E/P01 browser regression, Windows guide và report.
 
