@@ -26,7 +26,7 @@ export async function githubJson(endpoint,{store,request=safeRequest,force=false
 }
 function document(data,url,id,observedAt){
   if(!data)return null;
-  if(data.type!=='file'||data.encoding!=='base64'||typeof data.content!=='string'||! /^[a-f0-9]{40,64}$/i.test(data.sha??'')||count(data.size)===null||data.size>256*1024||!/^[A-Za-z0-9+/=\s]*$/.test(data.content))throw Error('GITHUB_DOCUMENT_INVALID_OR_TOO_LARGE');
+  if(data.type!=='file'||data.encoding!=='base64'||typeof data.content!=='string'||! /^(?:[a-f0-9]{40}|[a-f0-9]{64})$/i.test(data.sha??'')||count(data.size)===null||data.size>256*1024||!/^[A-Za-z0-9+/=\s]*$/.test(data.content))throw Error('GITHUB_DOCUMENT_INVALID_OR_TOO_LARGE');
   const bytes=Buffer.from(data.content,'base64');if(bytes.length>256*1024||bytes.length!==data.size)throw Error('GITHUB_DOCUMENT_INVALID_OR_TOO_LARGE');
   const content=bytes.toString('utf8');if(content.includes('\uFFFD'))throw Error('GITHUB_DOCUMENT_ENCODING');
   return{id,url,origin:'repository_author',observedAt,sha:data.sha,content:clean(content,256*1024)};
@@ -36,6 +36,7 @@ export async function importGithub(identity,options){
   if(!repo)throw Error('GITHUB_UNAVAILABLE_OR_PRIVATE');
   if(repo.private!==false||!Number.isSafeInteger(repo.id)||repo.id<=0||typeof repo.full_name!=='string'||typeof repo.default_branch!=='string')throw Error('GITHUB_REPOSITORY_INVALID');
   const canonical=identify('https://github.com/'+repo.full_name);if(identify(repo.html_url).canonicalUrl!==canonical.canonicalUrl)throw Error('GITHUB_IDENTITY_MISMATCH');
+  if(typeof repo.owner?.login!=='string'||repo.owner.login.toLowerCase()!==canonical.fullName.split('/')[0]||typeof repo.name!=='string'||repo.name.toLowerCase()!==canonical.fullName.split('/')[1])throw Error('GITHUB_OWNER_NAME_INVALID');
   const resolved={...canonical,githubId:String(repo.id),aliases:[...new Set([...(identity.aliases??[]),identity.canonicalUrl].filter(u=>u!==canonical.canonicalUrl))]};
   const metadata={title:clean(repo.name,120),authorDescription:clean(repo.description,1000),owner:clean(repo.owner?.login,100),topics:Array.isArray(repo.topics)?repo.topics.filter(t=>typeof t==='string').slice(0,50).map(t=>clean(t,100)):[],language:clean(repo.language,100)||null,stars:count(repo.stargazers_count),forks:count(repo.forks_count),updatedAt:repo.updated_at??null,pushedAt:repo.pushed_at??null,defaultBranch:clean(repo.default_branch,200),licenseSpdx:repo.license?.spdx_id&&repo.license.spdx_id!=='NOASSERTION'?clean(repo.license.spdx_id,100):null,licenseVerification:'unreviewed',observedAt};
   const evidence=[{id:'repository',url:resolved.canonicalUrl,origin:'github_api_and_author_fields',observedAt,content:JSON.stringify({title:metadata.title,description:metadata.authorDescription,topics:metadata.topics,language:metadata.language})}],issues=[];

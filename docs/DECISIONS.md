@@ -31,8 +31,9 @@
 | D-025 | AGREED, VERIFIED main no-op có giới hạn | Một lần fast-forward main từ bf46b7a đến31d3053 để kiểm workflow thật; không đổi deploy settings hoặc cho phép production | Chủ dự án duyệt rõ sau automatic review rejection, push thành công. Lần aa369850 timeout là lịch sử. Log main Ready43s do chủ dự án bổ sung xác nhận hai no-op commands PASS, Dashboard không active deployment; UUID/SHA riêng của dòng xanh chưa hiện. Không suy quyền này thành release production hoặc pushmain về sau |
 
 | D-026 | AGREED nguyên tắc, chưa triển khai | API/code trước; Gemini là AI provider đầu tiên khi cần ngữ nghĩa/biên tập, một request nhiều fields, dữ liệu thiếu giữ unknown | Brief P02 ngày04/11: public GitHub-only bước đầu; stars không phải rating, public không mặc nhiên OSS; không AI trên lượt xem/Search, không tự publish, không dùng key/chi phí hoặc code P02 trong lượt thiết kế |
-| D-027 | PROPOSED | P02 nhỏ CLI-first, Git/JSON là nguồn biên tập, D1 phục vụ đọc; nháp bền vững local và AI manual opt-in sau M1–3 | Chờ Q-09/Q-10; không thêm D1 writer bên cạnh seed hiện tại. Schema/caps/cache/migration gates tại [thiết kế P02](PHASE02_DESIGN.md); chưa có importer/AI/draft store thật |
-| D-028 | AGREED hướng sản phẩm; PROPOSED mapping | Ba khu vực Mã nguồn mở & GitHub / Tài nguyên miễn phí / Tài nguyên khác có thể giao nhau, tách type/license/pricing/use case | Phạm vi “Khác” còn Q-11; không sửa UI hoặc taxonomy public trong lượt này. Community score/popularity/suitability tách biệt; tính năng cộng đồng chưa bắt buộc P02 |
+| D-027 | AGREED05/11, VERIFIED local | Git/JSON + CLI writer duy nhất, D1 projection; GitHub public và website app, draft/review/export local đã có |52 tests/typecheck/build/64 P01 browser+5 new-resource D1 checks PASS; không admin web/DB schema/CI mới. Cloud sync không chạy; guard drift local không chứng minh cloud |
+| D-028 | AGREED05/11 | Ba nhóm Tài nguyên miễn phí / Ứng dụng & công cụ miễn phí / Mã nguồn mở & GitHub, có thể giao nhau | Thay đề xuất “Khác”; free lâu dài/freeware/valid OSS/freemium có free tier rõ được phép; trial-only/paid-only/crack không export. Chưa đổi public navigation |
+| D-029 | AGREED05/11, VERIFIED mocks/CLI | Quick/deep đều manual; deep cần preliminary suitable; final duyệt riêng, AI không bắt buộc; chung5 lượt/ngày Việt Nam | Default off/free-tier attestation cụ thể tối đa7ngày; cache không tính lượt, failures/reservations tính bảo thủ, không hidden retry/paid fallback. Live Gemini SKIP không có key/project/model/free tier xác nhận. Quyền local commits, không push/deploy |
 
 ## Cần An xác nhận trước mốc triển khai tương ứng
 
@@ -46,9 +47,9 @@
 | Q-06 | DB D1 hay PostgreSQL managed như Supabase/Neon? | Ưu tiên D1 với Workers cho hướng khởi đầu; kiểm chứng runtime ở P01 | AGREED; local/cloud D1 và CI/Preview P01 đã kiểm; nghiệm thu P01 còn mở |
 | Q-07 | UI/UX nào đạt chất lượng để triển khai? | Visual simplification A trong P00.3, xem hero/card/search | AGREED dùng A/P00.3 làm baseline P01 theo D-021; nghiệm thu P01 còn mở |
 | Q-08 | Khi vượt quota free: dừng tính năng động hay xin nâng gói? | Dừng job AI/import, giữ nội dung tĩnh; không tự phát sinh chi phí | OPEN trước vận hành cloud |
-| Q-09 | Nguồn biên tập P02: Git/JSON + CLI hay D1 + admin web? | Git/JSON + CLI trên một máy, D1 read projection; không tạo hai writer | OPEN — [so sánh và gate chuyển đổi](PHASE02_DESIGN.md#6-nguồn-biên-tập-lựa-chọn-và-migration) |
-| Q-10 | Trigger/caps Gemini P02? | Disabled mặc định; manual opt-in M4 sau M1–3, free-only đã xác nhận, cap5 attempts/ngày; model/billing/live spike có gate riêng | OPEN — [budget đề xuất](PHASE02_DESIGN.md#8-cache-quota-lỗi-và-chi-phí); không tự bật paid hoặc cron |
-| Q-11 | Phạm vi khu vực Tài nguyên khác? | Freemium/trial có nguồn chính thức và use case rõ; không catch-all | OPEN — có thể chỉ định tập nội dung khác có giới hạn |
+| Q-09 | Nguồn biên tập P02? | Git/JSON + CLI, D1 projection | AGREED05/11 theo D-027 |
+| Q-10 | Trigger/caps Gemini P02? | Quick/deep manual, chung5 requests/ngày Việt Nam, Free Tier fail-closed | AGREED05/11 theo D-029; live config/spike còn SKIP |
+| Q-11 | Phạm vi “Khác”? | Thay bằng ba nhóm ở D-028, không trial-only/paid-only | AGREED05/11, không còn khu vực catch-all |
 
 ## Kết quả audit Phase 00 — 03/11/2026
 

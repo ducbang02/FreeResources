@@ -56,6 +56,7 @@ export function analysisContext(draft,seed,mode,config){
 }
 function validateAnalysis(value,context){
   validateShape(value,context.schema);
+  if(new Set(value.tags).size!==value.tags.length)throw Error('AI_DUPLICATE_TAGS');
   for(const reference of [...value.source_references,...value.claims])if(reference.evidence_ids.some(id=>!context.evidenceIds.has(id)))throw Error('AI_EVIDENCE_REFERENCE_INVALID');
   for(const field of ['summary_vi','description_vi','primary_category','tags','target_users'])if(value[field]?.length&&!value.source_references.some(r=>r.field===field))throw Error('AI_FIELD_EVIDENCE_REQUIRED');
   if(/an toàn tuyệt đối|100% an toàn|malware[- ]free|completely safe|no vulnerabilities|được phép phân phối lại|được phép sử dụng thương mại/i.test(JSON.stringify(value)))throw Error('AI_UNSUPPORTED_SAFETY_OR_RIGHTS_CLAIM');

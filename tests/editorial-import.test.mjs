@@ -29,6 +29,6 @@ test('P02 ETag cache hit/304, negative cache and rate-limit deferral are bounded
   api.overrides.all={status:429,headers:{'retry-after':'120'},body:''};await assert.rejects(githubJson('/repos/fixture-org/limited',options),/RATE_LIMIT/);const calls=api.calls.length;await assert.rejects(githubJson('/repos/fixture-org/other',options),/RATE_LIMIT/);assert.equal(api.calls.length,calls);assert.equal(store.read('github-rate.json').nextAttemptAt,'2026-11-06T01:02:00.000Z');
 });
 test('P02 API rename resolves stable identity and selected docs cannot request executable/secrets paths',async t=>{
-  const f=editorFixture(t);f.repository.full_name='fixture-org/renamed';f.repository.html_url='https://github.com/fixture-org/renamed';const d=await f.editor.importUrl(url);assert.equal(d.identity.canonicalUrl,f.repository.html_url);assert.deepEqual(d.identity.aliases,[url]);
+  const f=editorFixture(t);f.repository.full_name='fixture-org/renamed';f.repository.name='renamed';f.repository.html_url='https://github.com/fixture-org/renamed';const d=await f.editor.importUrl(url);assert.equal(d.identity.canonicalUrl,f.repository.html_url);assert.deepEqual(d.identity.aliases,[url]);
   const {githubDocument}=await import('../scripts/editorial/github.mjs');for(const file of ['../README.md','.env','install.exe','secret.json','x/credentials.json'])await assert.rejects(githubDocument(d.identity,file,{store:f.editor.store,request:f.request}),/PATH_NOT_ALLOWED/);
 });

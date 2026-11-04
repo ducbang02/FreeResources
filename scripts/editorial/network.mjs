@@ -8,6 +8,7 @@ export function identify(value){
   if(typeof value!=='string'||value.length>1000||/[\\\u0000-\u0020]|%2[ef]/i.test(value))throw Error('URL_INVALID');
   const url=new URL(canonicalUrl(value));
   if(url.port||url.hostname.endsWith('.')||/(?:^|\.)(?:lan|home|corp|localdomain)$/.test(url.hostname))throw Error('URL_INVALID');
+  if(url.hostname.length>253||url.hostname.split('.').some(label=>! /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i.test(label)))throw Error('URL_INVALID');
   url.hash='';
   for(const key of [...url.searchParams.keys()])if(/^(utm_|fbclid$|gclid$)/i.test(key))url.searchParams.delete(key);
   if(['github.com','www.github.com'].includes(url.hostname)){

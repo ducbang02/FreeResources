@@ -1,6 +1,6 @@
 # P02 — Nhập, phân tích và quản trị local
 
-05/11/2026 · **IN PROGRESS**. P01 vẫn READY FOR REVIEW. Baseline sạch `363c7f1` trên develop, ahead2 của origin/develop; Archify `301fd2a` được bảo toàn. Brief mới cho phép code/tests/commit local, không push/deploy/cloud/production.
+05/11/2026 · **P02 local READY FOR REVIEW**. P01 vẫn READY FOR REVIEW, chưa DONE. Baseline sạch `363c7f1` trên develop, ahead2 của origin/develop; Archify `301fd2a` được bảo toàn. Brief mới cho phép code/tests/commit local, không push/deploy/cloud/production. [Hướng dẫn thao tác Windows](PHASE02_CLI.md).
 
 ## P02.0 — Audit và contract
 
@@ -43,5 +43,27 @@ P02.4 checkpoint `59658f9`. Hai mode thủ công, deep cần preliminary suitabl
 Ledger fsync/atomic+lock dùng chung5 requests/attempts cho cả hai mode/ngày Asia/Ho_Chi_Minh; reserve trước network, kể cả lỗi/timeout không rõ đã xử lý. Reserve không rõ vẫn tính bảo thủ, không tự hoàn hay retry; limit không bảo vệ các máy/app khác cùng project và không chống người quản trị tự xóa state. Cache theo exact bounded public input + taxonomy/rules/prompt/schema/model/mode; stars/checkedAt không làm gọi lại. Input≤32KiB toàn payload, excerpt6/16KiB quick/deep; output2000 mặc định, config chỉ256–4096. Không giả bytes là token count. Usage counters/modelVersion lưu khi API cung cấp, thiếu ghi null; estimatedCostUsd unknown không giả hóa đơn0 hoặc bảo đảm mọi model miễn phí.
 
 AI result giữ riêng với evidence IDs, schema/length/taxonomy/reference/safety-claim checks. JSON hợp schema vẫn cần người đối chiếu ý nghĩa. `apply-ai` chỉ plan, apply cần đúng planId; không tự đổi OS/requirements/license/price hoặc sources verified. Apply vào summary/description/category/tags làm mất hiệu lực review cũ. Không ghi đè sửa tay khi import/refresh/analyze.
+
+P02.5 checkpoint `300e698`.
+
+## P02.6 — Validation và bàn giao
+
+| Kiểm tra | Kết quả, phạm vi và bằng chứng |
+| --- | --- |
+| Unit/integration/CLI | **PASS52/52** `npm.cmd test`, gồm25 regression P01 và27 P02 cases; CLI E2E qua process thật với native HTTPS/DNS mock chỉ ở test preload. Network transport tests bao gồm DNS pin/redirect đổi host/private, response cap/encoding/loop/timeout. GitHub owner/identity mismatches và malformed JSON fail an toàn |
+| Typecheck/build | **PASS** `npm.cmd run check` (27 files,0 errors/warnings/hints), `npm.cmd run build`; artifact kiểm đúng local Worker/fake DB UUID/remote:false, không account cloud |
+| P01 browser | **PASS45+19 checks** Chrome156 thực ở1440/768/390 trên artifact workerd+D1 local cô lập;35 PNG,0 normal console/page errors. [P01 journeys](../qa/p02/browser-p01/results.json), [P1 regressions](../qa/p02/browser-p1/results.json). Không UI redesign |
+| P02 native runtime | **PASS5 checks** CLI import manual fixture→edit→preliminary→final→plan/apply→generate SQL→Wrangler local D1; Explore/search→Detail mới ở1440/768/390 +FTS API,0 console/page errors. [Receipt](../qa/p02/runtime/results.json),3 PNG. Fixture ghi nhãn QA, chỉ trong `.cache/p02-runtime`, không vào catalog Git/cloud |
+| Local drift | **PASS** read-only projection-check trên D1 local khớp13 mục baseline trước QA fixture; unit/CLI chứng minh DB-only edits bị phát hiện và không bị sửa. Checkout/rebase có plan/ack, giữ sửa tay rồi buộc review lại |
+| Live public imports | **PASS GitHub** repo FreeResources public, identity/README thật, license missing giữ unknown; **PASS website OBS** title/meta thật. [GitHub/fallback receipt](../qa/p02/live-summary.json), [OBS receipt](../qa/p02/live-website-obs.json). Inkscape timeout: metadata fetch **SKIP**, manual fallback PASS, không vượt hạn chế truy cập |
+| Gemini thật | **SKIP**, chưa có key/project/model/access/Free Tier được xác nhận; mocks/schema/CLI PASS không thay live model acceptance hoặc billing verification |
+| Cloud/production | **SKIP**, không push/deploy, không remote D1 read/write/migration, không auth/DNS/CI thay đổi; không retry build lịch sử. Production không upload/migrate/deploy |
+| Thiết bị/AT khác | **SKIP** physical mobile/software keyboard, Safari/Firefox và screen reader certification; viewport browser không thay nghiệm thu UI của chủ dự án |
+
+Raw QA/source snapshots/screenshots/cache/keys/ledger ignored, không commit. Catalog thật vẫn13 mục, không dummy ratings/tài nguyên; migrations/package lock/CI/public UI không đổi. Không thêm dependency. Các lỗi fixture/harness đã được sửa và chạy lại; không có FAIL local còn chặn bàn giao được biết. Việc chuẩn hóa Archify theo yêu cầu mới là task docs riêng sau checkpoint P02, không gộp code vào commit docs đó.
+
+**File chính:** `scripts/catalog.mjs` mở rộng entrypoint; modules `scripts/editorial/{network,store,github,website,review,workflow,projection,gemini,cli}.mjs`; `src/lib/validation.ts` optional identity/editorial metadata;6 test files P02 + helpers; config example/.env.example/.gitignore; PROJECT/ROADMAP/TASKS/SETUP/README/DECISIONS/ARCHITECTURE/AI_PROVIDERS và hai tài liệu P02. Source diagram/HTML Archify chưa đổi ở các code commits.
+
+**Giới hạn cần nghiệm thu:** app guard dựa trên một state/máy chủ động, không phải quota toàn Google project; Free Tier là manual attestation có hạn, không API đảm bảo giá. Estimated cost unknown nếu thiếu billing/rate verified, không ghi0 giả. Metadata website không có browser crawler, thiếu JS-rendered data thì bổ sung tay. Data-group verification nằm Git/draft, public facets/schema mới ngoài P02. Trước cloud sync cần kiểm drift/backup được phép riêng vì CI hiện tại chưa có guard drift. P02 READY FOR REVIEW local, không tự chuyển DONE/P03; cần chủ dự án thao tác thử theo hướng dẫn.
 
 **PASS mock:**6 tests AI với nhiều cases: disabled/no key/unconfirmed/paid/mismatched/expired, quick/deep gates, one response nhiều fields, explicit apply, cache, combined5/sixth blocked, Vietnam midnight, schema/source injection/rights claims/truncation/timeouts/429/cooldown, source-change vs stars, selected docs. **SKIP live Gemini** vì chưa có xác nhận cấu hình miễn phí, không yêu cầu key trong chat. Docs/API syntax đã đối chiếu bằng [Context7/structured output](https://ai.google.dev/gemini-api/docs/structured-output), [REST reference](https://ai.google.dev/api/generate-content), [pricing](https://ai.google.dev/gemini-api/docs/pricing); model/Free Tier cụ thể cần live spike riêng trước dùng thật.

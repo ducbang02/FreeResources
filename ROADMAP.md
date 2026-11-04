@@ -58,9 +58,11 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 **Gate:** catalog fixture và tài nguyên thật có nguồn, bài hiển thị đúng, SQL tests và browser QA local pass; không upload/download file bên thứ ba.
 
-## Phase 02 — Nhập và biên tập local (IN PROGRESS, được giao05/11)
+## Phase 02 — Nhập và biên tập local (READY FOR REVIEW,05/11)
 
 Brief05/11 chốt Git/JSON + CLI, GitHub public **và website ứng dụng**, hai mức AI thủ công cùng5 lượt/ngày. Thay thế Q09–11 và các milestone đề xuất cũ. [Contract](docs/PHASE02_DESIGN.md), [bằng chứng](docs/PHASE02_REPORT.md).
+
+Local implementation/gates và Windows CLI đã có,52 tests/typecheck/build/64 P01 browser+5 P02 native D1 checks PASS. GitHub/OBS public import thật PASS; Gemini thật và cloud sync/deploy chưa chạy vì chưa có quyền/cấu hình miễn phí được xác nhận. [Cách dùng](docs/PHASE02_CLI.md). Không tự ghi P01/P02 DONE; chờ chủ dự án review.
 
 1. **P02.0:** audit/chốt contract mới, tách provenance/phân loại, một writer.
 2. **P02.1:** URL/identity hai nguồn, dedup/rename/stable ID; SSRF/network boundary.

@@ -5,7 +5,7 @@
 ## Trạng thái chung
 
 - Phase hiện tại: **P01 / READY FOR REVIEW**; ba P1 đã sửa và kiểm local/Preview ở1440/768/390. Account đúng `4ca521c6746d874c049fd829121ab59e`. Main live no-op PASS theo log Ready43s; không retry lịch sử. [Kết quả mới nhất](docs/PHASE01_P1_FIXES.md).
-- **P02 thiết kế READY FOR REVIEW / implementation NOT STARTED**: API trước, AI sau; [đề xuất nguồn biên tập/schema/cache/milestones](docs/PHASE02_DESIGN.md), chờ Q-09–11 và lệnh triển khai riêng. Không tự chuyển P01 sang DONE.
+- **P02 local READY FOR REVIEW** theo brief05/11: Git/JSON + CLI, GitHub/website import, review/export và Gemini quick/deep manual dùng chung5 lượt/ngày.52 tests, typecheck/build,64 P01 browser checks và5 runtime P02 checks PASS; live Gemini/cloud SKIP. [Báo cáo](docs/PHASE02_REPORT.md), [hướng dẫn](docs/PHASE02_CLI.md). P01 chưa DONE.
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
 - Cloudflare: build7de0b863 tại508a96c PASS; push31d3053 tự cập nhật Preview,45 browser checks+5 smoke checks PASS/20PNG/0 lỗi bình thường, đúng Worker/DB. Main aa369850 timeout trước clone; parent vẫn chưa active deployment, workers.dev tắt. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
@@ -126,7 +126,7 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] Chủ dự án yêu cầu commit checkpoint Archify local riêng trước khi tiếp tục thiết kế P02.
 - [ ] Chủ dự án review nội dung trước push. Không triển khai P02, thay app/cloud/D1/CI/CD hoặc nghiệm thu UI thay người dùng.
 
-## P02 — Triển khai local05/11 (IN PROGRESS)
+## P02 — Triển khai local05/11 (READY FOR REVIEW)
 
 - [x] P02.0 — Working tree sạch tại363c7f1; audit source/schema/seed/CI và cập nhật quyết định theo brief05/11. Không tự nghiệm thu P01.
 - [x] P02.1 — URL/identity/dedupe và network SSRF boundary;18 focused/catalog tests PASS, optional metadata round-trip, P01 IDs giữ nguyên.
@@ -134,7 +134,7 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] P02.3 — Official website adapter và manual fallback;11 P02 focused tests PASS, không tự xác minh free/license hoặc thực thi HTML.
 - [x] P02.4 — Rules/edit/preliminary/final review/export plan/apply, conflict/idempotency và read-only local projection drift check;17 P02 tests PASS.
 - [x] P02.5 — Gemini quick/deep manual, shared5 requests/ngày Việt Nam, cache/fail-closed;6 mock AI tests PASS. Live Gemini SKIP (chưa có free-tier/key/model được xác nhận).
-- [ ] P02.6 — Unit/integration/CLI E2E/P01 browser regression, Windows guide và report.
+- [x] P02.6 —52 unit/integration/CLI E2E tests, typecheck/build,64 P01 browser regression+5 new-resource workerd/D1 checks, live GitHub/OBS imports PASS; Windows guide/report. Gemini/cloud live SKIP có lý do.
 
 Triển khai chỉ local, được phép commit theo milestone. Không push/deploy hoặc dùng key thật khi chưa xác nhận free tier. [Báo cáo](docs/PHASE02_REPORT.md). Checklist thiết kế04/11 bên dưới là lịch sử.
 

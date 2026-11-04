@@ -9,6 +9,7 @@ export async function main(argv){
     case 'import':result=await editor.importUrl(arg,{manual:values.manual,releases:values.releases});break;
     case 'refresh':result=await editor.importUrl(null,{refreshId:arg,releases:values.releases});break;
     case 'checkout':result=await editor.checkout(arg);break;
+    case 'rebase':result=await editor.rebase(arg,{apply:values.apply,expect:values.expect});break;
     case 'edit':result=await editor.edit(arg,readJson(extra));break;
     case 'review':result=await editor.preliminary(arg,extra,values.by);break;
     case 'approve':result=await editor.approve(arg,values.by);break;
@@ -27,5 +28,6 @@ export async function main(argv){
     case 'help':result={commands:['import <url> [--manual] [--releases]','list','show <draft-id>','refresh <draft-id>','checkout <resource-id>','edit <draft-id> <patch.json>','rules <draft-id>','document <draft-id> <selected/github/file.md>','review <draft-id> suitable|unsuitable|needs_check --by <editor>','approve <draft-id> --by <editor>','export <draft-id> [--apply --expect <planId>]','analyze <draft-id> quick|deep [--force]','apply-ai <draft-id> quick|deep [--apply --expect <planId>]','ai-usage','ai-config','projection-check <local-d1.sqlite> --catalog <pre-change-baseline.json>'],note:'Local drafts only. No automatic AI, Git push, D1 mutation or deployment.'};break;
     default:throw Error('UNKNOWN_EDITORIAL_COMMAND: use node scripts/catalog.mjs help');
   }
+  if(command==='help')result.commands.push('rebase <draft-id> [--apply --expect <planId>]');
   console.log(JSON.stringify(result,null,2));if(result?.lastRefresh?.state==='failed')process.exitCode=1;
 }

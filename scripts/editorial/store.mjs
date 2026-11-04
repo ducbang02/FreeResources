@@ -3,7 +3,7 @@ import path from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 export function stable(value){return JSON.stringify(value,(_key,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b))):v);}
 export const digest=value=>createHash('sha256').update(typeof value==='string'?value:stable(value)).digest('hex');
-export function readJson(file,fallback){try{const stat=fs.statSync(file);if(stat.size>10*1024*1024)throw Error('LOCAL_FILE_TOO_LARGE');return JSON.parse(fs.readFileSync(file,'utf8'));}catch(e){if(e.code==='ENOENT'&&fallback!==undefined)return structuredClone(fallback);throw e;}}
+export function readJson(file,fallback){try{const stat=fs.statSync(file);if(stat.size>10*1024*1024)throw Error('LOCAL_FILE_TOO_LARGE');return JSON.parse(fs.readFileSync(file,'utf8'));}catch(e){if(e.code==='ENOENT'&&fallback!==undefined)return structuredClone(fallback);if(e instanceof SyntaxError)throw Error('LOCAL_JSON_INVALID: '+path.basename(file));throw e;}}
 export function atomicJson(file,value){
   fs.mkdirSync(path.dirname(file),{recursive:true});const temp=file+'.'+randomUUID()+'.tmp';let fd;
   try{fd=fs.openSync(temp,'wx',0o600);fs.writeFileSync(fd,JSON.stringify(value,null,2)+'\n');fs.fsyncSync(fd);fs.closeSync(fd);fd=undefined;fs.renameSync(temp,file);}finally{if(fd!==undefined)fs.closeSync(fd);if(fs.existsSync(temp))fs.unlinkSync(temp);}

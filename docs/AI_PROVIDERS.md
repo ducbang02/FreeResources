@@ -1,6 +1,6 @@
 # AI_PROVIDERS — API trước, AI sau; Gemini là provider AI đầu tiên
 
-> Cập nhật04/11/2026: **AGREED nguyên tắc** GitHub API/code trước, Gemini chỉ khi cần ngữ nghĩa/biên tập; không AI trên Search/Detail hoặc tự publish. Gemini là AI provider đầu tiên, không phải bước bắt buộc trước API. **P02 implementation NOT STARTED**, contract/caps/trigger vẫn PROPOSED tại [thiết kế P02](PHASE02_DESIGN.md); P01 chưa DONE. Các nghiên cứu Phase00 bên dưới giữ ý nghĩa lịch sử.
+> **Thực thi05/11:** P02 local READY FOR REVIEW. Native REST Gemini ở [gemini.mjs](../scripts/editorial/gemini.mjs), không SDK/registry/tool/grounding/provider fallback. `quick` và `deep` thủ công, một structured response mỗi mode; deep cần preliminary suitable, AI không bắt buộc. Cache exact input/model/mode/schema/prompt/rules/taxonomy; hai mode chung5 attempts/reservations/ngày Việt Nam, persistent/atomic/lock. Default disabled, fail-closed nếu chưa xác nhận Free Tier/project/model/key; không tự retry/paid/key rotation. Usage/modelVersion có khi API trả, cost unknown khi chưa đọc billing. `apply-ai` chỉ áp dụng editorial sau plan/ack và hủy review cũ; không tự sửa rights/platforms/requirements. **Live Gemini SKIP**, mocks PASS, không dùng key thật. [Hướng dẫn](PHASE02_CLI.md), [bằng chứng](PHASE02_REPORT.md). Các section bên dưới là proposal04/11/nghiên cứu Phase00; tên task/interface/caps cũ không phải runtime contract.
 
 ## 1. AI làm gì, không làm gì?
 
