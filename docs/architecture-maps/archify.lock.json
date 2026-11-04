@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/tt-a1i/archify",
+  "revision": "a4065941f12be7967436261d9934784e381d423c",
+  "packagePath": "archify",
+  "packageVersion": "3.2.0",
+  "license": "Apache-2.0",
+  "installedPath": ".agents/skills/archify",
+  "files": {
+    "SKILL.md": "1382cfb7108b05e500b82af93c04fd7b694430d3908039bd92d634f01c1e7181",
+    "bin/archify.mjs": "3cebcee3fa339e3b98deacae8cb9a5570525e003d8823368d304d904ba9ceecd"
+  }
+}

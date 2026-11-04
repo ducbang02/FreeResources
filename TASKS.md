@@ -116,7 +116,16 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] [Báo cáo và bằng chứng](docs/PHASE01_FINAL_AUDIT.md); source/UI/cloud/D1/CI không đổi, không commit/push/deploy. Retry main là việc riêng, không suy kết quả trong audit.
 - [ ] Chủ dự án review các phát hiện, chọn cách xử lý UI/search và phạm vi P02. P02 **NOT STARTED**.
 
-## P02 — Import & biên tập
+## Archify — tài liệu kiến trúc P01 (READY FOR REVIEW, local)
+
+- [x] Audit upstream SKILL/install/license/Node/dependencies/quyền; cài project-local `.agents/skills/archify`, pin snapshot, không MCP/global hoặc npm dependency app.
+- [x] Bốn JSON IR + HTML dựa trên source `a84c55a`, có source file/dòng, phân biệt P01 hiện có và đề xuất tương lai; index mở offline bằng Chrome.
+- [x] Native finalize/schema/layout/Git evidence/HTML/SVG/Chrome gate PASS cả4; giới hạn UI advanced fallback English được ghi rõ.
+- [x] Chrome/file:// interaction QA37/37 PASS ở1440/768/390;19 screenshots/8 exports local,0 automatic HTTP requests/console/page errors. [Audit và bàn giao](docs/architecture-maps/AUDIT.md).
+- [x] Chủ dự án yêu cầu commit checkpoint Archify local riêng trước khi tiếp tục thiết kế P02.
+- [ ] Chủ dự án review nội dung trước push. Không triển khai P02, thay app/cloud/D1/CI/CD hoặc nghiệm thu UI thay người dùng.
+
+## P02 — Import & biên tập (chưa bắt đầu)
 
 - [ ] P02-01 — Chốt auth/role; implement secure session/admin guard.
 - [ ] P02-02 — Fetch URL có giới hạn, SSRF guard, GitHub API quota và provenance.

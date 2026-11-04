@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "03 · Dữ liệu từ nguồn tới website",
+    "locale": "vi",
+    "translations": {
+      "page.title": "Sơ đồ {title}",
+      "legend.title": "Chú giải",
+      "node.focus": "Xem {label}",
+      "node.focus.detail": "Xem {label}, {detail}",
+      "node.context.architecture": "Thành phần kiến trúc",
+      "node.context.workflow": "Bước quy trình",
+      "node.context.sequence": "Bên tham gia",
+      "node.context.dataflow": "Thành phần dữ liệu",
+      "viewer.theme.dark": "Tối",
+      "viewer.theme.light": "Sáng",
+      "viewer.theme.toggle": "Đổi nền sáng / tối",
+      "viewer.theme.toggle.title": "Đổi nền (T)",
+      "viewer.motion.live": "Chạy",
+      "viewer.motion.still": "Dừng",
+      "viewer.motion.pause": "Dừng chuyển động",
+      "viewer.motion.resume": "Chạy chuyển động",
+      "viewer.export.button": "Xuất",
+      "viewer.export.button.title": "Xuất sơ đồ (E)",
+      "viewer.export.menu": "Xuất sơ đồ",
+      "viewer.export.diagram": "Xuất sơ đồ",
+      "viewer.export.subtitle": "Tải file về máy",
+      "viewer.export.share": "Chia sẻ",
+      "viewer.export.copyDiagram": "Sao chép sơ đồ",
+      "viewer.export.clipboardPng": "PNG vào clipboard",
+      "viewer.export.raster": "Ảnh",
+      "viewer.export.image": "Ảnh",
+      "viewer.export.vectorMotion": "Vector và chuyển động",
+      "viewer.export.vectorMotion.heading": "Vector / chuyển động",
+      "viewer.export.editable": "Vector có thể chỉnh sửa",
+      "viewer.guide.title": "Khám phá hệ thống",
+      "viewer.guide.eyebrow": "Hướng dẫn sơ đồ",
+      "viewer.guide.open": "Mở hướng dẫn sơ đồ",
+      "viewer.guide.close": "Đóng hướng dẫn",
+      "viewer.guide.find": "Tìm thành phần",
+      "viewer.guide.route": "Xem đường đi",
+      "viewer.guide.map": "Xem toàn hệ thống",
+      "viewer.guide.shortcuts": "Phím tắt",
+      "viewer.guide.shortcut.export": "Xuất",
+      "viewer.guide.shortcut.theme": "Đổi nền",
+      "viewer.guide.shortcut.reset": "Đặt lại",
+      "viewer.guide.shortcut.zoomIn": "Phóng to",
+      "viewer.guide.shortcut.zoomOut": "Thu nhỏ",
+      "viewer.guide.shortcut.close": "Đóng",
+      "viewer.finder.title": "Tìm thành phần",
+      "viewer.finder.close": "Đóng tìm kiếm",
+      "viewer.finder.placeholder": "Tìm tên hoặc ID",
+      "viewer.finder.search": "Tìm trong sơ đồ",
+      "viewer.finder.results": "Thành phần",
+      "viewer.finder.empty": "Không có thành phần phù hợp",
+      "viewer.present.present": "Trình chiếu",
+      "viewer.present.exit.label": "Thoát",
+      "legend.architecture.frontend": "Trình duyệt / giao diện",
+      "legend.architecture.backend": "Xử lý ứng dụng",
+      "legend.architecture.database": "Lưu trữ",
+      "legend.architecture.cloud": "Nền tảng cloud",
+      "legend.architecture.external": "Bên ngoài",
+      "legend.workflow.frontend": "Giao diện",
+      "legend.workflow.backend": "Xử lý",
+      "legend.workflow.security": "Kiểm soát",
+      "legend.workflow.database": "Dữ liệu",
+      "legend.workflow.cloud": "Dịch vụ cloud",
+      "legend.workflow.external": "Con người / Git",
+      "legend.dataflow.default": "Luồng dữ liệu",
+      "legend.dataflow.emphasis": "Luồng chính",
+      "legend.dataflow.database": "Kho dữ liệu",
+      "legend.sequence.default": "Yêu cầu",
+      "legend.sequence.emphasis": "Yêu cầu chính",
+      "legend.sequence.return": "Trả về"
+    },
+    "quality_profile": "showcase",
+    "output": "docs/architecture-maps/03-data.html",
+    "repository": {
+      "url": "https://github.com/ducbang02/FreeResources.git",
+      "revision": "a84c55ac84a463585cc11940036e43ea31da9866",
+      "link_mode": "web"
+    }
+  },
+  "stages": [
+    {
+      "label": "Nguồn"
+    },
+    {
+      "label": "Biên tập"
+    },
+    {
+      "label": "Kiểm tra"
+    },
+    {
+      "label": "SQL / hiển thị"
+    },
+    {
+      "label": "Áp dụng / lưu trữ"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "sources",
+      "type": "external",
+      "label": "Nguồn chính thức",
+      "sublabel": "URL + bằng chứng",
+      "stage": 0,
+      "row": 0,
+      "sources": [
+        {
+          "path": "data/catalog.json",
+          "line": 33,
+          "end_line": 48
+        },
+        {
+          "path": "scripts/catalog.mjs",
+          "line": 1,
+          "end_line": 35
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "json",
+      "type": "database",
+      "label": "Catalog JSON",
+      "sublabel": "data/catalog.json",
+      "stage": 1,
+      "row": 0,
+      "sources": [
+        {
+          "path": "data/catalog.json",
+          "line": 33,
+          "end_line": 48
+        },
+        {
+          "path": "scripts/catalog.mjs",
+          "line": 1,
+          "end_line": 35
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "validate",
+      "type": "backend",
+      "label": "CLI catalog",
+      "sublabel": "Validate + sinh SQL",
+      "stage": 2,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/catalog.mjs",
+          "line": 1,
+          "end_line": 35
+        },
+        {
+          "path": "src/lib/validation.ts",
+          "line": 42,
+          "end_line": 70
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "seed",
+      "type": "database",
+      "label": "seed.sql",
+      "sublabel": "File SQL để review",
+      "stage": 3,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/catalog.mjs",
+          "line": 1,
+          "end_line": 35
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "apply",
+      "type": "backend",
+      "label": "Wrangler D1",
+      "sublabel": "Migrate + seed staging",
+      "stage": 4,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/preview.mjs",
+          "line": 82,
+          "end_line": 88
+        },
+        {
+          "path": "scripts/preview.mjs",
+          "line": 111,
+          "end_line": 134
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "migration",
+      "type": "database",
+      "label": "Migration",
+      "sublabel": "0001_catalog.sql",
+      "stage": 3,
+      "row": 1,
+      "sources": [
+        {
+          "path": "migrations/0001_catalog.sql",
+          "line": 1,
+          "end_line": 18
+        },
+        {
+          "path": "scripts/preview.mjs",
+          "line": 82,
+          "end_line": 88
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "d1",
+      "type": "database",
+      "label": "D1 + FTS5",
+      "sublabel": "Bảng + trigger index",
+      "stage": 4,
+      "row": 2,
+      "sources": [
+        {
+          "path": "migrations/0001_catalog.sql",
+          "line": 57,
+          "end_line": 67
+        },
+        {
+          "path": "scripts/preview.mjs",
+          "line": 82,
+          "end_line": 88
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "site",
+      "type": "frontend",
+      "label": "Website",
+      "sublabel": "Chỉ đọc published",
+      "stage": 3,
+      "row": 2,
+      "sources": [
+        {
+          "path": "src/lib/catalog.ts",
+          "line": 18,
+          "end_line": 49
+        },
+        {
+          "path": "src/pages/explore.astro",
+          "line": 1,
+          "end_line": 23
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "candidate",
+      "type": "external",
+      "label": "URL · dự kiến",
+      "sublabel": "P02-A đề xuất",
+      "stage": 0,
+      "row": 3,
+      "sources": [
+        {
+          "path": "docs/PHASE01_FINAL_AUDIT.md",
+          "line": 61,
+          "end_line": 73
+        }
+      ],
+      "tag": "DỰ KIẾN"
+    },
+    {
+      "id": "import",
+      "type": "backend",
+      "label": "Import · dự kiến",
+      "sublabel": "Metadata → nháp local",
+      "stage": 1,
+      "row": 3,
+      "sources": [
+        {
+          "path": "docs/PHASE01_FINAL_AUDIT.md",
+          "line": 61,
+          "end_line": 73
+        }
+      ],
+      "tag": "DỰ KIẾN"
+    },
+    {
+      "id": "editor",
+      "type": "security",
+      "label": "Duyệt · dự kiến",
+      "sublabel": "Chưa chốt nguồn ghi",
+      "stage": 2,
+      "row": 3,
+      "sources": [
+        {
+          "path": "docs/PHASE01_FINAL_AUDIT.md",
+          "line": 61,
+          "end_line": 73
+        }
+      ],
+      "tag": "DỰ KIẾN"
+    }
+  ],
+  "flows": [
+    {
+      "id": "manual-edit",
+      "from": "sources",
+      "to": "json",
+      "label": "Biên tập tay",
+      "variant": "emphasis"
+    },
+    {
+      "id": "json-cli",
+      "from": "json",
+      "to": "validate",
+      "label": "JSON",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cli-seed",
+      "from": "validate",
+      "to": "seed",
+      "label": "SQL hợp lệ",
+      "variant": "emphasis"
+    },
+    {
+      "id": "seed-wrangler",
+      "from": "seed",
+      "to": "apply",
+      "label": "Upsert theo ID",
+      "variant": "emphasis"
+    },
+    {
+      "id": "migration-wrangler",
+      "from": "migration",
+      "to": "apply",
+      "label": "Schema"
+    },
+    {
+      "id": "apply-d1",
+      "from": "apply",
+      "to": "d1",
+      "label": "Ghi staging",
+      "variant": "emphasis"
+    },
+    {
+      "id": "d1-site",
+      "from": "d1",
+      "to": "site",
+      "label": "Dữ liệu đọc"
+    },
+    {
+      "id": "future-import",
+      "from": "candidate",
+      "to": "import",
+      "label": "Đề xuất P02"
+    },
+    {
+      "id": "future-review",
+      "from": "import",
+      "to": "editor",
+      "label": "Nháp có nguồn"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Đã có: quản trị bằng Git / JSON",
+      "items": [
+        "Người biên tập xác minh nguồn, cập nhật JSON. CLI đọc JSON + kiểm media local, validate rồi ghi seed.sql; CLI không tự gọi cloud.",
+        "Migration tạo bảng và FTS5; trigger theo dõi search_text. Wrangler là bên áp dụng SQL. Local dùng --local; CI mới ghi D1 staging sau guard."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Ranh giới ghi dữ liệu",
+      "items": [
+        "JSON không được website đọc trực tiếp để tìm kiếm; website đọc D1. Không public API ghi catalog.",
+        "Mỗi Preview deploy seed lại từ Git: sửa cùng bản ghi trực tiếp ở D1 có thể bị lần seed sau ghi đè. Giữ stable ID/createdAt; draft và archived không được công khai."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Dự kiến, chưa phải implementation",
+      "items": [
+        "Hàng cuối là P02-A từ Final Audit, chưa thay roadmap admin web và chưa được duyệt triển khai.",
+        "Không nối nháp P02 vào JSON hoặc D1 vì nguồn biên tập chính còn chờ quyết định. Không có pipeline fetch/AI/cron đang chạy."
+      ]
+    }
+  ]
+}

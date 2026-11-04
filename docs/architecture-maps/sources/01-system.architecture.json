@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "01 · Kiến trúc hiện tại",
+    "locale": "vi",
+    "translations": {
+      "page.title": "Sơ đồ {title}",
+      "legend.title": "Chú giải",
+      "node.focus": "Xem {label}",
+      "node.focus.detail": "Xem {label}, {detail}",
+      "node.context.architecture": "Thành phần kiến trúc",
+      "node.context.workflow": "Bước quy trình",
+      "node.context.sequence": "Bên tham gia",
+      "node.context.dataflow": "Thành phần dữ liệu",
+      "viewer.theme.dark": "Tối",
+      "viewer.theme.light": "Sáng",
+      "viewer.theme.toggle": "Đổi nền sáng / tối",
+      "viewer.theme.toggle.title": "Đổi nền (T)",
+      "viewer.motion.live": "Chạy",
+      "viewer.motion.still": "Dừng",
+      "viewer.motion.pause": "Dừng chuyển động",
+      "viewer.motion.resume": "Chạy chuyển động",
+      "viewer.export.button": "Xuất",
+      "viewer.export.button.title": "Xuất sơ đồ (E)",
+      "viewer.export.menu": "Xuất sơ đồ",
+      "viewer.export.diagram": "Xuất sơ đồ",
+      "viewer.export.subtitle": "Tải file về máy",
+      "viewer.export.share": "Chia sẻ",
+      "viewer.export.copyDiagram": "Sao chép sơ đồ",
+      "viewer.export.clipboardPng": "PNG vào clipboard",
+      "viewer.export.raster": "Ảnh",
+      "viewer.export.image": "Ảnh",
+      "viewer.export.vectorMotion": "Vector và chuyển động",
+      "viewer.export.vectorMotion.heading": "Vector / chuyển động",
+      "viewer.export.editable": "Vector có thể chỉnh sửa",
+      "viewer.guide.title": "Khám phá hệ thống",
+      "viewer.guide.eyebrow": "Hướng dẫn sơ đồ",
+      "viewer.guide.open": "Mở hướng dẫn sơ đồ",
+      "viewer.guide.close": "Đóng hướng dẫn",
+      "viewer.guide.find": "Tìm thành phần",
+      "viewer.guide.route": "Xem đường đi",
+      "viewer.guide.map": "Xem toàn hệ thống",
+      "viewer.guide.shortcuts": "Phím tắt",
+      "viewer.guide.shortcut.export": "Xuất",
+      "viewer.guide.shortcut.theme": "Đổi nền",
+      "viewer.guide.shortcut.reset": "Đặt lại",
+      "viewer.guide.shortcut.zoomIn": "Phóng to",
+      "viewer.guide.shortcut.zoomOut": "Thu nhỏ",
+      "viewer.guide.shortcut.close": "Đóng",
+      "viewer.finder.title": "Tìm thành phần",
+      "viewer.finder.close": "Đóng tìm kiếm",
+      "viewer.finder.placeholder": "Tìm tên hoặc ID",
+      "viewer.finder.search": "Tìm trong sơ đồ",
+      "viewer.finder.results": "Thành phần",
+      "viewer.finder.empty": "Không có thành phần phù hợp",
+      "viewer.present.present": "Trình chiếu",
+      "viewer.present.exit.label": "Thoát",
+      "legend.architecture.frontend": "Trình duyệt / giao diện",
+      "legend.architecture.backend": "Xử lý ứng dụng",
+      "legend.architecture.database": "Lưu trữ",
+      "legend.architecture.cloud": "Nền tảng cloud",
+      "legend.architecture.external": "Bên ngoài",
+      "legend.workflow.frontend": "Giao diện",
+      "legend.workflow.backend": "Xử lý",
+      "legend.workflow.security": "Kiểm soát",
+      "legend.workflow.database": "Dữ liệu",
+      "legend.workflow.cloud": "Dịch vụ cloud",
+      "legend.workflow.external": "Con người / Git",
+      "legend.dataflow.default": "Luồng dữ liệu",
+      "legend.dataflow.emphasis": "Luồng chính",
+      "legend.dataflow.database": "Kho dữ liệu",
+      "legend.sequence.default": "Yêu cầu",
+      "legend.sequence.emphasis": "Yêu cầu chính",
+      "legend.sequence.return": "Trả về"
+    },
+    "quality_profile": "showcase",
+    "output": "docs/architecture-maps/01-system.html",
+    "repository": {
+      "url": "https://github.com/ducbang02/FreeResources.git",
+      "revision": "a84c55ac84a463585cc11940036e43ea31da9866",
+      "link_mode": "web"
+    }
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "Trình duyệt",
+      "sublabel": "HTML + Search overlay",
+      "tag": "ĐÃ CÓ",
+      "pos": [
+        40,
+        220
+      ],
+      "size": [
+        160,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/components/SearchForm.astro",
+          "line": 3,
+          "end_line": 12
+        },
+        {
+          "path": "src/scripts/interactions.ts",
+          "line": 24,
+          "end_line": 40
+        }
+      ]
+    },
+    {
+      "id": "pages",
+      "type": "backend",
+      "label": "Astro SSR",
+      "sublabel": "Home · Explore · Detail",
+      "tag": "ĐÃ CÓ",
+      "pos": [
+        370,
+        220
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "astro.config.mjs",
+          "line": 1,
+          "end_line": 14
+        },
+        {
+          "path": "src/pages/explore.astro",
+          "line": 1,
+          "end_line": 23
+        },
+        {
+          "path": "src/pages/resources/[slug].astro",
+          "line": 1,
+          "end_line": 19
+        }
+      ]
+    },
+    {
+      "id": "catalog",
+      "type": "backend",
+      "label": "Catalog SQL",
+      "sublabel": "Lọc · FTS5 · chỉ đọc",
+      "tag": "ĐÃ CÓ",
+      "pos": [
+        700,
+        220
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/lib/catalog.ts",
+          "line": 18,
+          "end_line": 49
+        }
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "D1 staging",
+      "sublabel": "Catalog + index FTS5",
+      "tag": "ĐÃ CÓ",
+      "pos": [
+        1050,
+        220
+      ],
+      "size": [
+        160,
+        76
+      ],
+      "sources": [
+        {
+          "path": "deploy/wrangler.staging.json",
+          "line": 11,
+          "end_line": 23
+        },
+        {
+          "path": "migrations/0001_catalog.sql",
+          "line": 57,
+          "end_line": 67
+        }
+      ]
+    },
+    {
+      "id": "assets",
+      "type": "cloud",
+      "label": "ASSETS",
+      "sublabel": "Ảnh + Noto Sans local",
+      "tag": "ĐÃ CÓ",
+      "pos": [
+        370,
+        40
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "deploy/wrangler.staging.json",
+          "line": 11,
+          "end_line": 23
+        },
+        {
+          "path": "src/pages/index.astro",
+          "line": 10,
+          "end_line": 27
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "Search API",
+      "sublabel": "GET /api/search",
+      "tag": "ĐÃ CÓ",
+      "pos": [
+        370,
+        420
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/pages/api/search.ts",
+          "line": 1,
+          "end_line": 25
+        },
+        {
+          "path": "src/scripts/interactions.ts",
+          "line": 69,
+          "end_line": 84
+        }
+      ]
+    },
+    {
+      "id": "official",
+      "type": "external",
+      "label": "Website nguồn",
+      "sublabel": "Chỉ mở khi người dùng bấm",
+      "tag": "ĐÃ CÓ",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        170,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/pages/resources/[slug].astro",
+          "line": 1,
+          "end_line": 19
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "Một Cloudflare Worker · các module cùng runtime",
+      "wraps": [
+        "pages",
+        "catalog",
+        "api",
+        "assets"
+      ],
+      "pad": 24
+    }
+  ],
+  "connections": [
+    {
+      "id": "browse-html",
+      "from": "browser",
+      "to": "pages",
+      "label": "GET trang",
+      "variant": "emphasis"
+    },
+    {
+      "id": "pages-query",
+      "from": "pages",
+      "to": "catalog",
+      "label": "Gọi module",
+      "variant": "emphasis"
+    },
+    {
+      "id": "catalog-d1",
+      "from": "catalog",
+      "to": "db",
+      "label": "SQL bind",
+      "variant": "emphasis"
+    },
+    {
+      "id": "browser-api",
+      "from": "browser",
+      "to": "api",
+      "label": "Gợi ý JSON"
+    },
+    {
+      "id": "api-query",
+      "from": "api",
+      "to": "catalog",
+      "label": "Tìm + lọc"
+    },
+    {
+      "id": "browser-assets",
+      "from": "browser",
+      "to": "assets",
+      "label": "Ảnh / font"
+    },
+    {
+      "id": "source-link",
+      "from": "browser",
+      "to": "official",
+      "label": "Click nguồn"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Một ứng dụng, không phải nhiều service",
+      "items": [
+        "Astro frontend render HTML trên Worker. Search overlay chạy trong browser; API và SQL là module của cùng Worker.",
+        "D1 là dịch vụ lưu trữ riêng; browser không kết nối trực tiếp D1."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Phụ thuộc thực tế",
+      "items": [
+        "Runtime: Astro và @astrojs/cloudflare; không ORM, không search service riêng. TypeScript/checker/Wrangler phục vụ phát triển và build.",
+        "Ảnh, icon, Noto Sans được phục vụ từ ASSETS; website nguồn được liên kết, không scrape khi người dùng xem trang."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Trạng thái tại a84c55a",
+      "items": [
+        "P01 đã có, READY FOR REVIEW; không có tính năng sản phẩm mới đang triển khai.",
+        "Auth, ratings, Gemini, R2, queue và production là dự kiến ngoài P01, không nằm trên đường chạy hiện tại."
+      ]
+    }
+  ]
+}

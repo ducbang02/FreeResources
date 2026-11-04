@@ -95,3 +95,16 @@ OAuth dự án đủ Worker/D1; Builds API vẫn thiếu quyền đọc trực t
 ## Production dự kiến, chưa thực hiện
 
 Không có production deploy path trong P01. Cần lệnh duyệt riêng, Worker/D1/domain production riêng, kiểm budget/backup/rollback và staging QA trước release. Không tự DNS/paid plan/migration production/auth/ratings/Gemini/P02.
+
+## Bản đồ kiến trúc với Archify — tooling local
+
+Mở [index bốn sơ đồ](docs/architecture-maps/index.html) trực tiếp bằng Chrome; không cần server. [Hướng dẫn](docs/architecture-maps/README.md) mô tả cách đọc/cập nhật và snapshot nguồn, [audit](docs/architecture-maps/AUDIT.md) ghi license/quyền/validation. P01 vẫn READY FOR REVIEW; đây là tài liệu, không triển khai P02.
+
+Skill cài riêng tại `.agents/skills/archify` (ignored), không global/MCP hoặc dependency app. Tool pin revision trong `docs/architecture-maps/archify.lock.json`; renderer dùng Node≥18 và Chrome đã cài, không cần npm install trong skill. Helper tự tắt update networking cho child process, không sửa global config/cloud/CI.
+
+```powershell
+node tools/architecture-maps.mjs
+node tools/qa-architecture-maps.cjs D:/Workspace/CloneWebsite/KatTattoo/node_modules/playwright-core
+```
+
+Lệnh đầu render/validate/source-check/browser-check các JSON; lệnh sau kiểm file:// và tương tác bằng Playwright Core có sẵn (máy khác truyền đường dẫn đã cài). HTML/JSON docs được giữ trong Git; receipts, PNG/SVG export và screenshot QA chỉ local trong `qa/architecture-maps/`, `.delivery.json` cạnh HTML cũng ignored. Không nối tooling này vào Workers Builds. Chủ dự án đã yêu cầu commit checkpoint local; chờ review trước khi push các bản đồ.

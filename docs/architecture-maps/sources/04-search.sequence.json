@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "04 · Search: gợi ý, kết quả, chi tiết",
+    "locale": "vi",
+    "translations": {
+      "page.title": "Sơ đồ {title}",
+      "legend.title": "Chú giải",
+      "node.focus": "Xem {label}",
+      "node.focus.detail": "Xem {label}, {detail}",
+      "node.context.architecture": "Thành phần kiến trúc",
+      "node.context.workflow": "Bước quy trình",
+      "node.context.sequence": "Bên tham gia",
+      "node.context.dataflow": "Thành phần dữ liệu",
+      "viewer.theme.dark": "Tối",
+      "viewer.theme.light": "Sáng",
+      "viewer.theme.toggle": "Đổi nền sáng / tối",
+      "viewer.theme.toggle.title": "Đổi nền (T)",
+      "viewer.motion.live": "Chạy",
+      "viewer.motion.still": "Dừng",
+      "viewer.motion.pause": "Dừng chuyển động",
+      "viewer.motion.resume": "Chạy chuyển động",
+      "viewer.export.button": "Xuất",
+      "viewer.export.button.title": "Xuất sơ đồ (E)",
+      "viewer.export.menu": "Xuất sơ đồ",
+      "viewer.export.diagram": "Xuất sơ đồ",
+      "viewer.export.subtitle": "Tải file về máy",
+      "viewer.export.share": "Chia sẻ",
+      "viewer.export.copyDiagram": "Sao chép sơ đồ",
+      "viewer.export.clipboardPng": "PNG vào clipboard",
+      "viewer.export.raster": "Ảnh",
+      "viewer.export.image": "Ảnh",
+      "viewer.export.vectorMotion": "Vector và chuyển động",
+      "viewer.export.vectorMotion.heading": "Vector / chuyển động",
+      "viewer.export.editable": "Vector có thể chỉnh sửa",
+      "viewer.guide.title": "Khám phá hệ thống",
+      "viewer.guide.eyebrow": "Hướng dẫn sơ đồ",
+      "viewer.guide.open": "Mở hướng dẫn sơ đồ",
+      "viewer.guide.close": "Đóng hướng dẫn",
+      "viewer.guide.find": "Tìm thành phần",
+      "viewer.guide.route": "Xem đường đi",
+      "viewer.guide.map": "Xem toàn hệ thống",
+      "viewer.guide.shortcuts": "Phím tắt",
+      "viewer.guide.shortcut.export": "Xuất",
+      "viewer.guide.shortcut.theme": "Đổi nền",
+      "viewer.guide.shortcut.reset": "Đặt lại",
+      "viewer.guide.shortcut.zoomIn": "Phóng to",
+      "viewer.guide.shortcut.zoomOut": "Thu nhỏ",
+      "viewer.guide.shortcut.close": "Đóng",
+      "viewer.finder.title": "Tìm thành phần",
+      "viewer.finder.close": "Đóng tìm kiếm",
+      "viewer.finder.placeholder": "Tìm tên hoặc ID",
+      "viewer.finder.search": "Tìm trong sơ đồ",
+      "viewer.finder.results": "Thành phần",
+      "viewer.finder.empty": "Không có thành phần phù hợp",
+      "viewer.present.present": "Trình chiếu",
+      "viewer.present.exit.label": "Thoát",
+      "legend.architecture.frontend": "Trình duyệt / giao diện",
+      "legend.architecture.backend": "Xử lý ứng dụng",
+      "legend.architecture.database": "Lưu trữ",
+      "legend.architecture.cloud": "Nền tảng cloud",
+      "legend.architecture.external": "Bên ngoài",
+      "legend.workflow.frontend": "Giao diện",
+      "legend.workflow.backend": "Xử lý",
+      "legend.workflow.security": "Kiểm soát",
+      "legend.workflow.database": "Dữ liệu",
+      "legend.workflow.cloud": "Dịch vụ cloud",
+      "legend.workflow.external": "Con người / Git",
+      "legend.dataflow.default": "Luồng dữ liệu",
+      "legend.dataflow.emphasis": "Luồng chính",
+      "legend.dataflow.database": "Kho dữ liệu",
+      "legend.sequence.default": "Yêu cầu",
+      "legend.sequence.emphasis": "Yêu cầu chính",
+      "legend.sequence.return": "Trả về"
+    },
+    "quality_profile": "showcase",
+    "output": "docs/architecture-maps/04-search.html",
+    "repository": {
+      "url": "https://github.com/ducbang02/FreeResources.git",
+      "revision": "a84c55ac84a463585cc11940036e43ea31da9866",
+      "link_mode": "web"
+    }
+  },
+  "participants": [
+    {
+      "id": "person",
+      "type": "external",
+      "label": "Người dùng",
+      "sublabel": "ĐÃ CÓ · thao tác",
+      "sources": [
+        {
+          "path": "src/components/SearchForm.astro",
+          "line": 3,
+          "end_line": 12
+        },
+        {
+          "path": "src/pages/resources/[slug].astro",
+          "line": 1,
+          "end_line": 19
+        },
+        {
+          "path": "src/pages/explore.astro",
+          "line": 9,
+          "end_line": 26
+        }
+      ]
+    },
+    {
+      "id": "overlay",
+      "type": "frontend",
+      "label": "Search overlay",
+      "sublabel": "ĐÃ CÓ · browser",
+      "sources": [
+        {
+          "path": "src/scripts/interactions.ts",
+          "line": 24,
+          "end_line": 40
+        },
+        {
+          "path": "src/scripts/interactions.ts",
+          "line": 69,
+          "end_line": 84
+        },
+        {
+          "path": "src/components/SearchForm.astro",
+          "line": 3,
+          "end_line": 12
+        }
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Astro / Worker",
+      "sublabel": "ĐÃ CÓ · API + trang",
+      "sources": [
+        {
+          "path": "src/pages/api/search.ts",
+          "line": 1,
+          "end_line": 25
+        },
+        {
+          "path": "src/lib/catalog.ts",
+          "line": 1,
+          "end_line": 49
+        },
+        {
+          "path": "src/pages/resources/[slug].astro",
+          "line": 1,
+          "end_line": 19
+        }
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "D1 / FTS5",
+      "sublabel": "ĐÃ CÓ · SQL bind",
+      "sources": [
+        {
+          "path": "migrations/0001_catalog.sql",
+          "line": 57,
+          "end_line": 67
+        }
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "from": 145,
+      "to": 460,
+      "label": "1 · Gợi ý nhanh"
+    },
+    {
+      "from": 480,
+      "to": 690,
+      "label": "2 · Kết quả đầy đủ"
+    },
+    {
+      "from": 710,
+      "to": 895,
+      "label": "3 · Trang chi tiết"
+    }
+  ],
+  "messages": [
+    {
+      "id": "input",
+      "from": "person",
+      "to": "overlay",
+      "y": 170,
+      "label": "Nhập từ khóa",
+      "note": "Explore giữ filter; Header/Home tìm toàn thư viện."
+    },
+    {
+      "id": "preview-get",
+      "from": "overlay",
+      "to": "worker",
+      "y": 235,
+      "label": "GET /api/search",
+      "note": "Debounce 160ms; hủy request cũ; timeout 10s.",
+      "variant": "emphasis"
+    },
+    {
+      "id": "preview-sql",
+      "from": "worker",
+      "to": "db",
+      "y": 300,
+      "label": "SQL tìm kiếm + taxonomy",
+      "note": "searchResources(): MATCH + filter/sort; tối đa 4.",
+      "variant": "emphasis"
+    },
+    {
+      "id": "preview-rows",
+      "from": "db",
+      "to": "worker",
+      "y": 365,
+      "label": "Rows published",
+      "variant": "return"
+    },
+    {
+      "id": "preview-json",
+      "from": "worker",
+      "to": "overlay",
+      "y": 405,
+      "label": "JSON / 400 / 503",
+      "variant": "return"
+    },
+    {
+      "id": "suggestions",
+      "from": "overlay",
+      "to": "person",
+      "y": 445,
+      "label": "Gợi ý / rỗng / thử lại",
+      "variant": "return"
+    },
+    {
+      "id": "results-get",
+      "from": "person",
+      "to": "worker",
+      "y": 505,
+      "label": "Enter → GET /explore?...",
+      "note": "Cùng q/filter/sort; bỏ page cũ.",
+      "variant": "emphasis"
+    },
+    {
+      "id": "results-sql",
+      "from": "worker",
+      "to": "db",
+      "y": 570,
+      "label": "SQL kết quả + count",
+      "note": "listResources(): cùng filter; mặc định 8 mục/trang.",
+      "variant": "emphasis"
+    },
+    {
+      "id": "results-rows",
+      "from": "db",
+      "to": "worker",
+      "y": 635,
+      "label": "Rows + tổng số",
+      "variant": "return"
+    },
+    {
+      "id": "results-html",
+      "from": "worker",
+      "to": "person",
+      "y": 675,
+      "label": "HTML kết quả",
+      "variant": "return"
+    },
+    {
+      "id": "detail-get",
+      "from": "person",
+      "to": "worker",
+      "y": 735,
+      "label": "GET /resources/{slug}",
+      "variant": "emphasis"
+    },
+    {
+      "id": "detail-sql",
+      "from": "worker",
+      "to": "db",
+      "y": 780,
+      "label": "SQL theo slug",
+      "note": "getResource(): chỉ published; không có thì 404."
+    },
+    {
+      "id": "detail-row",
+      "from": "db",
+      "to": "worker",
+      "y": 845,
+      "label": "Resource / null",
+      "variant": "return"
+    },
+    {
+      "id": "detail-html",
+      "from": "worker",
+      "to": "person",
+      "y": 885,
+      "label": "HTML Detail + link nguồn",
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Phạm vi tìm kiếm",
+      "items": [
+        "Explore giữ category/type/platform/sort/view trong URL; API chỉ nhận category/type/platform/sort, không cho page/limit tùy ý vượt preview cap.",
+        "Không có JS: form GET /explore vẫn hoạt động. Chọn một gợi ý có thể đi thẳng Detail, bỏ qua bước 2."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Query và dữ liệu thật",
+      "items": [
+        "Catalog SQL là module trong Worker, không phải service riêng. normalize bỏ dấu/đ; token FTS được quote, prefix AND, SQL dùng bind.",
+        "Query rỗng không filter: gợi ý Home. Query rỗng có filter: SQL đã lọc. Thuật toán hiện tại không gọi AI hay search provider ngoài."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Lỗi và an toàn",
+      "items": [
+        "API từ khóa >160 ký tự trả400; query lỗi trả503 với thông báo chung. Overlay có empty/retry và huỷ phản hồi cũ; Escape trả focus.",
+        "Thứ tự trong hình là logic gọi/đáp, không phải số đo thời gian hay sơ đồ transaction. Nguồn code được pin a84c55a."
+      ]
+    }
+  ]
+}

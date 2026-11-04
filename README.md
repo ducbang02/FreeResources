@@ -1,4 +1,6 @@
 # Nếp — Digital Resource Hub
+
+[Bản đồ kiến trúc tương tác](docs/architecture-maps/index.html): hệ thống, CI/CD, dữ liệu và Search; mở local bằng Chrome. [Cách dùng và cập nhật](docs/architecture-maps/README.md).
 > Account staging đã xác minh: 4ca521c6746d874c049fd829121ab59e — Nguyenducbang.uit@gmail.com's Account. Worker/D1 đúng account đã tạo và đọc lại; tài nguyên tạo nhầm đã xóa theo yêu cầu. [Bằng chứng](docs/PHASE01_CLOUD_CONNECTION.md).
 
 Ứng dụng Astro + TypeScript, Cloudflare Workers/D1, giao diện Concept A theo P00.3 và Noto Sans. Catalog có **13 tài nguyên thật, 7 loại và 17 nguồn kiểm chứng**. Không auth, rating, submission hoặc AI API thật trong P01.

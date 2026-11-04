@@ -29,3 +29,5 @@ Thumbs.db
 .codex/
 .agents/
 .aws/
+# Archify delivery receipts are local validation evidence; the HTML/JSON maps are documentation.
+/docs/architecture-maps/*.delivery.json

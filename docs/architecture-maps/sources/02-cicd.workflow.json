@@ -1,0 +1,410 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "02 · CI/CD và điểm dừng",
+    "locale": "vi",
+    "translations": {
+      "page.title": "Sơ đồ {title}",
+      "legend.title": "Chú giải",
+      "node.focus": "Xem {label}",
+      "node.focus.detail": "Xem {label}, {detail}",
+      "node.context.architecture": "Thành phần kiến trúc",
+      "node.context.workflow": "Bước quy trình",
+      "node.context.sequence": "Bên tham gia",
+      "node.context.dataflow": "Thành phần dữ liệu",
+      "viewer.theme.dark": "Tối",
+      "viewer.theme.light": "Sáng",
+      "viewer.theme.toggle": "Đổi nền sáng / tối",
+      "viewer.theme.toggle.title": "Đổi nền (T)",
+      "viewer.motion.live": "Chạy",
+      "viewer.motion.still": "Dừng",
+      "viewer.motion.pause": "Dừng chuyển động",
+      "viewer.motion.resume": "Chạy chuyển động",
+      "viewer.export.button": "Xuất",
+      "viewer.export.button.title": "Xuất sơ đồ (E)",
+      "viewer.export.menu": "Xuất sơ đồ",
+      "viewer.export.diagram": "Xuất sơ đồ",
+      "viewer.export.subtitle": "Tải file về máy",
+      "viewer.export.share": "Chia sẻ",
+      "viewer.export.copyDiagram": "Sao chép sơ đồ",
+      "viewer.export.clipboardPng": "PNG vào clipboard",
+      "viewer.export.raster": "Ảnh",
+      "viewer.export.image": "Ảnh",
+      "viewer.export.vectorMotion": "Vector và chuyển động",
+      "viewer.export.vectorMotion.heading": "Vector / chuyển động",
+      "viewer.export.editable": "Vector có thể chỉnh sửa",
+      "viewer.guide.title": "Khám phá hệ thống",
+      "viewer.guide.eyebrow": "Hướng dẫn sơ đồ",
+      "viewer.guide.open": "Mở hướng dẫn sơ đồ",
+      "viewer.guide.close": "Đóng hướng dẫn",
+      "viewer.guide.find": "Tìm thành phần",
+      "viewer.guide.route": "Xem đường đi",
+      "viewer.guide.map": "Xem toàn hệ thống",
+      "viewer.guide.shortcuts": "Phím tắt",
+      "viewer.guide.shortcut.export": "Xuất",
+      "viewer.guide.shortcut.theme": "Đổi nền",
+      "viewer.guide.shortcut.reset": "Đặt lại",
+      "viewer.guide.shortcut.zoomIn": "Phóng to",
+      "viewer.guide.shortcut.zoomOut": "Thu nhỏ",
+      "viewer.guide.shortcut.close": "Đóng",
+      "viewer.finder.title": "Tìm thành phần",
+      "viewer.finder.close": "Đóng tìm kiếm",
+      "viewer.finder.placeholder": "Tìm tên hoặc ID",
+      "viewer.finder.search": "Tìm trong sơ đồ",
+      "viewer.finder.results": "Thành phần",
+      "viewer.finder.empty": "Không có thành phần phù hợp",
+      "viewer.present.present": "Trình chiếu",
+      "viewer.present.exit.label": "Thoát",
+      "legend.architecture.frontend": "Trình duyệt / giao diện",
+      "legend.architecture.backend": "Xử lý ứng dụng",
+      "legend.architecture.database": "Lưu trữ",
+      "legend.architecture.cloud": "Nền tảng cloud",
+      "legend.architecture.external": "Bên ngoài",
+      "legend.workflow.frontend": "Giao diện",
+      "legend.workflow.backend": "Xử lý",
+      "legend.workflow.security": "Kiểm soát",
+      "legend.workflow.database": "Dữ liệu",
+      "legend.workflow.cloud": "Dịch vụ cloud",
+      "legend.workflow.external": "Con người / Git",
+      "legend.dataflow.default": "Luồng dữ liệu",
+      "legend.dataflow.emphasis": "Luồng chính",
+      "legend.dataflow.database": "Kho dữ liệu",
+      "legend.sequence.default": "Yêu cầu",
+      "legend.sequence.emphasis": "Yêu cầu chính",
+      "legend.sequence.return": "Trả về"
+    },
+    "quality_profile": "showcase",
+    "output": "docs/architecture-maps/02-cicd.html",
+    "repository": {
+      "url": "https://github.com/ducbang02/FreeResources.git",
+      "revision": "a84c55ac84a463585cc11940036e43ea31da9866",
+      "link_mode": "web"
+    }
+  },
+  "lanes": [
+    {
+      "id": "local",
+      "label": "Máy phát triển"
+    },
+    {
+      "id": "git",
+      "label": "GitHub / nhánh"
+    },
+    {
+      "id": "cloud",
+      "label": "Workers Builds → staging"
+    },
+    {
+      "id": "review",
+      "label": "Nghiệm thu / tương lai"
+    }
+  ],
+  "mainPath": [
+    "edit",
+    "localcheck",
+    "diff",
+    "develop",
+    "build",
+    "dbapply",
+    "preview",
+    "accept"
+  ],
+  "nodes": [
+    {
+      "id": "edit",
+      "lane": "local",
+      "col": 0,
+      "type": "external",
+      "label": "Sửa local",
+      "sublabel": "Code / catalog / docs",
+      "sources": [
+        {
+          "path": "SETUP.md",
+          "line": 64,
+          "end_line": 71
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "localcheck",
+      "lane": "local",
+      "col": 1,
+      "type": "backend",
+      "label": "Test + build",
+      "sublabel": "Unit · type · browser",
+      "sources": [
+        {
+          "path": "package.json",
+          "line": 7,
+          "end_line": 28
+        },
+        {
+          "path": "SETUP.md",
+          "line": 20,
+          "end_line": 35
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "diff",
+      "lane": "local",
+      "col": 2,
+      "type": "security",
+      "label": "Review diff",
+      "sublabel": "Commit khi có phép",
+      "sources": [
+        {
+          "path": "SETUP.md",
+          "line": 64,
+          "end_line": 71
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "develop",
+      "lane": "git",
+      "col": 2,
+      "type": "external",
+      "label": "develop",
+      "sublabel": "Push được phê duyệt",
+      "sources": [
+        {
+          "path": "SETUP.md",
+          "line": 64,
+          "end_line": 71
+        },
+        {
+          "path": "scripts/preview.mjs",
+          "line": 96,
+          "end_line": 104
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "main",
+      "lane": "git",
+      "col": 3,
+      "type": "external",
+      "label": "main",
+      "sublabel": "Nhánh chính",
+      "sources": [
+        {
+          "path": "scripts/build-worker.mjs",
+          "line": 1,
+          "end_line": 11
+        },
+        {
+          "path": "scripts/no-production.mjs",
+          "line": 1,
+          "end_line": 2
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "noop",
+      "lane": "git",
+      "col": 4,
+      "type": "security",
+      "label": "No-op",
+      "sublabel": "Không upload / migrate",
+      "sources": [
+        {
+          "path": "scripts/build-worker.mjs",
+          "line": 1,
+          "end_line": 11
+        },
+        {
+          "path": "scripts/no-production.mjs",
+          "line": 1,
+          "end_line": 2
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "build",
+      "lane": "cloud",
+      "col": 3,
+      "type": "backend",
+      "label": "Guard + build",
+      "sublabel": "Checks local → artifact",
+      "sources": [
+        {
+          "path": "scripts/preview.mjs",
+          "line": 111,
+          "end_line": 134
+        },
+        {
+          "path": "scripts/preview.mjs",
+          "line": 96,
+          "end_line": 104
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "dbapply",
+      "lane": "cloud",
+      "col": 4,
+      "type": "database",
+      "label": "D1 staging",
+      "sublabel": "Guard ID → migrate/seed",
+      "sources": [
+        {
+          "path": "scripts/preview.mjs",
+          "line": 111,
+          "end_line": 134
+        },
+        {
+          "path": "scripts/preview.mjs",
+          "line": 82,
+          "end_line": 88
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "preview",
+      "lane": "cloud",
+      "col": 5,
+      "type": "cloud",
+      "label": "Preview develop",
+      "sublabel": "wrangler preview",
+      "sources": [
+        {
+          "path": "scripts/preview.mjs",
+          "line": 82,
+          "end_line": 88
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "accept",
+      "lane": "review",
+      "col": 5,
+      "type": "frontend",
+      "label": "Review Preview",
+      "sublabel": "Browser + người duyệt",
+      "sources": [
+        {
+          "path": "docs/PHASE01_P1_FIXES.md",
+          "line": 24,
+          "end_line": 46
+        }
+      ],
+      "tag": "ĐÃ CÓ"
+    },
+    {
+      "id": "production",
+      "lane": "review",
+      "col": 3,
+      "type": "cloud",
+      "label": "Production · dự kiến",
+      "sublabel": "Chưa có deploy path",
+      "sources": [
+        {
+          "path": "SETUP.md",
+          "line": 95,
+          "end_line": 97
+        }
+      ],
+      "tag": "DỰ KIẾN"
+    }
+  ],
+  "edges": [
+    {
+      "id": "local-edit-test",
+      "from": "edit",
+      "to": "localcheck",
+      "label": "Kiểm tra",
+      "variant": "emphasis"
+    },
+    {
+      "id": "test-diff",
+      "from": "localcheck",
+      "to": "diff",
+      "label": "PASS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "push-develop",
+      "from": "diff",
+      "to": "develop",
+      "label": "Push",
+      "variant": "emphasis"
+    },
+    {
+      "id": "develop-build",
+      "from": "develop",
+      "to": "build",
+      "label": "CI develop",
+      "variant": "emphasis"
+    },
+    {
+      "id": "guarded-db",
+      "from": "build",
+      "to": "dbapply",
+      "label": "PASS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "deploy-preview",
+      "from": "dbapply",
+      "to": "preview",
+      "label": "Staging",
+      "variant": "emphasis"
+    },
+    {
+      "id": "preview-review",
+      "from": "preview",
+      "to": "accept",
+      "label": "Kiểm lại"
+    },
+    {
+      "id": "main-noop",
+      "from": "main",
+      "to": "noop",
+      "label": "CI main"
+    },
+    {
+      "id": "approved-main",
+      "from": "diff",
+      "to": "main",
+      "label": "Có lệnh riêng",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "develop → Preview là đường đã kiểm",
+      "items": [
+        "ci:build: xác minh branch/repo/SHA/clean tree; validate catalog, migrate/seed LOCAL, types/tests, Astro build.",
+        "ci:preview:deploy: xác minh artifact/account/D1 → migration + seed D1 STAGING → wrangler preview. Sai guard thì dừng; không có nhánh tự release production."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "main thành công vì bỏ qua có chủ ý",
+      "items": [
+        "ci:build trên main bỏ qua build; ci:production chỉ báo khóa production và thoát thành công. Ready không đồng nghĩa đã phát hành website production.",
+        "Không có đường nối từ main sang production vì P01 chưa có deploy path. Muốn release cần lệnh riêng và tài nguyên/cấu hình được review."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Điểm dừng hiện tại",
+      "items": [
+        "READY FOR REVIEW chưa phải DONE. Không tự merge, pushmain, retry build lịch sử hoặc bắt đầu P02.",
+        "Biểu đồ diễn tả source/policy đã có; không khẳng định GitHub branch protection đã được cấu hình."
+      ]
+    }
+  ]
+}

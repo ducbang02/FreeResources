@@ -3,3 +3,6 @@
 prototype/** -text
 prototype-p001/** -text
 public/assets/** -text
+# Archify provenance binds exact HTML bytes; keep delivered viewer and license bytes portable.
+docs/architecture-maps/*.html -text
+docs/architecture-maps/licenses/** -text
