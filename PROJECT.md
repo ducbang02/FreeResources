@@ -2,7 +2,7 @@
 
 > P01 READY FOR REVIEW: ba P1 theo Final Audit đã sửa, local và Preview PASS. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans giữ nguyên. GitHub→Preview và main no-op đã PASS; Failed attempts giữ riêng. Chờ chủ dự án nghiệm thu, không production/P02. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
 
-> Định hướng04/11: **API trước, AI sau**; GitHub importer được thiết kế tại [P02 proposal](docs/PHASE02_DESIGN.md), READY FOR REVIEW, chưa implementation. Ba khu vực sản phẩm là Mã nguồn mở & GitHub / Tài nguyên miễn phí / Tài nguyên khác, có thể chồng lấp; phạm vi “Khác” và nguồn biên tập P02 còn chờ duyệt. Chưa đổi UI, D1 hoặc CI/CD.
+> P02 được giao triển khai local05/11: Git/JSON + CLI, GitHub public và website ứng dụng, API/code trước AI. Hai mức AI thủ công dùng chung5 requests/ngày Việt Nam. Ba nhóm Tài nguyên miễn phí / Ứng dụng & công cụ miễn phí / Mã nguồn mở & GitHub có thể giao nhau; trial-only/paid-only không phù hợp. [Contract mới](docs/PHASE02_DESIGN.md), [tiến độ](docs/PHASE02_REPORT.md). Không push/deploy, không đổi UI/D1 schema/CI; P01 chưa DONE.
 
 ## 1. Tầm nhìn
 

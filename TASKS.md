@@ -126,7 +126,19 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] Chủ dự án yêu cầu commit checkpoint Archify local riêng trước khi tiếp tục thiết kế P02.
 - [ ] Chủ dự án review nội dung trước push. Không triển khai P02, thay app/cloud/D1/CI/CD hoặc nghiệm thu UI thay người dùng.
 
-## P02 — Thiết kế API trước, AI sau (READY FOR REVIEW)
+## P02 — Triển khai local05/11 (IN PROGRESS)
+
+- [x] P02.0 — Working tree sạch tại363c7f1; audit source/schema/seed/CI và cập nhật quyết định theo brief05/11. Không tự nghiệm thu P01.
+- [ ] P02.1 — URL/identity/dedupe và network SSRF boundary.
+- [ ] P02.2 — GitHub public import/cache/draft/errors.
+- [ ] P02.3 — Official website adapter và manual fallback.
+- [ ] P02.4 — Rules/edit/preliminary/final review/export conflict/idempotency.
+- [ ] P02.5 — Gemini quick/deep manual, shared5 requests/ngày Việt Nam, cache/fail-closed.
+- [ ] P02.6 — Unit/integration/CLI E2E/P01 browser regression, Windows guide và report.
+
+Triển khai chỉ local, được phép commit theo milestone. Không push/deploy hoặc dùng key thật khi chưa xác nhận free tier. [Báo cáo](docs/PHASE02_REPORT.md). Checklist thiết kế04/11 bên dưới là lịch sử.
+
+## P02 — Thiết kế04/11 (lịch sử READY FOR REVIEW)
 
 - [x] P02-D01 — Audit source/importer/validator/D1/CI/P01/Archify, phân biệt đã có và đề xuất; đọc remote refs và HTTP smoke Preview4/4, không cloud mutation.
 - [x] P02-D02 — Phân chia GitHub API/code/Gemini, provenance/unknown/license; schema draft/approval và một payload AI nhiều fields, không auto-publish.

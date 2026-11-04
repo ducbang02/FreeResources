@@ -58,16 +58,17 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 
 **Gate:** catalog fixture và tài nguyên thật có nguồn, bài hiển thị đúng, SQL tests và browser QA local pass; không upload/download file bên thứ ba.
 
-## Phase 02 — GitHub import, API trước / AI sau (thiết kế READY FOR REVIEW; code NOT STARTED)
+## Phase 02 — Nhập và biên tập local (IN PROGRESS, được giao05/11)
 
-Định hướng mới do chủ dự án nêu rõ: GitHub API lấy facts, code normalize/duplicate/validation/rules/cache, Gemini chỉ khi cần ngữ nghĩa, một request nhiều fields. [Thiết kế và acceptance đầy đủ](docs/PHASE02_DESIGN.md). Nguồn biên tập/trigger/caps/phạm vi “Khác” vẫn PROPOSED, chưa tự khóa.
+Brief05/11 chốt Git/JSON + CLI, GitHub public **và website ứng dụng**, hai mức AI thủ công cùng5 lượt/ngày. Thay thế Q09–11 và các milestone đề xuất cũ. [Contract](docs/PHASE02_DESIGN.md), [bằng chứng](docs/PHASE02_REPORT.md).
 
-1. **M0 — Duyệt contract:** Q09–11, baseline P01 và quyền bắt đầu riêng.
-2. **M1 — URL/identity:** GitHub-only, dedup/rename/stable ID; validator optional metadata round-trip.
-3. **M2 — API→draft:** public-only, README/license unknown, cache/ETag/limits/errors; nháp bền vững chưa public.
-4. **M3 — Rules/review/export:** chỉnh sửa, approved digest/conflict check, Git/JSON→CI P01→Preview theo lệnh được phép. Ưu tiên CLI/Git, D1 projection; chưa duyệt chuyển writer.
-5. **M4 — Gemini tùy chọn:** manual opt-in/disabled mặc định, structured response, local cache/usage/budget/queue; API-only vẫn chạy.
-6. **M5 — Public facets, gate riêng:** nếu được giao ba khu vực/verification/requirements UI, chốt contract+migration trước; không ép schema P01 hoặc tự sửa thiết kế A.
+1. **P02.0:** audit/chốt contract mới, tách provenance/phân loại, một writer.
+2. **P02.1:** URL/identity hai nguồn, dedup/rename/stable ID; SSRF/network boundary.
+3. **P02.2:** GitHub API→draft, public-only, README/license unknown, ETag/cache/limits/errors.
+4. **P02.3:** website ứng dụng→metadata hạn chế/thủ công, không crawler.
+5. **P02.4:** rules/edit/preliminary/final review/export plan và apply có xác nhận, conflict/idempotency, không tự ghi D1.
+6. **P02.5:** Gemini quick/deep tùy chọn, shared quota/cache/usage, default off và free-tier fail-closed.
+7. **P02.6:** unit/integration/CLI E2E/P01 browser regression, Windows docs, báo cáo READY FOR REVIEW theo kết quả thật.
 
 Admin web/auth là phương án mở rộng nếu chủ dự án chọn D1 writer, cần thiết kế chuyển seed/permissions riêng; không là dependency bắt buộc của CLI-first proposal. Không community ratings/submissions/upload/cron/provider thứ hai ở M1–4. Mọi milestone chỉ triển khai sau lệnh rõ; schema/API tests không thay browser/staging acceptance.
 

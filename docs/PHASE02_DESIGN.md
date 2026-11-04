@@ -1,5 +1,9 @@
 # P02 — API trước, AI sau: thiết kế nhập GitHub
 
+> **Quyết định triển khai05/11/2026 — thay thế các đề xuất mâu thuẫn bên dưới.** P02 được giao local, không push/deploy/cloud. Git/JSON + CLI là nguồn biên tập duy nhất; D1 là projection. Hỗ trợ repo GitHub public và website ứng dụng chính thức (metadata hạn chế hoặc thủ công), không crawler. Ba nhóm: **Tài nguyên miễn phí / Ứng dụng & công cụ miễn phí / Mã nguồn mở & GitHub**, có thể giao nhau, không nhân bản record. Freeware/free lâu dài/freemium có free tier rõ được phép; trial-only/paid-only/crack không phù hợp. Không còn khu vực “Khác” freemium/trial như đề xuất cũ.
+>
+> AI **nhanh và chuyên sâu đều thủ công**, không tự gọi khi import/refresh; deep cần duyệt sơ bộ suitable. Cùng ledger bền vững **5 requests/ngày Asia/Ho_Chi_Minh**, lỗi/retry thực gửi đều tính; cache hit không tính. Chưa có xác nhận key/project/model/free tier thì fail-closed, không gọi thật. Người duyệt sơ bộ/final tách riêng; AI suggestion không tự đổi editorial hoặc license/pricing. Không cần AI để final approve/export khi đủ nguồn. Schema D1/public navigation giữ nguyên; metadata/provenance mới optional trong Git record, draft/cache/usage local ignored. [Tiến độ và bằng chứng](PHASE02_REPORT.md). Phần04/11 bên dưới là snapshot thiết kế lịch sử, không phải contract triển khai05/11.
+
 04/11/2026 · **READY FOR REVIEW — thiết kế PROPOSED, implementation NOT STARTED.** P01 vẫn READY FOR REVIEW, chưa được người dùng xác nhận DONE. Brief mới đã chốt nguyên tắc sản phẩm; chưa cấp quyền code, dùng key, migration, push hoặc release. Archify P01 đã được lưu riêng ở commit local `301fd2a`, chưa push; bốn sơ đồ hiện trạng được giữ nguyên.
 
 ## 1. Kết luận đề xuất
