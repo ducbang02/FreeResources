@@ -21,3 +21,9 @@ P02.0 checkpoint `0aed560`. **PASS:** `node --test tests/editorial-network.test.
 P02.1 checkpoint `0f7807a`. Reuse entrypoint `scripts/catalog.mjs`; lệnh cũ validate/generate không đổi. Import/show/list/refresh lưu nháp/source/cache local, fsync+atomic rename và single-writer lock; không reset khi CLI restart. GitHub public REST **không dùng token**, tránh lỡ đọc private repo; rate headers/ETag/negative cache, không retry ẩn. README/license có thể thiếu; giữ unknown và cần review, không chuyển GitHub detection thành license đã xác minh. Refresh giữ editorial sửa tay, identity/aliases ổn định; không gọi AI hoặc sửa catalog.
 
 **PASS:**8 tests P02 network/import; mock API public/private404/invalid/oversize/license missing/rename/ETag304/rate limit/restart/dedup/manual edit. CLI help chạy thực tế. GitHub document selector có allowlist path/extension, không clone/tải/chạy repo. Live GitHub request và CLI E2E đầy đủ thực hiện riêng ở QA cuối; chưa dùng credentials.
+
+## P02.3 — Website ứng dụng chính thức
+
+P02.2 checkpoint `1b2d974`. Adapter website dùng HTTPS/DNS boundary chung, tối đa256KiB response/64KiB head; lấy title/meta description dạng text, không chạy JS/nhúng ảnh/tải installer/crawl links. HTTP chặn/CAPTCHA/encoding/metadata thiếu → partial và cho phép thủ công; `--manual` không gọi mạng. Website/Free/giấy phép đều chưa xác minh cho đến người biên tập đối chiếu, không tin quảng cáo trong meta. Redirect lưu aliases, kiểm trùng, không tự chứng nhận domain chính thức.
+
+**PASS:**11 P02 tests network/import/website; metadata/script/comment sanitization, free/license unknown, manual no-network, timeout403/non-HTML/CAPTCHA/missing head, redirect aliases/duplicate. Không thêm dependency hay public UI. Chưa chứng nhận website bên thứ ba live; fallback không phải bằng chứng nguồn đó đúng.
