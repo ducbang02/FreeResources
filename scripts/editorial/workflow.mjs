@@ -13,21 +13,23 @@ export class Editor{
   constructor({stateDir=path.join(root,'.local/editorial'),catalog=path.join(root,'data/catalog.json'),request,now=()=>new Date()}={}){this.store=new Store(stateDir);this.catalog=path.resolve(catalog);this.request=request;this.now=now;}
   seed(){return validateCatalog(readJson(this.catalog));}
   matches(identity,exceptId){return findMatches(this.seed(),this.store.list().filter(d=>d.id!==exceptId),identity);}
-  async change(id,action){return this.store.locked(async()=>{
-    const draft=this.store.draft(id),seed=this.seed(),before=contentDigest(draft,seed);await action(draft,seed);
+  async change(id,action,{expectedRevision}={}){return this.store.locked(async()=>{
+    const draft=this.store.draft(id),seed=this.seed();
+    if(expectedRevision!==undefined&&draft.revision!==expectedRevision)throw Error('DRAFT_CHANGED: reload before editing or reviewing');
+    const before=contentDigest(draft,seed);await action(draft,seed);
     if(before!==contentDigest(draft,seed)){draft.preliminary={status:'pending'};draft.finalReview=null;}
     draft.revision++;draft.updatedAt=this.now().toISOString();this.store.save(draft);return draft;
   });}
-  async edit(id,patch){return this.change(id,(draft,seed)=>patchDraft(draft,patch,seed,this.now().toISOString()));}
+  async edit(id,patch,options){return this.change(id,(draft,seed)=>patchDraft(draft,patch,seed,this.now().toISOString()),options);}
   async checkout(resourceId){return this.store.locked(async()=>{
     const seed=this.seed(),record=seed.resources.find(r=>r.id===resourceId);if(!record)throw Error('RESOURCE_NOT_FOUND');
     const identity=record.sourceIdentity??identify(record.canonicalUrl),matches=this.store.list().filter(d=>d.baseResourceId===resourceId);if(matches.length)return matches[0];
     const id='draft-'+digest('checkout:'+resourceId).slice(0,16),draft={schemaVersion:1,id,identity,createdAt:this.now().toISOString(),updatedAt:this.now().toISOString(),revision:1,baseResourceId:resourceId,baseResourceDigest:digest(record),originalRecord:record,editorial:Object.fromEntries(['title','summary','description','type','categories','tags','platforms','license','pricing','slug'].map(k=>[k,record[k]])),policy:{groups:record.editorial?.groups??[],freeModel:record.editorial?.freeModel??'unknown',licenseStatus:record.editorial?.licenseStatus??'unknown',officialSourceVerified:false,freeEvidenceUrl:record.editorial?.freeEvidenceUrl??'',freeLimitations:record.editorial?.freeLimitations??''},verifiedSources:record.sources,preliminary:{status:'pending'},finalReview:null,analyses:{},source:{identity,metadata:{title:record.title},evidence:[],issues:['checkout:refresh_or_supply_evidence'],state:'partial'},lastRefresh:{state:'partial',issues:[],at:this.now().toISOString()}};
     this.store.save(draft);return draft;
   });}
-  async preliminary(id,status,by){
+  async preliminary(id,status,by,options){
     if(!['suitable','unsuitable','needs_check'].includes(status)||typeof by!=='string'||!by.trim()||by.length>100)throw Error('PRELIMINARY_REVIEW_INVALID');
-    return this.change(id,(draft,seed)=>{draft.preliminary={status,by,at:this.now().toISOString(),digest:contentDigest(draft,seed)};draft.finalReview=null;});
+    return this.change(id,(draft,seed)=>{draft.preliminary={status,by,at:this.now().toISOString(),digest:contentDigest(draft,seed)};draft.finalReview=null;},options);
   }
   async rebase(id,{apply=false,expect=null}={}){return this.store.locked(async()=>{
     const draft=this.store.draft(id),current=this.seed().resources.find(r=>r.id===draft.baseResourceId);if(!current)throw Error('REBASE_EXISTING_RESOURCE_REQUIRED');
@@ -35,9 +37,9 @@ export class Editor{
     if(apply){if(expect!==planId)throw Error('REBASE_PLAN_CHANGED');draft.originalRecord=current;draft.baseResourceDigest=digest(current);draft.preliminary={status:'pending'};draft.finalReview=null;draft.revision++;draft.updatedAt=this.now().toISOString();this.store.save(draft);}
     return{...plan,planId,applied:apply,note:'Review all three versions and edit your draft to resolve conflicts. Apply updates baseline only; it preserves your editorial and requires review again.'};
   });}
-  async approve(id,by){
+  async approve(id,by,options){
     if(typeof by!=='string'||!by.trim()||by.length>100)throw Error('REVIEWER_REQUIRED');
-    return this.change(id,(draft,seed)=>{const hash=contentDigest(draft,seed);if(draft.preliminary.status!=='suitable'||draft.preliminary.digest!==hash)throw Error('CURRENT_PRELIMINARY_APPROVAL_REQUIRED');candidate(draft,seed,by,this.now().toISOString());draft.finalReview={by,at:this.now().toISOString(),digest:hash};});
+    return this.change(id,(draft,seed)=>{const hash=contentDigest(draft,seed);if(draft.preliminary.status!=='suitable'||draft.preliminary.digest!==hash)throw Error('CURRENT_PRELIMINARY_APPROVAL_REQUIRED');candidate(draft,seed,by,this.now().toISOString());draft.finalReview={by,at:this.now().toISOString(),digest:hash};},options);
   }
   async addDocument(id,file){return this.change(id,async draft=>{
     if(draft.identity.kind!=='github')throw Error('GITHUB_DOCUMENT_ONLY');

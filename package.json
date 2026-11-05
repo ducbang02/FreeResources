@@ -7,6 +7,7 @@
   "engines": { "node": ">=24.18.0 <25" },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
+    "admin": "node scripts/admin/server.mjs",
     "build": "astro build",
     "preview": "wrangler dev --ip 127.0.0.1 --port 4321",
     "types": "wrangler types worker-configuration.d.ts",

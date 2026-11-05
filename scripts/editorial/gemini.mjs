@@ -23,6 +23,11 @@ function requireConfiguration(c,now){
   if(!a||a.projectId!==c.projectId||a.model!==c.model||a.keyFingerprint!==c.keyFingerprint||a.billingTier!=='free'||a.billingEnabled!==false||a.accessConfirmed!==true||typeof a.verifiedBy!=='string'||!a.verifiedBy.trim()||!Number.isFinite(verified)||!Number.isFinite(expires)||verified>now.getTime()||expires<=now.getTime()||expires-verified>7*86400000)throw Error('FREE_TIER_CONFIRMATION_REQUIRED');
   if(!Number.isInteger(c.maxOutputTokens??2000)||(c.maxOutputTokens??2000)<256||(c.maxOutputTokens??2000)>4096)throw Error('OUTPUT_CAP_INVALID');
 }
+export function configurationStatus(store,env=process.env,now=new Date()){
+  const c=aiConfig(store,env);let reason=null;
+  try{requireConfiguration(c,now);}catch(e){reason=e.message;}
+  return{ready:reason===null,reason,model:c.model||null,keyPresent:Boolean(c.key)};
+}
 const textSchema=maxLength=>({type:'string',maxLength});
 const listSchema=(maxItems=8,maxLength=200)=>({type:'array',maxItems,items:textSchema(maxLength)});
 export function outputSchema(seed,mode){
