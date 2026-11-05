@@ -1,5 +1,7 @@
 # P02 — Nhập, phân tích và quản trị local
 
+**Mới nhất P02.2 Admin local05/11:** [hướng dẫn/kiến trúc/validation](PHASE022_ADMIN.md), [sơ đồ link GitHub→website](architecture-maps/03-data.html).58 tests và browser regression PASS, Gemini live SKIP; READY FOR REVIEW, không push/deploy. Các mục CLI-only bên dưới là lịch sử trước P02.2; Admin loopback hiện đã có.
+
 05/11/2026 · **P02 local READY FOR REVIEW**. P01 vẫn READY FOR REVIEW, chưa DONE. Baseline sạch `363c7f1` trên develop, ahead2 của origin/develop; Archify `301fd2a` được bảo toàn. Brief mới cho phép code/tests/commit local, không push/deploy/cloud/production. [Hướng dẫn thao tác Windows](PHASE02_CLI.md).
 
 ## P02.0 — Audit và contract

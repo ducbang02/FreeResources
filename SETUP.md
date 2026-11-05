@@ -1,5 +1,7 @@
 # SETUP — P01 / Windows / Astro + Workers + D1
 
+**Admin P02.2:** `npm.cmd run admin`, mở `http://127.0.0.1:4325/admin/resources`. Node loopback riêng, không cần Astro cho quản trị; Export mặc định ghi `data/catalog.json` sau xác nhận, không seed/deploy. Bản thử hiện dùng catalog/state riêng; [hướng dẫn chọn đúng dữ liệu/bảo mật/lỗi](docs/PHASE022_ADMIN.md).
+
 P02 local đã bổ sung entrypoint quản trị vào CLI hiện có: [hướng dẫn import/review/AI/export trên PowerShell](docs/PHASE02_CLI.md), [kết quả và giới hạn](docs/PHASE02_REPORT.md). Dùng `npm.cmd` khi Windows chặn npm.ps1; không cần thay Execution Policy. Không có dependency hoặc schema/CI mới. Trước seed phải kiểm baseline/drift, không ghi đè DB-only edits; không tự sync cloud. Live Gemini mặc định tắt, chỉ xác nhận key/project/model/free tier ở máy riêng, không đưa key vào chat.
 
 Ngày 03/11/2026. Node 24.18.0/npm 12.2.0 được dùng. Lockfile pin Astro7.4.5, adapter14.4.4, Wrangler4.156.2, TypeScript6.0.3, checker0.9.12, Node types24.19.2. Không CLI global/framework frontend khác.

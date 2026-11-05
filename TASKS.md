@@ -4,6 +4,8 @@
 
 ## Trạng thái chung
 
+- **P02.2 Admin local READY FOR REVIEW05/11:**58 tests, Admin/browser/public/projection và Data map PASS. Không push/deploy, main13 giữ nguyên, Gemini thật SKIP. [Hướng dẫn và giới hạn](docs/PHASE022_ADMIN.md).
+
 - Phase hiện tại: **P01 / READY FOR REVIEW**; ba P1 đã sửa và kiểm local/Preview ở1440/768/390. Account đúng `4ca521c6746d874c049fd829121ab59e`. Main live no-op PASS theo log Ready43s; không retry lịch sử. [Kết quả mới nhất](docs/PHASE01_P1_FIXES.md).
 - **P02 local READY FOR REVIEW** theo brief05/11: Git/JSON + CLI, GitHub/website import, review/export và Gemini quick/deep manual dùng chung5 lượt/ngày.52 tests, typecheck/build,64 P01 browser checks và5 runtime P02 checks PASS; live Gemini/cloud SKIP. [Báo cáo](docs/PHASE02_REPORT.md), [hướng dẫn](docs/PHASE02_CLI.md). P01 chưa DONE.
 - **P02.1 Local End-to-End Acceptance READY FOR REVIEW**05/11:27 focused tests và13 Chrome checks bổ sung PASS; receipt/script đêm trước đối chiếu lại, catalog/D1 chính13 mục giữ nguyên. Gemini thật SKIP, không push/deploy. [Kết quả và việc An cần duyệt](docs/PHASE02_REPORT.md#p021-local-e2e).
@@ -159,6 +161,16 @@ Lượt nghiệm thu theo brief mới, không thay milestone URL/identity P02.1 
 - [ ] An cấu hình kín và xác nhận Free Tier nếu muốn kiểm một Quick/một Deep thật; chưa gọi API và chưa chứng nhận chất lượng model.
 
 [Báo cáo, bằng chứng và giới hạn](docs/PHASE02_REPORT.md#p021-local-e2e). Không tự chuyển sang phạm vi tiếp theo.
+
+## P02.2 — Admin UI local05/11 (READY FOR REVIEW)
+
+- [x] Audit sạch tại a2f9b06; reuse Editor/Store/import/Gemini/review/export, Node stdlib/UI native/Noto Sans. Không dependency/DB/schema/cloud mới.
+- [x] List/filter/import/checkout, metadata/README/Rules riêng, edit/source/policy, preliminary/final/Export plan + confirmation/receipt; refresh/rebase/AI explicit apply. CLI tương thích.
+- [x] Loopback Host/Origin/Fetch Metadata/CSRF/JSON bound, CSP/no-store, no shell/client paths, revision dưới lock; Worker public không Admin route/assets.
+- [x]58 tests/typecheck/build,9 nhóm Chrome Admin1440/768/390,45 P01 public checks,4 live-source UI checks và5 local projection/isolation checks PASS. Gemini live/physical device/cloud SKIP.
+- [x]03 Data có10 bước link GitHub→Admin/CLI→JSON→Git develop→CI→D1/Preview; finalize/Git/browser gate PASS, chỉ4 sơ đồ, pin2ded209.
+- [x] Hướng dẫn/checkpoint local riêng, không push/deploy; main13/catalog/seed/D1 giữ nguyên. [Bàn giao](docs/PHASE022_ADMIN.md).
+- [ ] An nghiệm thu; Gemini thật chỉ sau xác nhận key/project/model/Free Tier. Chưa DONE, không phase tiếp theo.
 
 ## P02 — Thiết kế04/11 (lịch sử READY FOR REVIEW)
 

@@ -1,5 +1,7 @@
 # P02 — Hướng dẫn quản trị trên Windows
 
+**P02.2:** thao tác thường ngày đã có [Admin UI local](PHASE022_ADMIN.md), chạy `npm.cmd run admin`; CLI dưới đây giữ nguyên và dùng chung Editor. Admin không nằm trên website public, không tự sync D1/deploy. Cấu hình Gemini server ở phần4 vẫn áp dụng.
+
 Chạy trong PowerShell tại **`D:\Workspace\FreeResources`**. CLI local, Git/JSON là nguồn chính; không có admin web hoặc tự push/deploy. P01/UI chưa được tự nghiệm thu. Dùng `npm.cmd` nếu Windows chặn `npm.ps1`; không cần đổi Execution Policy.
 
 ```powershell

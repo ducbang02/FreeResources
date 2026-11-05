@@ -76,7 +76,12 @@ Local implementation/gates và Windows CLI đã có,52 tests/typecheck/build/64 
 
 Admin web/auth là phương án mở rộng nếu chủ dự án chọn D1 writer, cần thiết kế chuyển seed/permissions riêng; không là dependency bắt buộc của CLI-first proposal. Không community ratings/submissions/upload/cron/provider thứ hai ở M1–4. Mọi milestone chỉ triển khai sau lệnh rõ; schema/API tests không thay browser/staging acceptance.
 
+### P02.2 — Admin Dashboard local (READY FOR REVIEW05/11)
+
+Được giao riêng sau acceptance P02.1, không nhầm milestone GitHub adapter cũ. UI Node loopback dùng chung CLI Editor, không auth cloud/DB/dependency mới; Review/Export có gates.58 tests/typecheck/build,9 nhóm browser Admin,45 public regression và5 projection checks PASS; Gemini thật SKIP. [Báo cáo và luồng link→website](docs/PHASE022_ADMIN.md). Chờ An nghiệm thu, không tự chuyển P03/production.
+
 ## Phase 03 — Accounts, ratings & trust
+
 
 **Mục tiêu:** đánh giá thật tạo chất lượng lựa chọn.
 

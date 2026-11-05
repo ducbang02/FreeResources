@@ -1,5 +1,13 @@
 # Audit Archify & validation
 
+## P02.2 — luồng từ link tới website,05/11 (READY FOR REVIEW)
+
+Data pin code Admin local `2ded2098bb4dd8fa8ac2d3683584752d8b47748b`:10 bước từ link/Admin/CLI tới Export JSON, Git develop, CI và D1/Preview. Admin/CLI dùng chung Editor; Export không seed/push/deploy. Gemini có code/mocks, live vẫn SKIP; admin cloud/community/production vẫn proposed. Cập nhật03 JSON/HTML/index/README, không thêm sơ đồ thứ năm;01/02/04 giữ nguyên byte. [Báo cáo/QA Admin](../PHASE022_ADMIN.md).
+
+**PASS** finalize schema/layout/source Git/strict provenance/browser gate. [Receipt mới](../../qa/architecture-maps/archify/03-data.dataflow/2026-11-05T03-46-17-152Z/03-data.finalize-summary.json). Tool/update networking disabled như trước; không cài/thay skill/MCP/dependency. Source file/dòng trong HTML, link_mode local-only cho commit chưa push. Các báo cáo chuẩn hóa/cài đặt bên dưới là lịch sử.
+
+**PASS37/37** Chrome/file interaction QA1440/768/390,19 PNG/8 exports,0 automatic HTTP/console errors; [receipt P02.2](../../qa/p022/maps/results.json). Đã xem ảnh Data desktop;01/02/04/source giữ byte cũ. Không nghiệm thu nội dung thay An.
+
 05/11/2026 · **READY FOR REVIEW** sau chuẩn hóa. P02 local đã chốt riêng ở `73a6cb9`; lượt này chỉ docs/tooling Archify, không đổi business logic hoặc cloud/CI. Chủ dự án yêu cầu một commit riêng, không push/deploy. Các phần audit cài đặt04/11 bên dưới là lịch sử tại thời điểm P02 chưa triển khai.
 
 ## Chuẩn hóa05/11 — bốn sơ đồ theo trách nhiệm

@@ -1,5 +1,7 @@
 # Nếp — Digital Resource Hub
 
+[Admin UI local P02.2 — READY FOR REVIEW](docs/PHASE022_ADMIN.md): chạy `npm.cmd run admin`, quản lý nháp/review/Export bằng browser; CLI vẫn có. [Sơ đồ link GitHub→website](docs/architecture-maps/03-data.html) giải thích vì sao Export JSON chưa tự đưa tài nguyên lên web. Chưa push/deploy, Gemini thật chưa kiểm.
+
 [Bản đồ kiến trúc tương tác](docs/architecture-maps/index.html): hệ thống, CI/CD, dữ liệu và Search; mở local bằng Chrome. [Cách dùng và cập nhật](docs/architecture-maps/README.md).
 
 [P02 local — READY FOR REVIEW](docs/PHASE02_REPORT.md): nhập GitHub/website, nháp/review/export Git JSON, Gemini quick/deep thủ công dùng chung5 lượt/ngày. [Hướng dẫn PowerShell](docs/PHASE02_CLI.md), [contract](docs/PHASE02_DESIGN.md), [Data flow đã hợp nhất Smart Import](docs/architecture-maps/03-data.html). Chưa push/deploy hoặc gọi Gemini thật.

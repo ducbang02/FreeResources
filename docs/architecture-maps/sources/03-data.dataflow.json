@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "dataflow",
   "meta": {
-    "title": "03 · Dữ liệu: Smart Import tới website",
+    "title": "03 · Từ link GitHub tới website",
     "locale": "vi",
     "translations": {
       "page.title": "Sơ đồ {title}",
@@ -78,7 +78,7 @@
     "output": "docs/architecture-maps/03-data.html",
     "repository": {
       "url": "https://github.com/ducbang02/FreeResources.git",
-      "revision": "73a6cb9c9b57cdc34efec82002e5232ee26ea5dd",
+      "revision": "2ded2098bb4dd8fa8ac2d3683584752d8b47748b",
       "link_mode": "local-only"
     }
   },
@@ -102,29 +102,34 @@
   "nodes": [
     {
       "id": "url",
-      "type": "external",
-      "label": "URL đầu vào",
-      "sublabel": "GitHub / app website",
+      "type": "frontend",
+      "label": "1 · Dán link",
+      "sublabel": "Admin local / CLI",
       "stage": 0,
       "row": 0,
       "tag": "ĐÃ CÓ LOCAL",
       "sources": [
         {
-          "path": "scripts/editorial/cli.mjs",
-          "line": 1,
-          "end_line": 18
+          "path": "scripts/admin/ui/admin.js",
+          "line": 80,
+          "end_line": 98
         },
         {
-          "path": "scripts/editorial/workflow.mjs",
-          "line": 74,
-          "end_line": 95
+          "path": "scripts/admin/server.mjs",
+          "line": 60,
+          "end_line": 81
+        },
+        {
+          "path": "scripts/editorial/cli.mjs",
+          "line": 6,
+          "end_line": 17
         }
       ]
     },
     {
       "id": "importer",
       "type": "backend",
-      "label": "Smart Import",
+      "label": "2 · Smart Import",
       "sublabel": "Đã kiểm local",
       "stage": 1,
       "row": 0,
@@ -137,15 +142,15 @@
         },
         {
           "path": "scripts/editorial/workflow.mjs",
-          "line": 74,
-          "end_line": 95
+          "line": 76,
+          "end_line": 97
         }
       ]
     },
     {
       "id": "draft",
       "type": "database",
-      "label": "Nháp & cache",
+      "label": "3 · Nháp + Rules",
       "sublabel": ".local/editorial/",
       "stage": 2,
       "row": 0,
@@ -158,46 +163,46 @@
         },
         {
           "path": "scripts/editorial/workflow.mjs",
-          "line": 74,
-          "end_line": 95
+          "line": 76,
+          "end_line": 97
         },
         {
           "path": "scripts/editorial/gemini.mjs",
-          "line": 66,
-          "end_line": 96
+          "line": 71,
+          "end_line": 101
         }
       ]
     },
     {
       "id": "review",
       "type": "security",
-      "label": "Admin review",
-      "sublabel": "CLI sơ bộ / cuối",
+      "label": "4 · Kiểm duyệt",
+      "sublabel": "UI / CLI; hai cấp",
       "stage": 3,
       "row": 0,
-      "tag": "CLI ĐÃ CÓ",
+      "tag": "ĐÃ CÓ LOCAL",
       "sources": [
         {
           "path": "scripts/editorial/workflow.mjs",
-          "line": 28,
-          "end_line": 41
+          "line": 30,
+          "end_line": 43
         },
         {
           "path": "scripts/editorial/workflow.mjs",
-          "line": 56,
-          "end_line": 72
+          "line": 58,
+          "end_line": 74
         },
         {
-          "path": "scripts/editorial/review.mjs",
-          "line": 43,
-          "end_line": 57
+          "path": "scripts/admin/ui/admin.js",
+          "line": 75,
+          "end_line": 90
         }
       ]
     },
     {
       "id": "json",
       "type": "database",
-      "label": "Catalog JSON",
+      "label": "5 · Catalog JSON",
       "sublabel": "Nguồn biên tập chính",
       "stage": 4,
       "row": 0,
@@ -205,8 +210,8 @@
       "sources": [
         {
           "path": "scripts/editorial/workflow.mjs",
-          "line": 56,
-          "end_line": 72
+          "line": 58,
+          "end_line": 74
         },
         {
           "path": "data/catalog.json",
@@ -281,29 +286,34 @@
     {
       "id": "validate",
       "type": "backend",
-      "label": "Validate → SQL",
-      "sublabel": "Review seed.sql",
+      "label": "7 · CI test/build",
+      "sublabel": "Sinh SQL + artifact",
       "stage": 4,
       "row": 2,
       "tag": "ĐÃ CÓ",
       "sources": [
         {
+          "path": "scripts/preview.mjs",
+          "line": 110,
+          "end_line": 125
+        },
+        {
+          "path": "package.json",
+          "line": 9,
+          "end_line": 29
+        },
+        {
           "path": "scripts/catalog.mjs",
           "line": 8,
           "end_line": 40
-        },
-        {
-          "path": "src/lib/validation.ts",
-          "line": 42,
-          "end_line": 93
         }
       ]
     },
     {
       "id": "sync",
       "type": "backend",
-      "label": "Đồng bộ D1",
-      "sublabel": "Local / CI có quyền",
+      "label": "8 · Seed / Preview",
+      "sublabel": "Workers Builds",
       "stage": 3,
       "row": 3,
       "tag": "P01 HIỆN CÓ",
@@ -315,21 +325,21 @@
         },
         {
           "path": "scripts/preview.mjs",
-          "line": 111,
-          "end_line": 134
+          "line": 125,
+          "end_line": 137
         },
         {
-          "path": "scripts/editorial/projection.mjs",
+          "path": "deploy/staging-target.json",
           "line": 1,
-          "end_line": 16
+          "end_line": 10
         }
       ]
     },
     {
       "id": "d1",
       "type": "database",
-      "label": "D1 / FTS5",
-      "sublabel": "Projection từ Git",
+      "label": "9 · D1 staging",
+      "sublabel": "Catalog + FTS5",
       "stage": 2,
       "row": 3,
       "tag": "P01 HIỆN CÓ",
@@ -349,8 +359,8 @@
     {
       "id": "site",
       "type": "frontend",
-      "label": "Website",
-      "sublabel": "Chỉ đọc published",
+      "label": "10 · Website",
+      "sublabel": "Preview / chỉ đọc",
       "stage": 1,
       "row": 3,
       "tag": "P01 HIỆN CÓ",
@@ -366,6 +376,27 @@
           "end_line": 23
         }
       ]
+    },
+    {
+      "id": "git-develop",
+      "type": "external",
+      "label": "6 · Git develop",
+      "sublabel": "Commit / push có quyền",
+      "stage": 4,
+      "row": 1,
+      "tag": "P02.2 CHƯA PUSH",
+      "sources": [
+        {
+          "path": "scripts/build-worker.mjs",
+          "line": 1,
+          "end_line": 11
+        },
+        {
+          "path": "docs/PHASE01_PREVIEW_RUNBOOK.md",
+          "line": 90,
+          "end_line": 111
+        }
+      ]
     }
   ],
   "flows": [
@@ -373,7 +404,7 @@
       "id": "url-import",
       "from": "url",
       "to": "importer",
-      "label": "URL nhập tay",
+      "label": "Nhập URL",
       "variant": "emphasis"
     },
     {
@@ -401,7 +432,7 @@
       "id": "review-export",
       "from": "review",
       "to": "json",
-      "label": "Final + apply",
+      "label": "Duyệt + Export",
       "variant": "security"
     },
     {
@@ -440,13 +471,6 @@
       "variant": "default"
     },
     {
-      "id": "json-sql",
-      "from": "json",
-      "to": "validate",
-      "label": "JSON hợp lệ",
-      "variant": "emphasis"
-    },
-    {
       "id": "sql-sync",
       "from": "validate",
       "to": "sync",
@@ -466,32 +490,53 @@
       "to": "site",
       "label": "Published",
       "variant": "emphasis"
+    },
+    {
+      "id": "json-git",
+      "from": "json",
+      "to": "git-develop",
+      "label": "Review diff",
+      "variant": "security"
+    },
+    {
+      "id": "git-ci",
+      "from": "git-develop",
+      "to": "validate",
+      "label": "Push develop",
+      "variant": "emphasis"
     }
   ],
   "cards": [
     {
       "dot": "emerald",
-      "title": "Đã có và kiểm tại local",
+      "title": "Từ link đến nội dung đã duyệt (local đã có)",
       "items": [
-        "Smart Import nhận GitHub public hoặc website app; URL/SSRF/dedup, API metadata, rules, manual fallback và nháp bền vững đã triển khai. GitHub/OBS live imports PASS, không tải/chạy repo hoặc tự gọi AI.",
-        "Admin review là CLI: sửa nháp, duyệt sơ bộ, duyệt cuối rồi export plan/apply. Git/JSON là writer duy nhất; draft và cache nằm local ignored. Sửa nội dung/nguồn làm review cũ mất hiệu lực."
+        "Đi theo số1–5: dán link GitHub/website trong Admin local → API metadata/README → nháp và Rules → chỉnh nội dung, đối chiếu nguồn → duyệt sơ bộ và cuối → xem plan, xác nhận Export vào catalog JSON. CLI và UI dùng cùng Editor.",
+        "Admin riêng chỉ nghe127.0.0.1, Host/Origin/CSRF và revision guard; không nằm trong Worker public. Nguồn gốc và nội dung biên tập tách riêng. Sửa nội dung phải duyệt lại. Export chưa làm tài nguyên xuất hiện trên website."
       ]
     },
     {
       "dot": "amber",
-      "title": "AI tùy chọn: code có, live chưa xác minh",
+      "title": "AI là nhánh tùy chọn, không chặn thao tác thủ công",
       "items": [
-        "Quick/deep chỉ khi admin gọi; deep cần preliminary suitable hiện hành. Free Tier/project/model/key phải được xác nhận; thiếu cấu hình thì fail-closed. Hai mode chung5 attempts/ngày Việt Nam; cache hit không tính lượt.",
-        "Arrow Manual + gates chỉ chạy khi đủ cấu hình, quota và điều kiện review. Schema/evidence được validate; gợi ý hoặc lỗi quay về nháp, không thẳng vào catalog. Apply-ai cần xem patch và xác nhận, không tự sửa license/giá/quyền. Gemini live SKIP, chưa có key/model/free tier được xác nhận."
+        "Quick/Deep chỉ chạy khi bấm; Deep cần suitable hiện hành. Chung5 attempts/ngày Việt Nam, cache không tính lượt. Gợi ý lưu riêng và cần xem patch/xác nhận để áp dụng; không tự duyệt hoặc Export.",
+        "CODE/MOCK PASS; Gemini API thật SKIP: chưa xác nhận key/project/model/Free Tier. Thiếu cấu hình vẫn nhập, biên tập, review và Export được. Không gửi source riêng hoặc secrets vào AI."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Từ catalog lên website (pipeline P01 đã có)",
+      "items": [
+        "Đi theo số6–10: kiểm diff catalog/SQL và drift/backup khi cần → commit/push develop khi được phép → Workers Builds validate/test/build, sinh SQL và artifact → migrate/seed D1 staging, cập nhật Preview → website đọc các mục published. CI đọc đúng HEAD/repo/branch và target staging đã duyệt.",
+        "Local không cần push: generate SQL và sync bằng lệnh được phép vào D1 local riêng, rồi mở website local để kiểm. Admin không tự seed D1, push Git hoặc deploy. P02.2 hiện chỉ kiểm local, chưa chạy cloud pipeline mới."
       ]
     },
     {
       "dot": "rose",
-      "title": "Xuất bản có quyền; đề xuất không thành runtime",
+      "title": "Chưa phải production",
       "items": [
-        "Export chỉ ghi JSON đã duyệt, không tự seed/push/deploy. Validate/generate tạo SQL; người quản trị dùng local hoặc CI P01 khi được phép mới migrate/seed D1 và kiểm website. P02 chưa push/deploy cloud.",
-        "Projection-check local phát hiện drift; trước cloud sync phải readback/backup/reconcile riêng vì CI hiện tại chưa có drift gate. Không sửa nội dung trực tiếp D1. Public views/Search không gọi Gemini.",
-        "DỰ KIẾN: admin web, cộng đồng/submissions/ratings, facets public mới; vẫn ở proposal/roadmap, không có node như service đang chạy. Bản đồ pin commit local73a6cb9; chứng cứ file/dòng được kiểm Git local, chưa có source links web vì chưa push."
+        "Main chạy no-op: không upload, migrate hoặc deploy production. Đưa tài nguyên lên Preview khác với phát hành production. Auth/roles cloud, multi-user, cộng đồng/ratings và production vẫn DỰ KIẾN.",
+        "Git JSON là nguồn chính. Trước sync cloud tương lai cần readback/backup/reconcile drift được phép, vì CI P01 chưa có drift gate. Không sửa dữ liệu trực tiếp D1. Bản đồ pin code local2ded209; chưa có source links web vì chưa push."
       ]
     }
   ]

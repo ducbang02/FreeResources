@@ -3,7 +3,7 @@ import fs from 'node:fs';import path from 'node:path';import {parseArgs} from 'n
 import {createAdminServer} from '../../scripts/admin/server.mjs';import {Editor} from '../../scripts/editorial/workflow.mjs';import {digest} from '../../scripts/editorial/store.mjs';import {githubFixture} from './editorial.mjs';
 const {values}=parseArgs({options:{dir:{type:'string'},ai:{type:'boolean'}}});if(!values.dir)throw Error('--dir required');
 const root=path.resolve(values.dir),stateDir=path.join(root,'editorial'),catalog=path.join(root,'catalog.json');fs.mkdirSync(root,{recursive:true});fs.mkdirSync(stateDir,{recursive:true});if(!fs.existsSync(catalog))fs.copyFileSync('data/catalog.json',catalog);
-const api=githubFixture(),key='synthetic-browser-key-not-real-000000000000';let aiCalls=0;
+const api=githubFixture(),key='synthetic-browser-key-not-real-000000000000',failedOnce=new Set();let aiCalls=0;
 if(values.ai){process.env.GEMINI_API_KEY=key;const now=Date.now();fs.writeFileSync(path.join(stateDir,'config.json'),JSON.stringify({schemaVersion:1,enabled:true,projectId:'fixture-project',model:'gemini-fixture-flash-lite',maxOutputTokens:2000,freeTierConfirmation:{projectId:'fixture-project',model:'gemini-fixture-flash-lite',keyFingerprint:digest(key),billingTier:'free',billingEnabled:false,accessConfirmed:true,verifiedBy:'Browser fixture only',verifiedAt:new Date(now-60000).toISOString(),expiresAt:new Date(now+86400000).toISOString()}}));}else process.env.GEMINI_API_KEY='';
 const request=async(url,options)=>{
  await new Promise(r=>setTimeout(r,200));
@@ -12,6 +12,7 @@ const request=async(url,options)=>{
  }
  if(url.includes('/missing'))return{status:404,headers:{},body:''};
  if(url.includes('/timeout'))throw Error('NETWORK_TIMEOUT');
+ if(url.includes('/retry')&&!failedOnce.has(url)){failedOnce.add(url);throw Error('NETWORK_TIMEOUT');}
  if(url.startsWith('https://api.github.com/'))return api.request(url,options);
  return{status:200,headers:{'content-type':'text/html'},body:'<head><title>Website fixture for Admin QA</title><meta name="description" content="Unverified metadata fixture"></head>'};
 };

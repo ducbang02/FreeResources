@@ -1,6 +1,6 @@
 # FreeResources — bản đồ kiến trúc
 
-05/11/2026 · **READY FOR REVIEW** cho nội dung tài liệu. P01 và P02 local vẫn chờ chủ dự án nghiệm thu. Chuẩn hóa này chỉ đổi docs/tooling Archify, không logic ứng dụng/cloud/CI, không push/deploy.
+05/11/2026 · **READY FOR REVIEW**. P02.2 có Admin loopback; Data mở rộng link→Admin/CLI→Export→Git develop→CI→staging D1/Preview. P01/P02 chờ chủ dự án nghiệm thu; không push/deploy. Báo cáo chuẩn hóa trước được giữ là lịch sử.
 
 Mở **[index.html](index.html)** bằng Chrome (double-click hoặc Ctrl+O). Không cần server, npm, Archify hoặc tài khoản để xem. Mỗi sơ đồ là một HTML tự chứa; giữ index và bốn HTML cùng thư mục. Metadata file/dòng nằm sẵn trong HTML;01/02/04 có link GitHub cần mạng,03 giữ chứng cứ path/dòng local vì commit chưa push. Viewer không nhúng toàn bộ code hoặc có code card offline.
 
@@ -15,11 +15,11 @@ Click thành phần để mở focus, quan hệ và nguồn code. Dùng `?` cho 
 
 ## Nguồn sự thật và trạng thái
 
-Nguồn có path/dòng trên từng semantic node; renderer kiểm byte của Git revision. **01/02/04** pin runtime P01 `a84c55ac84a463585cc11940036e43ea31da9866`, repo `ducbang02/FreeResources`: public runtime/CI/Search không đổi. **03** pin P02 local `73a6cb9c9b57cdc34efec82002e5232ee26ea5dd`, link_mode local-only vì chưa push; vẫn có metadata path/dòng được kiểm Git local, không hứa GitHub source URL đã truy cập được. Đây là source snapshot, không phải dashboard live hoặc lần kiểm cloud mới.
+Nguồn có path/dòng trên từng semantic node; renderer kiểm byte Git revision. **01/02/04** pin public runtime P01 `a84c55ac84a463585cc11940036e43ea31da9866`, repo `ducbang02/FreeResources`; public runtime/CI/Search không đổi. **03** pin Admin/P02 local `2ded2098bb4dd8fa8ac2d3683584752d8b47748b`, link_mode local-only vì chưa push; path/dòng kiểm Git local, không hứa GitHub source URL truy cập được. Đây là snapshot, không phải dashboard live/lần kiểm cloud mới.
 
-- **ĐÃ CÓ LOCAL:** P02 CLI URL/identity/metadata/draft/rules/review/export; GitHub/OBS public import và local native D1/browser đã kiểm. P01 runtime/CI/Search hiện có.
+- **ĐÃ CÓ LOCAL:** Admin UI loopback + CLI dùng cùng Editor cho URL/import/nháp/rules/review/export. Nguồn thật và Admin/browser/SQL→D1 thử→website đã kiểm. Export JSON chưa phải xuất bản web; push/sync/deploy có quyền riêng.
 - **CODE / MOCK PASS, LIVE CHƯA KIỂM:** Gemini quick/deep optional đã implement, chỉ gọi thủ công khi đủ gates. Chưa có key/project/model/free tier xác nhận để gọi thật; không vẽ AI như service mặc định đang chạy.
-- **DỰ KIẾN:** admin web/community/ratings/facets public mới và production. Giữ ở proposal/roadmap/thẻ ghi chú; không vẽ service hoặc đường main→production chưa có. Không có feature mới được triển khai trong lượt chuẩn hóa docs này.
+- **DỰ KIẾN:** admin cloud/auth/đa người dùng, community/ratings/facets public mới và production. Giữ ở proposal/roadmap/thẻ ghi chú; không vẽ main→production đang hoạt động.
 
 `docs/ARCHITECTURE.md` còn chứa thiết kế dài hạn (auth, bảng users/ratings, các folder domain/features). Không đưa chúng lên bản đồ như runtime hiện có. CLI mới có thể fetch metadata nhập liệu, nhưng export chỉ ghi JSON; CLI validate/generate sinh SQL offline. Wrangler mới ghi D1 theo lệnh local hoặc CI được phép. Browser đọc assets/API/HTML, không đọc DB trực tiếp. Public Search/Detail không fetch nguồn hoặc gọi Gemini mỗi lượt xem.
 

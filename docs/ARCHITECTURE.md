@@ -1,5 +1,7 @@
 # ARCHITECTURE — Phương án khởi đầu, có đường lớn lên
 
+> **P02.2 local05/11:** Admin HTML/CSS/JS + Node `http` ở `scripts/admin`, loopback riêng, gọi cùng `Editor` với CLI; không đưa writer filesystem vào Worker. Host/Origin/CSRF/body cap/CSP/revision gates; không shell/client paths/secrets. Export chỉ JSON, SQL/D1/Git/CI là bước có quyền riêng. [Báo cáo](PHASE022_ADMIN.md), [Data pin2ded209](architecture-maps/03-data.html). Admin local ĐÃ CÓ; auth/admin cloud/đa người dùng dài hạn vẫn PROPOSED. Các đoạn CLI-only bên dưới là snapshot trước P02.2.
+
 > [Bốn sơ đồ tương tác P01](architecture-maps/index.html) pin source `a84c55a`: system, CI/CD, data flow và Search. Mở index bằng Chrome. [Hướng dẫn cập nhật](architecture-maps/README.md); giữ ranh giới phần đã có với mô hình dài hạn trong tài liệu này.
 
 > [Data flow hiện trạng P01/P02](architecture-maps/03-data.html) hợp nhất luồng Smart Import; [proposal04/11 và quyết định05/11](PHASE02_DESIGN.md) giữ lịch sử thiết kế. Các bảng/auth/admin web/queues dài hạn bên dưới vẫn PROPOSED, không phải runtime đã có. Không tạo sơ đồ cấp cao theo feature/phase.

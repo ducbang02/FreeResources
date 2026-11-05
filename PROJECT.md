@@ -8,6 +8,8 @@
 
 ## 1. Tầm nhìn
 
+> **P02.2 Admin local READY FOR REVIEW05/11:** `/admin/resources` trên Node loopback riêng, dùng chung CLI Editor; nhập GitHub/website, Rules, sửa/nguồn, hai cấp review, AI tùy cấu hình và Export xác nhận. Không route ghi trong Worker public/DB mới/dependency mới.58 tests và browser regression PASS; Gemini live SKIP. [Hướng dẫn/báo cáo](docs/PHASE022_ADMIN.md), [luồng link→website](docs/architecture-maps/03-data.html). Không push/deploy, P01/P02 chưa DONE.
+
 Một địa chỉ tiếng Việt giúp học sinh, sinh viên, giáo viên, nhân viên văn phòng và người làm công nghệ **tìm được tài nguyên thực sự hữu ích, hiểu nó làm gì và dùng được**. Giá trị khác biệt không phải số lượng link, mà là nội dung được biên tập dễ hiểu, nguồn minh bạch, tìm kiếm theo nhu cầu thực tế và đánh giá cộng đồng.
 
 Mô hình nội dung kết hợp: (1) admin tự biên tập; (2) khám phá từ nguồn đáng tin cậy như GitHub và kho phần mềm; (3) người dùng đề xuất; (4) AI hỗ trợ mô tả và phân loại nhưng **con người duyệt trước khi xuất bản**.
