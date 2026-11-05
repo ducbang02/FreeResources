@@ -1,6 +1,6 @@
 # ROADMAP — Làm nhỏ, kiểm chứng, mở rộng
 
-> P01 READY FOR REVIEW: ba P1 đã sửa,25 tests PASS;64 browser checks PASS mỗi runtime local/Preview. GitHub→Preview và main no-op đã kiểm. Chờ chủ dự án nghiệm thu, production/P02 chưa được phép. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
+> P01 READY FOR REVIEW: ba P1 đã sửa,25 tests PASS;64 browser checks PASS mỗi runtime local/Preview. GitHub→Preview và main no-op đã kiểm. Chờ chủ dự án nghiệm thu, production chưa được phép. P02 local theo brief05/11 ở phần riêng bên dưới. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
 
 ## Phase 00 — Product & technology validation (lịch sử)
 
@@ -63,6 +63,8 @@ Kết quả P00 và validation xem `docs/PHASE00_REPORT.md`. Q-01/Q-06 đã ch�
 Brief05/11 chốt Git/JSON + CLI, GitHub public **và website ứng dụng**, hai mức AI thủ công cùng5 lượt/ngày. Thay thế Q09–11 và các milestone đề xuất cũ. [Contract](docs/PHASE02_DESIGN.md), [bằng chứng](docs/PHASE02_REPORT.md).
 
 Local implementation/gates và Windows CLI đã có,52 tests/typecheck/build/64 P01 browser+5 P02 native D1 checks PASS. GitHub/OBS public import thật PASS; Gemini thật và cloud sync/deploy chưa chạy vì chưa có quyền/cấu hình miễn phí được xác nhận. [Cách dùng](docs/PHASE02_CLI.md). Không tự ghi P01/P02 DONE; chờ chủ dự án review.
+
+**P02.1 Local End-to-End Acceptance05/11 — READY FOR REVIEW:** đây là lượt nghiệm thu theo brief mới, không thay số milestone implementation bên dưới. Bằng chứng Archify/7-Zip được đối chiếu;27 focused tests và13 browser checks bổ sung PASS, catalog/D1 chính không đổi. Gemini thật SKIP (chưa key/model/project/Free Tier); còn An nghiệm thu CLI/nội dung/UI và xác nhận cấu hình AI nếu cần. [Checklist/giới hạn](docs/PHASE02_REPORT.md#p021-local-e2e). Không tự chuyển P02.2, nhập MVP20–30 mục, installer, cloud sync hoặc P03.
 
 1. **P02.0:** audit/chốt contract mới, tách provenance/phân loại, một writer.
 2. **P02.1:** URL/identity hai nguồn, dedup/rename/stable ID; SSRF/network boundary.

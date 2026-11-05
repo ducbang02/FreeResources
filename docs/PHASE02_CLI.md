@@ -102,12 +102,17 @@ node scripts/catalog.mjs apply-ai draft-0123456789abcdef deep
 ## 4. Cấu hình Gemini — mặc định tắt
 
 ```powershell
-Copy-Item data/editorial-config.example.json .local/editorial/config.json
+New-Item -ItemType Directory -Force .local/editorial | Out-Null
+if (!(Test-Path .local/editorial/config.json)) {
+  Copy-Item data/editorial-config.example.json .local/editorial/config.json
+}
 node scripts/catalog.mjs ai-config
 node scripts/catalog.mjs ai-usage
 ```
 
 Không cần Google AI Pro. Trước khi enabled: trên Google AI Studio kiểm đúng project của key, billing **không bật**, model hiện được cấp Free Tier, quota và quyền truy cập, cùng data-use policy phù hợp với public evidence. Model ID không được khóa sẵn; ưu tiên Flash-Lite **nếu** hiện đủ quyền/Free Tier/chất lượng/schema. Không thể xác nhận hoàn toàn billing từ API generateContent: cần chủ dự án tự kiểm Dashboard; chưa rõ thì giữ disabled.
+
+**Các trang cần An tự kiểm:** tạo/xem key tại [Google AI Studio API keys](https://aistudio.google.com/api-keys), đối chiếu đúng project ở [Projects](https://aistudio.google.com/projects), cột Billing Tier phải là Free và project không liên kết billing đang bật; kiểm hạn mức ở [Rate limits](https://aistudio.google.com/rate-limit) và đúng model trong [bảng giá chính thức](https://ai.google.dev/gemini-api/docs/pricing). Không bấm Set up billing/Upgrade hoặc đổi Google Cloud project để vượt lỗi. Nếu cần project verification hoặc không xác nhận được Free Tier thì dừng phần API thật. [Hướng dẫn key](https://ai.google.dev/gemini-api/docs/api-key), [billing/tier](https://ai.google.dev/gemini-api/docs/billing). Không mặc định mọi model đều miễn phí; model thử trong unit test là fixture, không phải model thật để copy.
 
 Nhập key kín vào phiên PowerShell, không vào chat/commit hoặc file config:
 
@@ -134,6 +139,26 @@ Lệnh chỉ hiện keyPresent/keyFingerprint, không hiện key. Sửa config i
 ```
 
 Đây là object để đặt vào field `freeTierConfirmation`, không thay cả config. Ngày ISO thật ví dụ lấy `(Get-Date).ToUniversalTime().ToString('o')`; dùng ngày hiện tại, không copy ngày quá khứ. Xác nhận này ràng buộc project/model/key, tối đa7ngày; không bảo đảm nhà cung cấp không thay tier/quota sau đó. Không enabled khi chưa kiểm được. Không tự nâng Paid Tier, xoay key/account hoặc fallback provider/model đắt.
+
+File thực tế là **`.local/editorial/config.json`** (`data/editorial-config.example.json` chỉ là mẫu). `projectId`/`model` cấp gốc phải trùng hai field tương ứng trong `freeTierConfirmation`; `keyFingerprint` lấy từ `ai-config` của chính key trong phiên PowerShell đó. CLI đọc **`$env:GEMINI_API_KEY`**, không tự nạp `.env`, không dùng `GOOGLE_API_KEY` và không cần `setx`. Xem `ai-config` chỉ kiểm cấu hình có mặt, **không xác minh billing hoặc thử model qua mạng**. Nếu dùng `--state-dir`, thêm cùng tùy chọn đó cho mọi lệnh, kể cả `ai-config`/`ai-usage`; không tạo state thứ hai để né quota.
+
+### Lượt nghiệm thu Gemini thật — tối đa một Quick và một Deep
+
+Chỉ chạy sau các bước xác nhận ở trên, với một nháp có evidence công khai. Dùng `draft-...` thật từ `list`; không cần apply-ai, approve hoặc export để kiểm API:
+
+```powershell
+$p02DraftId = Read-Host 'ID nháp có evidence công khai'
+node scripts/catalog.mjs ai-usage
+node scripts/catalog.mjs analyze $p02DraftId quick
+node scripts/catalog.mjs show $p02DraftId
+# Chỉ tiếp tục khi Quick complete và An đã đối chiếu nội dung/nguồn:
+node scripts/catalog.mjs review $p02DraftId suitable --by 'An'
+node scripts/catalog.mjs analyze $p02DraftId deep
+node scripts/catalog.mjs show $p02DraftId
+node scripts/catalog.mjs ai-usage
+```
+
+Chạy từng lệnh, không dán cả chuỗi rồi bỏ qua lỗi. Trước khi chạy phải còn ít nhất2 lượt; không `--force`, không retry khi lỗi. Cache hit có thể làm số lượt tăng ít hơn2: ghi đúng `cacheHit`, model/modelVersion và used trước/sau. Nếu Quick lỗi, dừng để đọc `status`/`errorCode`, không chạy Deep. Kết quả Việt cần đúng nguồn, không bịa OS/giá/license/công dụng và không có hướng dẫn nguy hiểm; `unknowns` phải phản ánh phần thiếu. JSON/schema PASS không chứng minh nội dung đúng. `analyze` chỉ lưu gợi ý trong `analyses`; đối chiếu `editorial`/`finalReview` trước và sau để xác nhận không tự ghi đè/xuất bản. Không dùng tên An cho approval tự động của agent.
 
 **Cả quick và deep chung5 lượt/ngày Việt Nam**, persistent qua restart; mỗi attempt/reservation kể cả lỗi/quota/timeout vẫn tính bảo thủ. Cache hit không tính; `--force` bỏ cache nhưng vẫn chịu cap. Không có retry tự động; 429 lưu cooldown, chờ rồi chủ động chạy lại. `ai-usage` cho biết used/remaining/resetAt UTC (reset lúc00:00 Việt Nam). Model/usage token counters lưu khi có; chi phí không rõ ghi unknown, không phải hóa đơn0. Ledger chỉ giới hạn máy/state này; không kiểm soát app khác cùng Google project. Không xóa ledger hoặc dùng nhiều state-dirs để né hạn mức.
 

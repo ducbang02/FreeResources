@@ -6,6 +6,7 @@
 
 - Phase hiện tại: **P01 / READY FOR REVIEW**; ba P1 đã sửa và kiểm local/Preview ở1440/768/390. Account đúng `4ca521c6746d874c049fd829121ab59e`. Main live no-op PASS theo log Ready43s; không retry lịch sử. [Kết quả mới nhất](docs/PHASE01_P1_FIXES.md).
 - **P02 local READY FOR REVIEW** theo brief05/11: Git/JSON + CLI, GitHub/website import, review/export và Gemini quick/deep manual dùng chung5 lượt/ngày.52 tests, typecheck/build,64 P01 browser checks và5 runtime P02 checks PASS; live Gemini/cloud SKIP. [Báo cáo](docs/PHASE02_REPORT.md), [hướng dẫn](docs/PHASE02_CLI.md). P01 chưa DONE.
+- **P02.1 Local End-to-End Acceptance READY FOR REVIEW**05/11:27 focused tests và13 Chrome checks bổ sung PASS; receipt/script đêm trước đối chiếu lại, catalog/D1 chính13 mục giữ nguyên. Gemini thật SKIP, không push/deploy. [Kết quả và việc An cần duyệt](docs/PHASE02_REPORT.md#p021-local-e2e).
 - Source: app Astro SSR/TypeScript + D1, catalog thật, local CLI; chưa auth/rating/submission/AI thật. Prototype tĩnh giữ làm lịch sử.
 - Cloudflare: build7de0b863 tại508a96c PASS; push31d3053 tự cập nhật Preview,45 browser checks+5 smoke checks PASS/20PNG/0 lỗi bình thường, đúng Worker/DB. Main aa369850 timeout trước clone; parent vẫn chưa active deployment, workers.dev tắt. Production chưa triển khai.
 - Owner mặc định: An quyết định sản phẩm, Codex triển khai khi được giao; cần cập nhật phân công thực tế.
@@ -141,8 +142,23 @@ Log P01 ngày03/11/2026: local,CI develop,cloud D1/browser/auto-update PASS. Mai
 - [x] P02.4 — Rules/edit/preliminary/final review/export plan/apply, conflict/idempotency và read-only local projection drift check;17 P02 tests PASS.
 - [x] P02.5 — Gemini quick/deep manual, shared5 requests/ngày Việt Nam, cache/fail-closed;6 mock AI tests PASS. Live Gemini SKIP (chưa có free-tier/key/model được xác nhận).
 - [x] P02.6 —52 unit/integration/CLI E2E tests, typecheck/build,64 P01 browser regression+5 new-resource workerd/D1 checks, live GitHub/OBS imports PASS; Windows guide/report. Gemini/cloud live SKIP có lý do.
+- [x] P02 local QA bổ sung05/11 — nhập thật Archify/7-Zip → sửa tay/review/export vào catalog và D1 thử riêng; Chrome1440/768/390 PASS, 8/8 runtime checks; main catalog/seed và D1 chính13 mục giữ nguyên. Computer Use helper lỗi nên dùng Chrome qua Playwright sẵn có; Gemini thật SKIP, không push/deploy. [Báo cáo](docs/PHASE02_REPORT.md#kiểm-tra-tự-chủ-với-dữ-liệu-thật--05112026).
 
 Triển khai chỉ local, được phép commit theo milestone. Không push/deploy hoặc dùng key thật khi chưa xác nhận free tier. [Báo cáo](docs/PHASE02_REPORT.md). Checklist thiết kế04/11 bên dưới là lịch sử.
+
+## P02.1 — Local End-to-End Acceptance05/11 (READY FOR REVIEW)
+
+Lượt nghiệm thu theo brief mới, không thay milestone URL/identity P02.1 đã ghi ở trên.
+
+- [x] Đọc lại hướng dẫn/source và bảo toàn2 file tracked chưa commit; cache/scripts/PNG ignored, không stage.
+- [x] Đối chiếu intake/review/runtime receipts và dữ liệu thật; main catalog/seed hash/D1 content digest giữ nguyên13 mục; bản sao15 mục với2 nhãn thử.
+- [x] Chạy bổ sung27 focused tests, CLI3 URL sai/rules không AI và13 Chrome checks1440/768/390 gồm loading/error/retry/empty/navigation;0 lỗi bất ngờ.
+- [x] Gemini source/quota/cache/gates kiểm local/mock PASS; cấu hình thực tế disabled, không key/model/project/Free Tier; live Quick/Deep SKIP. Hướng dẫn PowerShell/nguồn Google cập nhật.
+- [x] Public Preview HTTP đọc hai truy vấn không thấy markers thử; không cloud/D1 remote mutation/push/deploy/CI thay đổi. Remote production readback và physical device SKIP.
+- [ ] An xem thử local/nội dung/CLI và quyết định nghiệm thu P01/P02; chưa DONE.
+- [ ] An cấu hình kín và xác nhận Free Tier nếu muốn kiểm một Quick/một Deep thật; chưa gọi API và chưa chứng nhận chất lượng model.
+
+[Báo cáo, bằng chứng và giới hạn](docs/PHASE02_REPORT.md#p021-local-e2e). Không tự chuyển sang phạm vi tiếp theo.
 
 ## P02 — Thiết kế04/11 (lịch sử READY FOR REVIEW)
 

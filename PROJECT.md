@@ -1,8 +1,10 @@
 # PROJECT — Cổng tài nguyên số cộng đồng
 
-> P01 READY FOR REVIEW: ba P1 theo Final Audit đã sửa, local và Preview PASS. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans giữ nguyên. GitHub→Preview và main no-op đã PASS; Failed attempts giữ riêng. Chờ chủ dự án nghiệm thu, không production/P02. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
+> P01 READY FOR REVIEW: ba P1 theo Final Audit đã sửa, local và Preview PASS. Astro/TypeScript + Workers/D1, Concept A P00.3 và Noto Sans giữ nguyên. GitHub→Preview và main no-op đã PASS; Failed attempts giữ riêng. Chờ chủ dự án nghiệm thu, không production. [Cập nhật04/11](docs/PHASE01_P1_FIXES.md).
 
 > P02 local **READY FOR REVIEW**05/11: Git/JSON + CLI, GitHub public và website ứng dụng, API/code trước AI. Hai mức AI thủ công dùng chung5 requests/ngày Việt Nam. Ba nhóm Tài nguyên miễn phí / Ứng dụng & công cụ miễn phí / Mã nguồn mở & GitHub có thể giao nhau; trial-only/paid-only không phù hợp. [Contract mới](docs/PHASE02_DESIGN.md), [kết quả](docs/PHASE02_REPORT.md), [hướng dẫn CLI](docs/PHASE02_CLI.md). Không push/deploy, không đổi UI/D1 schema/CI; P01 chưa DONE, live Gemini chưa kiểm.
+
+> P02.1 Local End-to-End Acceptance05/11: đối chiếu lại bằng chứng thật,27 focused P02 tests và13 browser checks bổ sung PASS ở1440/768/390. Catalog/D1 chính13 mục giữ nguyên,2 mục thử chỉ ở bản sao15 mục. Gemini thật **SKIP** vì chưa key/model/project/Free Tier; chờ An cấu hình và nghiệm thu. [Bàn giao và checklist](docs/PHASE02_REPORT.md#p021-local-e2e). Chỉ local, chưa push/deploy hoặc bắt đầu phạm vi tiếp theo.
 
 ## 1. Tầm nhìn
 
