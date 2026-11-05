@@ -37,6 +37,12 @@ npm.cmd run admin -- --port 4327 --catalog (Join-Path $p022Try 'catalog.json') -
 
 ## Từ link GitHub tới website
 
+**Ai làm gì, dữ liệu ở đâu?** Hiện An/người quản trị chọn và dán URL. Backend Node chạy trên máy quản trị gửi request lấy metadata/README công khai, rồi lưu nguồn, sửa tay và review trong `.local/editorial/drafts/<id>.json`; caches nằm cùng state directory. Không phải browser lưu, chưa phải D1. Duyệt cuối cũng chỉ đổi nháp; xác nhận Export mới ghi `data/catalog.json`, nháp vẫn còn. Đường dẫn mặc định này khác bản demo hiện chạy với catalog/state riêng trong `.cache`.
+
+Khi được phép phát hành Preview, người vận hành commit/push catalog; CI mới sinh SQL và ghi các trường cần cho website vào D1 staging trên Cloudflare. Website đọc D1 qua Worker. Khi thử local, D1 là SQLite giả lập trên máy và cần sync local riêng; không phải DB cloud. Nháp/cache/AI/quota local không tự đi theo Git hoặc vào D1. Git/JSON giữ nội dung biên tập đã duyệt; D1 là projection đọc phục vụ website.
+
+**Chưa có:** nhận đề xuất từ thành viên và bot tự khám phá/quét nguồn. Người xem website hiện chỉ xem/tìm. Codex đã thao tác thay An trong QA khi được giao; đó không phải cron tự chạy. Gemini, nếu được cấu hình và bấm chạy, chỉ phân tích evidence đã cấp, lưu gợi ý riêng trong nháp/cache local; con người vẫn quyết định áp dụng và xuất bản.
+
 [Sơ đồ tương tác03](architecture-maps/03-data.html) có10 bước, giải thích và nguồn code; không tạo sơ đồ thứ năm.
 
 **1–5:** Admin/CLI nhập URL → metadata/README → nháp/Rules/AI tùy chọn → chỉnh và duyệt hai cấp → xác nhận Export JSON.

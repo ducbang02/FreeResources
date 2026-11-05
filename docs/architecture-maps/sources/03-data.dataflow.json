@@ -103,8 +103,8 @@
     {
       "id": "url",
       "type": "frontend",
-      "label": "1 · Dán link",
-      "sublabel": "Admin local / CLI",
+      "label": "1 · Admin nhập",
+      "sublabel": "Dán URL, không tự quét",
       "stage": 0,
       "row": 0,
       "tag": "ĐÃ CÓ LOCAL",
@@ -129,8 +129,8 @@
     {
       "id": "importer",
       "type": "backend",
-      "label": "2 · Smart Import",
-      "sublabel": "Đã kiểm local",
+      "label": "2 · Server lấy",
+      "sublabel": "API GitHub / website",
       "stage": 1,
       "row": 0,
       "tag": "ĐÃ CÓ LOCAL",
@@ -150,8 +150,8 @@
     {
       "id": "draft",
       "type": "database",
-      "label": "3 · Nháp + Rules",
-      "sublabel": ".local/editorial/",
+      "label": "3 · Lưu nháp",
+      "sublabel": "File trên máy quản trị",
       "stage": 2,
       "row": 0,
       "tag": "ĐÃ CÓ LOCAL",
@@ -176,8 +176,8 @@
     {
       "id": "review",
       "type": "security",
-      "label": "4 · Kiểm duyệt",
-      "sublabel": "UI / CLI; hai cấp",
+      "label": "4 · Admin duyệt",
+      "sublabel": "Sửa / đối chiếu nguồn",
       "stage": 3,
       "row": 0,
       "tag": "ĐÃ CÓ LOCAL",
@@ -509,34 +509,36 @@
   "cards": [
     {
       "dot": "emerald",
-      "title": "Từ link đến nội dung đã duyệt (local đã có)",
+      "title": "Ai nhập link, ai đi lấy dữ liệu?",
       "items": [
-        "Đi theo số1–5: dán link GitHub/website trong Admin local → API metadata/README → nháp và Rules → chỉnh nội dung, đối chiếu nguồn → duyệt sơ bộ và cuối → xem plan, xác nhận Export vào catalog JSON. CLI và UI dùng cùng Editor.",
-        "Admin riêng chỉ nghe127.0.0.1, Host/Origin/CSRF và revision guard; không nằm trong Worker public. Nguồn gốc và nội dung biên tập tách riêng. Sửa nội dung phải duyệt lại. Export chưa làm tài nguyên xuất hiện trên website."
-      ]
-    },
-    {
-      "dot": "amber",
-      "title": "AI là nhánh tùy chọn, không chặn thao tác thủ công",
-      "items": [
-        "Quick/Deep chỉ chạy khi bấm; Deep cần suitable hiện hành. Chung5 attempts/ngày Việt Nam, cache không tính lượt. Gợi ý lưu riêng và cần xem patch/xác nhận để áp dụng; không tự duyệt hoặc Export.",
-        "CODE/MOCK PASS; Gemini API thật SKIP: chưa xác nhận key/project/model/Free Tier. Thiếu cấu hình vẫn nhập, biên tập, review và Export được. Không gửi source riêng hoặc secrets vào AI."
+        "HIỆN TẠI: An/người quản trị dán URL vào Admin local hoặc gọi CLI. Backend Node trên máy quản trị tự gửi request tới GitHub API public hoặc website đã chỉ định để lấy metadata/README. Không có bot tự tìm/quét nguồn định kỳ.",
+        "Trong các lần QA, Codex là người thao tác thay An trên dữ liệu thử. Người xem website public chỉ xem/tìm tài nguyên; hệ thống nhận link từ thành viên và hàng chờ đề xuất chưa triển khai. Nếu ai gửi link ngoài website, quản trị vẫn cần nhập link đó vào Admin."
       ]
     },
     {
       "dot": "cyan",
-      "title": "Từ catalog lên website (pipeline P01 đã có)",
+      "title": "Lấy xong lưu ở đâu? Trước hết là file local",
       "items": [
-        "Đi theo số6–10: kiểm diff catalog/SQL và drift/backup khi cần → commit/push develop khi được phép → Workers Builds validate/test/build, sinh SQL và artifact → migrate/seed D1 staging, cập nhật Preview → website đọc các mục published. CI đọc đúng HEAD/repo/branch và target staging đã duyệt.",
-        "Local không cần push: generate SQL và sync bằng lệnh được phép vào D1 local riêng, rồi mở website local để kiểm. Admin không tự seed D1, push Git hoặc deploy. P02.2 hiện chỉ kiểm local, chưa chạy cloud pipeline mới."
+        "Backend lưu nguồn thu thập, nội dung sửa tay và trạng thái duyệt trong .local/editorial/drafts/<id>.json; HTTP cache nằm ở github-cache/ hoặc website-cache/ cùng thư mục cha. Nháp là dữ liệu bền vững trên máy chạy Admin, không phải browser localStorage và chưa vào D1.",
+        "Duyệt sơ bộ/duyệt cuối vẫn chỉ cập nhật file nháp. Xác nhận Export mới ghi mục đã duyệt vào data/catalog.json; nháp vẫn còn. Đây là nguồn biên tập chính có thể đưa vào Git, chưa phải lệnh ghi database.",
+        "Bản Admin đang mở để review dùng đường dẫn .cache/p022-live-... riêng: dữ liệu thử không nằm trong catalog chính. .local và .cache được ignore, không gửi nháp/cache/AI ledger lên GitHub."
       ]
     },
     {
-      "dot": "rose",
-      "title": "Chưa phải production",
+      "dot": "violet",
+      "title": "Khi nào mới vào database và xuất hiện trên web?",
       "items": [
-        "Main chạy no-op: không upload, migrate hoặc deploy production. Đưa tài nguyên lên Preview khác với phát hành production. Auth/roles cloud, multi-user, cộng đồng/ratings và production vẫn DỰ KIẾN.",
-        "Git JSON là nguồn chính. Trước sync cloud tương lai cần readback/backup/reconcile drift được phép, vì CI P01 chưa có drift gate. Không sửa dữ liệu trực tiếp D1. Bản đồ pin code local2ded209; chưa có source links web vì chưa push."
+        "Đi theo số5–10: catalog JSON → người có quyền kiểm diff, commit/push develop → CI sinh SQL, test/build → đồng bộ các trường catalog sang D1 staging và cập nhật Preview. Website đọc D1 qua Worker, không đọc file nháp trên máy An.",
+        "Chạy local: generate SQL rồi seed vào D1 giả lập trên máy theo quy trình riêng; cloud: CI ghi D1 trên Cloudflare khi được phép push/deploy. Đây là hai database khác nhau. Admin Export không tự seed, push hoặc deploy.",
+        "D1 giữ projection phục vụ website, không giữ toàn bộ workflow nháp/AI/quota. Git JSON giữ nội dung đã duyệt và lịch sử; file nháp giữ công việc đang biên tập. Main vẫn no-op, production chưa được phát hành."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "AI hỗ trợ mô tả; con người quyết định xuất bản",
+      "items": [
+        "Rules chạy bằng code không cần Gemini. Khi đã cấu hình và quản trị bấm Quick/Deep, Gemini chỉ phân tích evidence công khai được backend cấp; không tự tìm link, không tự duyệt hoặc xuất bản. Hiện live Gemini vẫn SKIP vì chưa xác nhận key/project/model/Free Tier.",
+        "Gợi ý AI nằm riêng trong analyses của file nháp và ai-cache local; usage ledger cũng local. Quản trị xem patch/xác nhận áp dụng, sửa và duyệt lại trước Export. Chung5 attempts/ngày Việt Nam, cache không tốn lượt."
       ]
     }
   ]
