@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import http from 'node:http';
+const baselineResourceCount=JSON.parse(fs.readFileSync(new URL('../data/catalog.json',import.meta.url),'utf8')).resources.length;
 import {createAdminServer} from '../scripts/admin/server.mjs';
 import {editorFixture} from './helpers/editorial.mjs';
 async function fixture(t){const f=editorFixture(t),server=createAdminServer({editor:f.editor});await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>{server.closeAllConnections();server.close();});const base='http://127.0.0.1:'+server.address().port;
@@ -23,7 +24,7 @@ test('Admin HTTP imports, rules, edits, reviews and explicitly exports through t
  next=await f.action({action:'review',id:d.id,revision:next.revision,status:'suitable',by:'Admin fixture'});
  next=await f.action({action:'approve',id:d.id,revision:next.revision,by:'Admin fixture'});
  const plan=await f.action({action:'export',id:d.id});assert.equal(fs.readFileSync(f.catalog,'utf8'),before);await f.action({action:'export',id:d.id,apply:true,expect:'stale'},409);
- const receipt=await f.action({action:'export',id:d.id,apply:true,expect:plan.planId});assert.equal(receipt.applied,true);assert.equal(JSON.parse(fs.readFileSync(f.catalog)).resources.length,14);
+ const receipt=await f.action({action:'export',id:d.id,apply:true,expect:plan.planId});assert.equal(receipt.applied,true);assert.equal(JSON.parse(fs.readFileSync(f.catalog)).resources.length,baselineResourceCount+1);
  let state=await(await fetch(f.base+'/admin/api/state')).json();assert.equal(state.drafts[0].status,'exported');
  next=await f.action({action:'edit',id:d.id,revision:next.revision,patch:{editorial:{summary:'Sửa sau Export'}}});assert.equal(next.finalReview,null);
  next=await f.action({action:'review',id:d.id,revision:next.revision,status:'suitable',by:'Admin fixture'});next=await f.action({action:'approve',id:d.id,revision:next.revision,by:'Admin fixture'});

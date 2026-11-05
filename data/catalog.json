@@ -166,6 +166,72 @@
       "status":"published","categories":["lap-trinh"],"tags":["self-hosted"],
       "sources":[{"url":"https://github.com/awesome-selfhosted/awesome-selfhosted","label":"Kho Awesome Selfhosted chính thức","fields":["title","summary","description","canonicalUrl"],"verifiedAt":"2026-11-03T00:00:00Z"}],
       "createdAt":"2026-11-03T00:00:00Z","updatedAt":"2026-11-03T00:00:00Z"
+    },
+    {
+      "id": "gh-274495425",
+      "slug": "gh-274495425",
+      "title": "remotion",
+      "summary": "Remotion là công cụ tạo video bằng lập trình sử dụng React, cho phép thiết kế, chỉnh sửa tương tác và tự động hóa render video hàng loạt.",
+      "description": "Remotion cho phép tạo video bằng lập trình với React, chỉnh sửa tương tác và tự động hóa render. Dự án có Free License cho nhóm đủ điều kiện và Company License cho các trường hợp khác; cần đọc LICENSE.md của phiên bản sử dụng.",
+      "type": "repository",
+      "canonicalUrl": "https://github.com/remotion-dev/remotion",
+      "platforms": [],
+      "license": "Remotion License — Free License / Company License (có điều kiện)",
+      "pricing": "Freemium · Free: Miễn phí cho cá nhân, tổ chức phi lợi nhuận và doanh nghiệp tối đa 3 nhân viên; trường hợp khác cần Company License. Xem điều khoản và phiên bản áp dụng.",
+      "icon": null,
+      "image": null,
+      "mobileImage": null,
+      "heroTitle": null,
+      "mediaAlt": null,
+      "mediaCredit": null,
+      "mediaKind": null,
+      "status": "published",
+      "featuredRank": null,
+      "curatedRank": null,
+      "categories": [
+        "sang-tao"
+      ],
+      "tags": [],
+      "sources": [
+        {
+          "url": "https://github.com/remotion-dev/remotion",
+          "label": "Repo chính thức Remotion: mô tả và liên kết dự án",
+          "fields": [
+            "summary",
+            "canonicalUrl"
+          ],
+          "verifiedAt": "2026-11-05T08:50:11.991Z"
+        },
+        {
+          "url": "https://github.com/remotion-dev/remotion/blob/main/LICENSE.md",
+          "label": "Remotion LICENSE.md: Free License và Company License",
+          "fields": [
+            "license",
+            "pricing"
+          ],
+          "verifiedAt": "2026-11-05T08:50:11.991Z"
+        }
+      ],
+      "createdAt": "2026-11-05T08:40:09.982Z",
+      "updatedAt": "2026-11-05T08:52:45.124Z",
+      "sourceIdentity": {
+        "kind": "github",
+        "canonicalUrl": "https://github.com/remotion-dev/remotion",
+        "aliases": [],
+        "githubId": "274495425",
+        "fullName": "remotion-dev/remotion"
+      },
+      "editorial": {
+        "groups": [
+          "github"
+        ],
+        "freeModel": "freemium",
+        "licenseStatus": "verified",
+        "freeEvidenceUrl": "https://github.com/remotion-dev/remotion/blob/main/LICENSE.md",
+        "freeLimitations": "Miễn phí cho cá nhân, tổ chức phi lợi nhuận và doanh nghiệp tối đa 3 nhân viên; trường hợp khác cần Company License. Xem điều khoản và phiên bản áp dụng.",
+        "reviewedBy": "Bang Nguyen",
+        "reviewedAt": "2026-11-05T08:52:45.124Z"
+      }
     }
   ]
 }

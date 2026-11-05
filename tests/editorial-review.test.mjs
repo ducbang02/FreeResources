@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+const baselineResourceCount=JSON.parse(fs.readFileSync(new URL('../data/catalog.json',import.meta.url),'utf8')).resources.length;
 import {DatabaseSync} from 'node:sqlite';
 import {editorFixture,sandbox} from './helpers/editorial.mjs';import {Editor} from '../scripts/editorial/workflow.mjs';
 import {catalogSql} from '../scripts/catalog.mjs';import {validateCatalog} from '../src/lib/validation.ts';
@@ -14,9 +15,9 @@ test('P02 rules, preliminary/final approval, export plan/apply and SQL are idemp
   await assert.rejects(f.editor.exportDraft(d.id),/FINAL_APPROVAL/);await assert.rejects(f.editor.approve(d.id,'Fixture'),/PRELIMINARY/);
   await f.editor.edit(d.id,completedPatch(d));await f.editor.preliminary(d.id,'suitable','Fixture');await f.editor.approve(d.id,'Fixture');
   const plan=await f.editor.exportDraft(d.id);assert.equal(plan.action,'create');assert.equal(fs.readFileSync(f.catalog,'utf8'),original);await assert.rejects(f.editor.exportDraft(d.id,{apply:true,expect:'wrong'}),/PLAN_CHANGED/);
-  await f.editor.exportDraft(d.id,{apply:true,expect:plan.planId});const saved=validateCatalog(JSON.parse(fs.readFileSync(f.catalog,'utf8')));assert.equal(saved.resources.length,14);assert.equal(saved.resources.at(-1).id,'gh-987654321');
+  await f.editor.exportDraft(d.id,{apply:true,expect:plan.planId});const saved=validateCatalog(JSON.parse(fs.readFileSync(f.catalog,'utf8')));assert.equal(saved.resources.length,baselineResourceCount+1);assert.equal(saved.resources.at(-1).id,'gh-987654321');
   const repeat=await f.editor.exportDraft(d.id);assert.equal(repeat.action,'unchanged');const bytes=fs.readFileSync(f.catalog,'utf8');await f.editor.exportDraft(d.id,{apply:true,expect:repeat.planId});assert.equal(fs.readFileSync(f.catalog,'utf8'),bytes);
-  const db=new DatabaseSync(':memory:');try{db.exec(fs.readFileSync('migrations/0001_catalog.sql','utf8'));db.exec(catalogSql(saved));db.exec(catalogSql(saved));assert.equal(db.prepare('SELECT count(*) AS n FROM resources').get().n,14);assert.equal(db.prepare('SELECT title FROM resources WHERE id=?').get('gh-987654321').title,plan.after.title);}finally{db.close();}
+  const db=new DatabaseSync(':memory:');try{db.exec(fs.readFileSync('migrations/0001_catalog.sql','utf8'));db.exec(catalogSql(saved));db.exec(catalogSql(saved));assert.equal(db.prepare('SELECT count(*) AS n FROM resources').get().n,baselineResourceCount+1);assert.equal(db.prepare('SELECT title FROM resources WHERE id=?').get('gh-987654321').title,plan.after.title);}finally{db.close();}
   assert.equal(f.calls.filter(c=>c.url.includes('google')).length,0);
 });
 test('P02 edits/source changes invalidate approval, stars-only refresh does not invoke AI or overwrite edits',async t=>{

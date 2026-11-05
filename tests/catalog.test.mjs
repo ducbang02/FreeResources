@@ -15,8 +15,8 @@ function setup(){
   const db={prepare(sql){const query=sqlite.prepare(sql);let bindings=[];return {bind(...values){bindings=values;return this;},async first(){return query.get(...bindings)??null;},async all(){return {success:true,results:query.all(...bindings)};}};}};
   return {sqlite,db};
 }
-test('Seed validates 13 real resources and represents all seven types',()=>{
-  const data=validateCatalog(input);assert.equal(data.resources.length,13);assert.equal(new Set(data.resources.map(r=>r.type)).size,7);
+test('Seed validates the published catalog and represents all seven types',()=>{
+  const data=validateCatalog(input);assert.equal(data.resources.length,input.resources.length);assert.equal(new Set(data.resources.map(r=>r.type)).size,7);
   assert.equal(data.resources.find(r=>r.id==='libreoffice').license,null);
   assert.deepEqual(data.resources.find(r=>r.id==='godot').platforms,[]);
   assert.ok(data.resources.every(r=>r.sources.length>0));
@@ -40,7 +40,7 @@ test('Offline import rejects missing media instead of publishing broken images',
 });
 test('Migrate, seed and re-import are idempotent; multi-category and source evidence persist',async()=>{
   const {sqlite,db}=setup();try{
-    sqlite.exec(catalogSql(input));assert.equal(sqlite.prepare('SELECT count(*) AS n FROM resources').get().n,13);
+    sqlite.exec(catalogSql(input));assert.equal(sqlite.prepare('SELECT count(*) AS n FROM resources').get().n,input.resources.length);
     const r=await getResource(db,'excalidraw');assert.equal(r.categories.length,2);assert.equal(r.sources.length,2);assert.equal(r.license,'MIT cho mã nguồn');
     assert.ok(r.sources[0].fields.includes('summary'));assert.ok(r.tags.some(t=>t.slug==='ve-so-do'));
   }finally{sqlite.close();}
@@ -66,7 +66,7 @@ test('Vietnamese normalization, file alias and FTS token quoting work without in
     assert.equal(searchExpression('file" OR 1=1 --'), '"file"* AND "or"* AND "1"* AND "1"*');
     assert.equal((await searchResources(db,'💠💠')).length,0);assert.equal((await searchResources(db,'" OR 1=1 --')).length,0);
     assert.equal((await listResources(db,new URLSearchParams({q:"';DROP TABLE resources;--"}))).total,0);
-    assert.equal(sqlite.prepare('SELECT count(*) AS n FROM resources').get().n,13);
+    assert.equal(sqlite.prepare('SELECT count(*) AS n FROM resources').get().n,input.resources.length);
   }finally{sqlite.close();}
 });
 test('Search, category/type/platform facets combine and taxonomy comes from database',async()=>{
@@ -92,7 +92,7 @@ test('Search preview and full results share the current filter scope',async()=>{
       if(filters.type==='learning_resource')assert.deepEqual(preview,[]);
       if(filters.type==='application')assert.deepEqual(preview.map(r=>r.id),['localsend']);
     }
-    assert.equal(sqlite.prepare('SELECT count(*) AS n FROM resources').get().n,13);
+    assert.equal(sqlite.prepare('SELECT count(*) AS n FROM resources').get().n,input.resources.length);
   }finally{sqlite.close();}
 });
 
@@ -112,8 +112,8 @@ test('Scoped preview preserves sorting but ignores page and caller limit overrid
 });
 test('Pagination is bounded and stable; invalid pages clamp; preview caps at4',async()=>{
   const {sqlite,db}=setup();try{
-    const first=await listResources(db,new URLSearchParams({sort:'name'}));assert.equal(first.items.length,8);assert.equal(first.total,13);
-    const second=await listResources(db,new URLSearchParams({sort:'name',page:'2'}));assert.equal(second.items.length,5);assert.ok(second.items.every(r=>!first.items.some(f=>f.id===r.id)));
+    const first=await listResources(db,new URLSearchParams({sort:'name'}));assert.equal(first.items.length,8);assert.equal(first.total,input.resources.length);
+    const second=await listResources(db,new URLSearchParams({sort:'name',page:'2'}));assert.equal(second.items.length,input.resources.length-8);assert.ok(second.items.every(r=>!first.items.some(f=>f.id===r.id)));
     const invalid=await listResources(db,new URLSearchParams({limit:'100000',page:'99999999'}));assert.equal(invalid.pageSize,24);assert.equal(invalid.page,1);
     assert.equal((await searchResources(db,'',500)).length,4);
   }finally{sqlite.close();}
@@ -127,7 +127,18 @@ test('Home featured and curated resources are selected from database',async()=>{
 test('Draft/archived rows never leak through home/detail/list/search/platform facets',async()=>{
   const {sqlite,db}=setup();try{
     sqlite.exec("UPDATE resources SET status='draft',platforms_json='[\"SecretOS\"]' WHERE id='localsend';UPDATE resources SET status='archived' WHERE id='excalidraw'");
-    assert.equal(await getResource(db,'localsend'),null);assert.equal(await getResource(db,'excalidraw'),null);assert.equal((await searchResources(db,'chuyen file')).length,0);assert.equal((await listResources(db,new URLSearchParams())).total,11);
+    assert.equal(await getResource(db,'localsend'),null);assert.equal(await getResource(db,'excalidraw'),null);assert.equal((await searchResources(db,'chuyen file')).length,0);assert.equal((await listResources(db,new URLSearchParams())).total,input.resources.length-2);
     const home=await getHome(db);assert.equal(home.featured,null);assert.ok(home.curated.every(r=>r.id!=='excalidraw'));assert.ok(!(await getTaxonomy(db)).platforms.includes('SecretOS'));
+  }finally{sqlite.close();}
+});
+
+test('Published Remotion keeps conditional-free licensing and is searchable from D1',async()=>{
+  const {sqlite,db}=setup();try{
+    const resource=await getResource(db,'gh-274495425');
+    assert.equal(resource.canonicalUrl,'https://github.com/remotion-dev/remotion');
+    assert.equal(sqlite.prepare('SELECT status FROM resources WHERE id=?').get(resource.id).status,'published');
+    assert.match(resource.pricing,/Company License/);
+    assert.ok(resource.sources.some(s=>s.url==='https://github.com/remotion-dev/remotion/blob/main/LICENSE.md'&&s.fields.includes('license')&&s.fields.includes('pricing')));
+    assert.equal((await searchResources(db,'remotion'))[0].id,resource.id);
   }finally{sqlite.close();}
 });

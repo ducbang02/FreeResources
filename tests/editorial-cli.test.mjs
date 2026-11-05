@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';
+const baselineResourceCount=JSON.parse(fs.readFileSync(new URL('../data/catalog.json',import.meta.url),'utf8')).resources.length;
 import {spawnSync} from 'node:child_process';import {pathToFileURL} from 'node:url';import {DatabaseSync} from 'node:sqlite';
 import {sandbox} from './helpers/editorial.mjs';import {digest} from '../scripts/editorial/store.mjs';
 const preload=pathToFileURL(path.resolve('tests/helpers/editorial-preload.mjs')).href;
@@ -14,7 +15,7 @@ test('P02 real CLI processes: manual app→edit→preliminary→final→plan/app
   cli(f,['edit',d.id,editFile(f,d)]);cli(f,['review',d.id,'suitable','--by','CLI fixture editor']);cli(f,['approve',d.id,'--by','CLI fixture editor']);
   const plan=cli(f,['export',d.id]).value;assert.equal(fs.readFileSync(f.catalog,'utf8'),original);cli(f,['export',d.id,'--apply','--expect',plan.planId]);assert.equal(cli(f,['import','https://example.org/app/','--manual']).value.duplicate,true);
   const sql=path.join(f.dir,'seed.sql');for(const args of [['validate',f.catalog],['generate',f.catalog,sql]]){const r=spawnSync(process.execPath,['scripts/catalog.mjs',...args],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);}
-  const database=path.join(f.dir,'local.sqlite'),db=new DatabaseSync(database);try{db.exec(fs.readFileSync('migrations/0001_catalog.sql','utf8'));db.exec(fs.readFileSync(sql,'utf8'));assert.equal(db.prepare('SELECT count(*) n FROM resources').get().n,14);}finally{db.close();}
+  const database=path.join(f.dir,'local.sqlite'),db=new DatabaseSync(database);try{db.exec(fs.readFileSync('migrations/0001_catalog.sql','utf8'));db.exec(fs.readFileSync(sql,'utf8'));assert.equal(db.prepare('SELECT count(*) n FROM resources').get().n,baselineResourceCount+1);}finally{db.close();}
   assert.equal(cli(f,['projection-check',database]).value.status,'PASS');const changed=new DatabaseSync(database);changed.exec("UPDATE resources SET summary='DB-only edit' WHERE id='localsend'");changed.close();assert.equal(cli(f,['projection-check',database],{ok:false}).value.status,'FAIL');assert.equal(fs.existsSync(path.join(f.dir,'requests.jsonl')),false);
 });
 test('P02 real CLI mock transport: GitHub→quick→explicit apply→preliminary→deep, shared durable five-call cap',t=>{
